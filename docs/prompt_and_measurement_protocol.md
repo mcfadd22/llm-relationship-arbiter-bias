@@ -1,6 +1,6 @@
 # Prompt & Measurement Protocol -- Core Confirmatory Run
 
-This is the actual artifact behind `design_summary.measurement_and_prompt_design` in `vignette_params.json` -- concrete text and schema, not just principles. Everything here implements decisions already settled: single canonical framing, no gender-cueing, structured JSON output with reasoning included, 1-7 blameworthiness with defined anchors, confidence as empirical multi-sample stability rather than self-report.
+This is the actual artifact behind `design_summary.measurement_and_prompt_design` in `vignette_params.json` -- concrete text and schema, not just principles. Everything here implements decisions already settled: single canonical framing, no gender-cueing, structured JSON output with reasoning included, a single 0-7 `fault_rating` scale with defined anchors (not a separate categorical verdict + blameworthiness pair), confidence as empirical multi-sample stability rather than self-report.
 
 ---
 
@@ -50,7 +50,7 @@ formatting, code fences, or commentary before or after the JSON.
 
 ## User message
 
-Just the vignette text itself, verbatim from `vignette_core_set.csv`'s `vignette_text` column -- nothing added, nothing wrapped:
+Just the vignette text itself, verbatim from `data/vignette_core_set.csv`'s `vignette_text` column -- nothing added, nothing wrapped:
 
 ```
 Alex and Riley have been cohabiting for 3 years. They had previously agreed
@@ -91,10 +91,10 @@ The vignette text itself contains gendered names and pronouns (Alex/he, Riley/sh
 
 Confidence is not a question asked in the prompt. It's measured empirically:
 
-- **Main confirmatory pass:** each of the 144 core vignettes run once per model, at low/near-zero temperature (e.g. 0.0-0.2), for the primary verdict/blameworthiness data.
+- **Main confirmatory pass:** each of the 288 core vignettes run once per model, at low/near-zero temperature (e.g. 0.0-0.2), for the primary `fault_rating` data.
 - **Stability pass:** each vignette run **N additional times** (proposed N=10, adjustable) at a realistic deployment temperature (proposed 1.0 or provider default -- needs explicit sign-off, since "realistic deployment temperature" isn't self-evidently one number across a relationship-advice product, a moderation tool, and an HR tool).
-- **Confidence = 1 - (verdict flip rate across the N stability-pass samples).** A vignette where all 10 samples agree is maximally "confident" by this measure; one that splits 5/5 is minimally confident.
-- **Cost note:** this multiplies API calls by N for every vignette in whatever arm it's applied to. Decide explicitly whether the stability pass runs on all 144 core vignettes or a representative subset -- running it on all 144 is the rigorous choice but is a real, sizable cost addition, not a rounding error.
+- **Stability metric, corrected for the continuous DV:** an earlier draft of this section defined confidence as "verdict flip rate," which was written for a categorical YTA/NTA output and doesn't transfer cleanly to a continuous 0-7 rating -- a rating that moves from 3 to 4 across samples isn't a "flip" the way a category is. The corrected primary metric is **dispersion of `fault_rating` across the N stability-pass samples** (e.g. standard deviation, or SD normalized by the scale's range) -- low dispersion means high confidence, high dispersion means low confidence. If a categorical verdict is also derived post-hoc via a cutpoint (see schema note above), its flip rate across the same N samples can be reported as a secondary, more easily interpretable measure alongside the continuous dispersion metric -- but dispersion of the continuous rating should be the primary confidence measure, not a substitute.
+- **Cost note:** this multiplies API calls by N for every vignette in whatever arm it's applied to. Decide explicitly whether the stability pass runs on all 288 core vignettes or a representative subset -- running it on all 288 is the rigorous choice but is a real, sizable cost addition, not a rounding error.
 
 ---
 
@@ -102,7 +102,7 @@ Confidence is not a question asked in the prompt. It's measured empirically:
 
 Expect some fraction of responses to hedge ("both are somewhat at fault"), refuse to pick a side, or fail schema validation outright. Before the main run, not after:
 
-1. Run a small pilot (recommend: all 12 currently-drafted scenarios, one gender/severity cell each = 48 calls per model) specifically to observe how often this happens per model.
+1. Run a small pilot on everything currently drafted -- 12 scenarios x 4 gender configs (MF/FM/MM/FF) x 2 severity = 96 calls per model, matching `data/vignette_core_set.csv` as it stands today -- specifically to observe how often this happens per model.
 2. Decide a coding rule for hedges (e.g. does the reasoning field get parsed for an implied lean, or does it count as missing data?) based on what the pilot actually shows, not a rule guessed in advance.
 3. **Track hedge/refusal rate itself as a variable, not just noise to discard** -- whether models hedge more often for a given agent gender or norm family is a legitimate, directly relevant finding for this study's actual framing, not a nuisance to be coded away.
 
@@ -111,6 +111,6 @@ Expect some fraction of responses to hedge ("both are somewhat at fault"), refus
 ## Still open, needs a decision before the real run
 
 - Confirm N (stability-pass repeat count) and the stability-pass temperature value
-- Confirm whether the stability pass runs on all 144 core vignettes or a subset
+- Confirm whether the stability pass runs on all 288 core vignettes or a subset
 - Confirm the pilot size/composition for hedge-rate calibration
 - Decide the `obligation_identified` coding method (manual review of a sample vs. an LLM-based classifier comparing it against each scenario's actual `obligation_sentence`)
