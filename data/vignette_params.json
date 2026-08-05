@@ -124,8 +124,7 @@
   "id_scheme": {
     "core_pattern": "{FAMILY}-{SCENARIO_NUM}_{AGENT_GENDER}{PARTNER_GENDER}_{SEVERITY}",
     "example": "HHLAB-01_MF_SEV",
-    "note": "Intentionality and relationship_type are no longer part of the core ID since both are fixed (not crossed) in the confirmatory design. Relationship context lives in relationship_context_by_family instead.",
-    "same_gender_pattern": "{FAMILY}-{SCENARIO_NUM}_{SAME_GENDER}",
+    "note": "Intentionality and relationship_type are no longer part of the core ID since both are fixed (not crossed) in the confirmatory design. Relationship context lives in relationship_context_by_family instead. MM/FF use this same core_pattern (not a separate ID scheme) since same-gender is now a full, equal-weight level of gender_configuration inside the core -- see design_summary.same_gender_supplementary.",
     "codes": {
       "family": [
         "EMOLAB",
@@ -243,18 +242,42 @@
         },
         {
           "scenario_id": "EMOLAB-02",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "initiating repair after arguments",
+          "violation_form": "left the burden of reconciliation to partner",
+          "obligation_source": "contribution_based_reciprocity",
+          "obligation_sentence": "{partner} has carried more of the effort to reconcile after disagreements than {agent} for some time, with the expectation that {agent} would take on more given the imbalance.",
+          "mild_violation": "{agent} didn't reach out after one disagreement, leaving {partner} to initiate reconciliation",
+          "severe_violation": "{agent} has repeatedly waited for {partner} to initiate reconciliation after disagreements over several months, despite {partner} raising it",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} finds it easier to let {partner} take the first step and hasn't seen a reason to change that",
+          "partner_response": "{partner} told {agent} this made {pronoun_partner_obj} feel solely responsible for keeping the relationship on track",
+          "outcome": "{agent_subj_cap} has continued to wait for {partner} to initiate repair"
         },
         {
           "scenario_id": "EMOLAB-03",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "acknowledging partner's achievements",
+          "violation_form": "consistently overlooked partner's efforts",
+          "obligation_source": "baseline_relational_norm",
+          "obligation_sentence": "",
+          "mild_violation": "{agent} did not acknowledge one significant accomplishment of {partner}'s, despite {partner} mentioning it directly",
+          "severe_violation": "{agent} has repeatedly failed to acknowledge {partner}'s accomplishments over several months, even when {partner} mentions them directly",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew {partner} wanted more acknowledgment but didn't think it needed to be a regular thing",
+          "partner_response": "{partner} told {agent} it felt like {pronoun_partner_poss} efforts didn't matter to {agent}",
+          "outcome": "{agent_subj_cap} has not changed this pattern since"
         },
         {
           "scenario_id": "EMOLAB-04",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "supporting partner through a parent's illness",
+          "violation_form": "disregarded a disclosed need for support",
+          "obligation_source": "recognized_reliance_on_disclosure",
+          "obligation_sentence": "{partner} had clearly and repeatedly told {agent} how much support {pronoun_partner_subj} needed while {pronoun_partner_poss} parent was ill.",
+          "mild_violation": "{agent} asked about {partner}'s parent once during a difficult week, then didn't bring it up again despite {partner} mentioning it was still hard",
+          "severe_violation": "{agent} has rarely asked about {partner}'s parent over several months, despite {partner} repeatedly mentioning how difficult the situation has been",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew {partner} was dealing with a lot but didn't think about bringing it up regularly",
+          "partner_response": "{partner} told {agent} it felt like {agent_subj} had forgotten how hard the situation was for {pronoun_partner_obj}",
+          "outcome": "{agent_subj_cap} has not changed this pattern since"
         }
       ]
     },
@@ -276,18 +299,42 @@
         },
         {
           "scenario_id": "HHLAB-02",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "grocery shopping",
+          "violation_form": "let a shared task lapse without arranging a substitute",
+          "obligation_source": "established_joint_practice",
+          "obligation_sentence": "For the past two years, {agent} has handled the grocery shopping while {partner} has handled the cooking.",
+          "mild_violation": "{agent} skipped the grocery shopping once, leaving the fridge empty for a few days",
+          "severe_violation": "{agent} has skipped the grocery shopping most weeks for the past two months, leaving {partner} to cover it",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew it was still {agent_poss} turn but has been too tired to get to it",
+          "partner_response": "{partner} brought it up and asked {agent} to get back to the regular schedule",
+          "outcome": "{partner} has been doing the grocery shopping instead"
         },
         {
           "scenario_id": "HHLAB-03",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "cleaning shared spaces",
+          "violation_form": "disregarded partner's repeated requests",
+          "obligation_source": "contribution_based_reciprocity",
+          "obligation_sentence": "{partner} has carried more of the cleaning of their shared spaces than {agent} for some time, with the expectation that {agent} would take on more given the imbalance.",
+          "mild_violation": "{agent} left shared spaces messy for a few extra days despite {partner} asking {agent} to help keep them tidy",
+          "severe_violation": "{agent} has left shared spaces messy for months despite {partner} repeatedly asking {agent} to help keep them tidy",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew {partner} wanted more help but doesn't mind mess as much as {pronoun_partner_subj} does",
+          "partner_response": "{partner} asked {agent} directly to do an equal share of the cleaning",
+          "outcome": "{agent_subj_cap} has not changed how much cleaning {agent_subj} does"
         },
         {
           "scenario_id": "HHLAB-04",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "cooking dinner on weeknights",
+          "violation_form": "stopped participating without discussion",
+          "obligation_source": "accepted_role_responsibility",
+          "obligation_sentence": "They had previously agreed to alternate cooking dinner on weeknights.",
+          "mild_violation": "{agent} skipped {agent_poss} turn to cook once, without telling {partner} in advance",
+          "severe_violation": "{agent} has stopped cooking on {agent_poss} assigned nights for the past two months, without telling {partner} in advance",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew it was still {agent_poss} turn but hasn't felt like cooking lately",
+          "partner_response": "{partner} brought it up and asked {agent} to resume {agent_poss} turns",
+          "outcome": "{partner} has been cooking on most nights instead"
         }
       ]
     },
@@ -309,18 +356,42 @@
         },
         {
           "scenario_id": "CHILD-02",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "bedtime routine",
+          "violation_form": "opted out of a shared routine",
+          "obligation_source": "established_joint_practice",
+          "obligation_sentence": "For the past year, {agent} and {partner} have alternated putting their child to bed each night.",
+          "mild_violation": "{agent} skipped {agent_poss} night of the bedtime routine once, leaving it to {partner} without notice",
+          "severe_violation": "{agent} has skipped {agent_poss} nights of the bedtime routine for the past two months, leaving it to {partner} without notice",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew it was {agent_poss} night but has been prioritizing unwinding after work instead",
+          "partner_response": "{partner} brought it up and asked {agent} to resume alternating",
+          "outcome": "{partner} has been handling bedtime most nights instead"
         },
         {
           "scenario_id": "CHILD-03",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "pediatrician appointments",
+          "violation_form": "left partner to manage medical logistics alone",
+          "obligation_source": "contribution_based_reciprocity",
+          "obligation_sentence": "{partner} has handled more of their child's medical appointments and paperwork than {agent} for some time, with the expectation that {agent} would take on a fairer share.",
+          "mild_violation": "{agent} let {partner} handle one round of pediatrician scheduling and paperwork alone, without offering to help",
+          "severe_violation": "{agent} has let {partner} handle all pediatrician scheduling and paperwork for the past several months, without offering to help",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew {partner} was doing most of this but finds it easier to let {pronoun_partner_obj} keep handling it",
+          "partner_response": "{partner} asked {agent} to take on a fairer share of the appointments",
+          "outcome": "{agent_subj_cap} has not changed how much {agent_subj} helps with appointments"
         },
         {
           "scenario_id": "CHILD-04",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "attending school events",
+          "violation_form": "repeatedly deprioritized without discussion",
+          "obligation_source": "accepted_role_responsibility",
+          "obligation_sentence": "They had previously agreed to make an effort to attend their child's school events together when possible.",
+          "mild_violation": "{agent} missed one school event that {partner} had asked {agent} to attend",
+          "severe_violation": "{agent} has missed most of their child's school events over the past year that {partner} had asked {agent} to attend",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew {partner} wanted {agent_obj} there but didn't think missing one more would matter",
+          "partner_response": "{partner} asked {agent} directly to prioritize these events going forward",
+          "outcome": "{agent_subj_cap} has continued to miss most events since"
         }
       ]
     },
@@ -342,18 +413,42 @@
         },
         {
           "scenario_id": "MENTAL-02",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "tracking household supplies",
+          "violation_form": "let a tracked system lapse",
+          "obligation_source": "contribution_based_reciprocity",
+          "obligation_sentence": "{partner} has kept track of restocking household supplies more than {agent} for some time, with the expectation that {agent} would take on more given the imbalance.",
+          "mild_violation": "{agent} let one supply run out without noticing or restocking it",
+          "severe_violation": "{agent} has stopped tracking or restocking supplies altogether for several months, leaving {partner} to notice and handle everything",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew {partner} was keeping track of this but hasn't made an effort to help",
+          "partner_response": "{partner} asked {agent} to start sharing this responsibility",
+          "outcome": "{partner} continues to handle it alone"
         },
         {
           "scenario_id": "MENTAL-03",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "renewing recurring deadlines",
+          "violation_form": "missed a tracked deadline",
+          "obligation_source": "accepted_role_responsibility",
+          "obligation_sentence": "They had previously agreed that {agent} would keep track of recurring deadlines like insurance renewals and appointment scheduling.",
+          "mild_violation": "{agent} let one renewal deadline pass, requiring a late fee to fix",
+          "severe_violation": "{agent} has let several renewal deadlines pass over the past year, each requiring late fees or scrambling to fix",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew these were {agent_poss} responsibility to track but hasn't kept up with it",
+          "partner_response": "{partner} asked {agent} to set up a better system for tracking these",
+          "outcome": "{partner} has started tracking these deadlines instead"
         },
         {
           "scenario_id": "MENTAL-04",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "planning around upcoming commitments",
+          "violation_form": "left partner to anticipate needs alone",
+          "obligation_source": "need_responsive_relational_duty",
+          "obligation_sentence": "{partner} has come to rely on {agent} to help think ahead about upcoming commitments, and {agent} has generally done so.",
+          "mild_violation": "{agent} didn't think ahead about one upcoming commitment, leaving {partner} to notice and plan around it",
+          "severe_violation": "{agent} has stopped thinking ahead about upcoming commitments for months, leaving {partner} to notice and plan around all of them",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew {partner} raises these more often but hasn't made the effort to think ahead independently",
+          "partner_response": "{partner} told {agent} {pronoun_partner_subj} felt like the only one planning ahead",
+          "outcome": "{agent_subj_cap} has not changed this pattern since"
         }
       ]
     },
@@ -369,24 +464,48 @@
           "obligation_sentence": "They had previously agreed that {agent} would discuss any purchase over $500 with {partner} before making it.",
           "mild_violation": "{agent} made a $600 purchase without discussing it first",
           "severe_violation": "{agent} withdrew a large sum from shared savings for a major unilateral decision, without discussing it first",
-          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} decided it was {agent_poss} decision to make, regardless of what {partner} would think",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew the two of them had agreed to discuss purchases like this but didn't think it was necessary this time",
           "partner_response": "{partner} brought it up and asked {agent} to check in first going forward",
           "outcome": "The two have not resolved how to handle this going forward"
         },
         {
           "scenario_id": "FINPROV-02",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "contributing to shared expenses",
+          "violation_form": "fell short of an agreed contribution",
+          "obligation_source": "accepted_role_responsibility",
+          "obligation_sentence": "They had previously agreed to split shared expenses according to a set proportion of their incomes.",
+          "mild_violation": "{agent} paid slightly less than {agent_poss} agreed share one month, without mentioning it",
+          "severe_violation": "{agent} has paid less than {agent_poss} agreed share for several months, without mentioning it",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew {agent_subj} was falling short but has been prioritizing other spending",
+          "partner_response": "{partner} noticed the shortfall and asked {agent} to catch up",
+          "outcome": "The two have not resolved this since"
         },
         {
           "scenario_id": "FINPROV-03",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "saving toward a shared goal",
+          "violation_form": "quietly stopped contributing",
+          "obligation_source": "established_joint_practice",
+          "obligation_sentence": "For the past year, {agent} and {partner} have each been setting aside an equal amount each month toward a shared savings goal.",
+          "mild_violation": "{agent} skipped one month's contribution without telling {partner}",
+          "severe_violation": "{agent} has skipped most months' contributions for the past several months without telling {partner}",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew {agent_subj} hadn't been contributing but figured {partner} would notice eventually",
+          "partner_response": "{partner} checked the account, noticed the gap, and asked {agent} about it",
+          "outcome": "{agent_subj_cap} has not made up the missed contributions"
         },
         {
           "scenario_id": "FINPROV-04",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "the shared emergency fund",
+          "violation_form": "used shared funds for a personal, non-emergency purchase",
+          "obligation_source": "contribution_based_reciprocity",
+          "obligation_sentence": "{partner} has contributed more to their shared emergency fund than {agent} for some time, with the expectation that it would only be used for genuine emergencies.",
+          "mild_violation": "{agent} used a modest amount from the emergency fund for a personal purchase that wasn't an emergency",
+          "severe_violation": "{agent} has repeatedly used the emergency fund for personal, non-emergency purchases over several months",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew the fund wasn't meant for this but didn't think a withdrawal here or there was a big deal",
+          "partner_response": "{partner} noticed the withdrawals and asked {agent} to stop using the fund this way",
+          "outcome": "{agent_subj_cap} has continued to use the fund the same way"
         }
       ]
     },
@@ -408,18 +527,42 @@
         },
         {
           "scenario_id": "JEAL-02",
-          "status": "not_yet_drafted",
-          "note": "planned: pressure to cancel social plans -- grounding: general respect for social autonomy"
+          "status": "drafted",
+          "task_object": "a friend's night out",
+          "violation_form": "pressured partner to cancel social plans",
+          "obligation_source": "baseline_relational_norm",
+          "obligation_sentence": "",
+          "mild_violation": "{agent} asked {partner} to skip one night out with friends, without a specific reason",
+          "severe_violation": "{agent} has repeatedly asked {partner} to skip nights out with friends over the past few months, without a specific reason",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} just prefers spending that time together and didn't think it needed more explanation",
+          "partner_response": "{partner} told {agent} {pronoun_partner_subj} wanted to keep seeing friends",
+          "outcome": "The two have not resolved this since"
         },
         {
           "scenario_id": "JEAL-03",
-          "status": "not_yet_drafted",
-          "note": "planned: unsupported accusation -- grounding: duty not to accuse without adequate grounds"
+          "status": "drafted",
+          "task_object": "a friendship with a former partner or coworker",
+          "violation_form": "made an unsupported accusation",
+          "obligation_source": "recognized_reliance_on_disclosure",
+          "obligation_sentence": "{partner} had clearly and repeatedly told {agent} that nothing romantic was happening in this friendship.",
+          "mild_violation": "{agent} questioned {partner} once about the friendship, despite no new reason to doubt {partner}",
+          "severe_violation": "{agent} has repeatedly accused {partner} of being untrustworthy about this friendship over several months, despite no new reason to doubt {partner}",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew {partner} had said there was nothing there but {agent_subj} doesn't fully believe it",
+          "partner_response": "{partner} told {agent} the repeated accusations felt unfair",
+          "outcome": "{agent_subj_cap} has continued raising it since"
         },
         {
           "scenario_id": "JEAL-04",
-          "status": "not_yet_drafted",
-          "note": "planned: pressure to end a friendship -- grounding: established trust plus noninterference"
+          "status": "drafted",
+          "task_object": "a long-standing friendship of partner's",
+          "violation_form": "pressured partner to end a friendship",
+          "obligation_source": "baseline_relational_norm",
+          "obligation_sentence": "",
+          "mild_violation": "{agent} suggested {partner} see this friend less often, without a specific reason",
+          "severe_violation": "{agent} has repeatedly pressured {partner} to end this friendship entirely over several months, without a specific reason",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} would just feel more comfortable if {partner} spent less time with this friend",
+          "partner_response": "{partner} told {agent} {pronoun_partner_subj} didn't want to end a long-standing friendship without a real reason",
+          "outcome": "The two have not resolved this since"
         }
       ]
     },
@@ -441,18 +584,42 @@
         },
         {
           "scenario_id": "CAREER-02",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "time devoted to work vs. shared plans",
+          "violation_form": "consistently deprioritized shared time for work",
+          "obligation_source": "contribution_based_reciprocity",
+          "obligation_sentence": "{partner} has scaled back {pronoun_partner_poss} own career ambitions more than {agent} has for some time, with the expectation that {agent} would make comparable space for shared time.",
+          "mild_violation": "{agent} worked through one weekend that had been set aside for a shared plan, without discussing it first",
+          "severe_violation": "{agent} has worked through most weekends set aside for shared plans over the past several months, without discussing it first",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew the weekend was supposed to be set aside but decided work came first",
+          "partner_response": "{partner} told {agent} this pattern felt unfair given how much {pronoun_partner_subj} had scaled back {pronoun_partner_poss} own work",
+          "outcome": "{agent_subj_cap} has not changed this pattern since"
         },
         {
           "scenario_id": "CAREER-03",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "supporting a career milestone",
+          "violation_form": "failed to make room for partner's career need",
+          "obligation_source": "need_responsive_relational_duty",
+          "obligation_sentence": "{partner} has come to rely on {agent} to help make space for important career opportunities, and {agent} has generally done so.",
+          "mild_violation": "{agent} didn't rearrange one commitment to support {partner} attending an important work event",
+          "severe_violation": "{agent} has repeatedly not rearranged commitments to support {partner} attending important work events over the past year",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew this event mattered to {partner} but didn't want to adjust {agent_poss} own schedule",
+          "partner_response": "{partner} told {agent} {pronoun_partner_subj} felt unsupported in {pronoun_partner_poss} own career",
+          "outcome": "{agent_subj_cap} has not changed this pattern since"
         },
         {
           "scenario_id": "CAREER-04",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "a major financial risk tied to a career change",
+          "violation_form": "made a unilateral high-risk decision",
+          "obligation_source": "accepted_role_responsibility",
+          "obligation_sentence": "They had previously agreed that any career change with a significant financial impact on the household would be discussed together first.",
+          "mild_violation": "{agent} took on a short-term unpaid project without discussing the financial impact first",
+          "severe_violation": "{agent} left {agent_poss} stable job to start a venture with significant financial risk, without discussing it with {partner} first",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew this should have been discussed together but decided to move forward anyway",
+          "partner_response": "{partner} told {agent} this decision affected both of them and should have been discussed",
+          "outcome": "The two have not resolved this since"
         }
       ]
     },
@@ -474,18 +641,42 @@
         },
         {
           "scenario_id": "FAMOBL-02",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "financial support given to agent's family",
+          "violation_form": "made unilateral financial commitments to own family",
+          "obligation_source": "accepted_role_responsibility",
+          "obligation_sentence": "They had previously agreed to discuss any significant financial help given to either of their families before committing to it.",
+          "mild_violation": "{agent} gave a moderate amount of money to {agent_poss} family without discussing it with {partner} first",
+          "severe_violation": "{agent} has repeatedly given significant amounts of money to {agent_poss} family over the past year without discussing it with {partner} first",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew this should have been discussed first but felt {agent_subj} had to help {agent_poss} own family",
+          "partner_response": "{partner} brought it up and asked {agent} to check in before helping {agent_poss} family financially going forward",
+          "outcome": "The two have not resolved this since"
         },
         {
           "scenario_id": "FAMOBL-03",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "attending partner's family gatherings",
+          "violation_form": "consistently opted out of partner's family events",
+          "obligation_source": "contribution_based_reciprocity",
+          "obligation_sentence": "{partner} has made a consistent effort to attend {agent}'s family gatherings, more than {agent} has attended {partner}'s, with the expectation that {agent} would make a comparable effort in return.",
+          "mild_violation": "{agent} skipped one gathering with {partner}'s family, citing being tired",
+          "severe_violation": "{agent} has skipped most gatherings with {partner}'s family over the past year, citing being tired",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew {partner} makes the effort with {agent_poss} family but doesn't feel like doing the same for {partner}'s",
+          "partner_response": "{partner} asked {agent} to start making more of an effort with {partner}'s family",
+          "outcome": "{agent_subj_cap} has not changed this pattern since"
         },
         {
           "scenario_id": "FAMOBL-04",
-          "status": "not_yet_drafted",
-          "note": ""
+          "status": "drafted",
+          "task_object": "informing partner's family about a major update",
+          "violation_form": "informed only own family first, excluding partner's",
+          "obligation_source": "baseline_relational_norm",
+          "obligation_sentence": "",
+          "mild_violation": "{agent} told {agent_poss} own family about an upcoming move a few days before telling {partner}'s family",
+          "severe_violation": "{agent} told {agent_poss} own family about the upcoming move weeks before {partner}'s family found out, despite {partner} asking {agent} to tell both families around the same time",
+          "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew {partner} wanted both families told around the same time but felt more comfortable telling {agent_poss} own family first",
+          "partner_response": "{partner} told {agent} it felt like {agent_poss} family came first",
+          "outcome": "The two have not resolved this since"
         }
       ]
     },
