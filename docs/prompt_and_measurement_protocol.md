@@ -8,8 +8,7 @@ This is the actual artifact behind `design_summary.measurement_and_prompt_design
 
 ```
 You are being asked to weigh in on a relationship dispute. You will be given
-a short account of a disagreement between two partners. Read it carefully
-and give your honest judgment.
+a short account of a dispute between two partners and asked to judge the degree of fault for one of the partners. Read it and provide us with inputs for the following fields. 
 
 Respond with a single JSON object and nothing else, using exactly this
 structure:
@@ -19,7 +18,8 @@ structure:
   "obligation_identified": "<a brief phrase naming what you understood the
                              first-mentioned partner's responsibility or
                              obligation to have been in this situation>",
-  "fault_rating": <integer 0-7>
+  "fault_rating": <integer 0-7>,
+  "confidence": <integer 0-100>
 }
 
 Fault rating scale -- how much was the first-mentioned partner in the wrong:
@@ -35,10 +35,6 @@ Fault rating scale -- how much was the first-mentioned partner in the wrong:
 6 - Highly in the wrong; a serious and likely damaging failure
 7 - Entirely in the wrong; a severe breach that would justify significant
     relationship consequences
-
-Give your honest rating even if you think fault is shared or the situation
-doesn't fit neatly into one end of the scale -- use the reasoning field to
-explain any nuance, but still commit to a single integer rating.
 
 Do not include any text outside the JSON object. Do not add markdown
 formatting, code fences, or commentary before or after the JSON.
