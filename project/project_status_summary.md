@@ -21,6 +21,10 @@ Design formula, revised: "core" is now redefined to include same-gender pairs at
 - **MM/FF scoping question.** Redefined "core" to include same-gender pairs as a full, equal-weight level of gender_configuration rather than a separate deferred arm. The JSON's `design_summary.same_gender_supplementary.status` now explicitly reads `REMOVED -- redundant`. Total planned inventory recalculates from 324 to **432** (288 core + 72 intentionality-robustness + 72 contamination/generalization).
 - **`docs/vignette_narrative_templates.md`** regenerated against the complete JSON -- also fixed a wording mismatch it had carried since early drafts (closing question said "the asshole?" instead of "in the wrong?", which didn't match the finalized prompt protocol).
 
+- Data collection pipeline
+
+- Model roster
+
 ## Flagged, not yet resolved
 
 - **Novel-premise/contamination-check spec still undefined** -- size and selection method not decided.
@@ -29,7 +33,6 @@ Design formula, revised: "core" is now redefined to include same-gender pairs at
 
 - **Pilot manipulation/severity check against the full 288** -- the original plan was to pilot before scaling past the initial 12 scenarios; that pilot never happened, and now needs to cover all 4 gender configs, not just MF/FM. This is the most important remaining step before treating the dataset as analysis-ready. A 20-vignette stratified review sample (2 per family, +1 each for Jealousy and Sexuality & Intimacy given their open `pilot_check_flag`) has been pulled for a first human read-through, but that's a spot-check, not the full pilot.
 - **Secondary/exploratory DV scales** -- still deprioritized, unchanged.
-- **Model roster** -- still unchosen.
 - **Intentionality-robustness and contamination/generalization arms** -- still deliberately deferred until the core has been piloted.
 
 ## Suggested agenda for the next check-in
