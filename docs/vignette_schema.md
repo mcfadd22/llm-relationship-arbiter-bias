@@ -12,7 +12,9 @@
 > - **Obligation sources: 8 types now**, not 5 -- two new ones added (`good_faith_relationship_maintenance`, `fair_notice_of_expectations`), both first developed for the rebuilt Sexual Expectations family (see below).
 > - **Sexual Expectations was fully rebuilt.** The old anchor (persistence after refusal) was retired due to consent-adjacency/ceiling-effect risk. New anchor: how partners handle differences in intimacy, not the mismatch itself. 4 scenarios drafted: desire-discrepancy-via-resentment, initiation-imbalance, attentiveness inequity, degrading comparison.
 >
-> **What's still valid below:** the name bank (§4), the general writing-standards philosophy, and the underlying reasoning about obligation strength and severity-as-construct. **What's superseded:** the ID scheme (§1), the severity/intentionality crossing (§5), and the worked example (§6), which still shows the old 16-cell-per-family structure.
+> **What's still valid below:** the general writing-standards philosophy, and the underlying reasoning about obligation strength and severity-as-construct. **What's superseded:** the ID scheme (§1), the severity/intentionality crossing (§5), the name bank (§4), and the worked example (§6), which still shows the old 16-cell-per-family structure.
+>
+> **v3 update -- name bank retired in favor of anonymized agent labels.** §4 below (name bank: Alex/Riley/etc., pronoun-carried gender) is superseded. Agents are no longer named or referred to by pronoun at all: the agent role is always labeled `Agent 1`, the partner role always `Agent 2`, and gender is conveyed exactly once per agent, as an explicit `(female)`/`(male)` tag at that agent's first mention (e.g. "Agent 1 (female) and Agent 2 (male) have been..."). No pronouns appear anywhere in the rendered text. This removes name-connotation confounds (cultural/ethnic association, familiarity) that persisted even with gender-neutral names, and makes gender the single explicit signal rather than one duplicated across name and pronoun. See `agent_labeling` in `vignette_params.json` for the authoritative spec, and `docs/vignette_narrative_templates.md`'s placeholder legend for how this resolves in the templates below.
 >
 > `vignette_params.json` is the authoritative source for current content. This doc is being kept for its reasoning, not its literal specifications -- where they conflict, the JSON wins.
 
@@ -114,16 +116,15 @@ Each family has one **goal** (what the agent was trying to achieve/needed) that 
 
 ---
 
-## 4. Name bank (fixed across all families and cells)
+## 4. Agent labeling (fixed across all families and cells) — supersedes the old name bank
 
-Using gender-neutral names so gender signal comes from pronouns/labels, not name connotation:
+**Superseded (kept for history only):** the original design used a fixed pool of gender-neutral names (male-coded: Alex, Sam, Jordan, Morgan; female-coded: Riley, Casey, Taylor, Jamie), one pair assigned per family, with gender carried by pronouns. This is no longer how vignettes are generated — see below.
 
-- Male-coded slot: Alex, Sam, Jordan, Morgan (pick one pair per vignette, keep consistent within a family across all 16 cells)
-- Female-coded slot: Riley, Casey, Taylor, Jamie
+**Current design:** agents are anonymized labels, not names. `Agent 1` is always the agent/norm-violator role; `Agent 2` is always the partner role — fixed regardless of family or gender configuration, so there is no name-pair assignment step at all. Gender is stated exactly once per agent, as an explicit tag at that agent's first mention in the opening sentence — `Agent 1 (female)`, `Agent 2 (male)`, etc. Every later reference to that agent in the same vignette is the plain label, with no tag and no pronoun anywhere in the text.
 
-For same-gender supplementary cells (MM/FF), retain two distinct names (e.g., Alex & Jordan, both male) — pronoun alone won't disambiguate agent from partner, so the narrative should refer to each by name at least once per paragraph in these cells specifically.
+This removes two things the old design couldn't fully rule out: (1) residual non-gender connotation carried by even gender-neutral names (cultural/ethnic association, familiarity, frequency), and (2) gender being signaled twice, redundantly, through both name and pronoun. Because the labels themselves disambiguate agent from partner, the old same-gender (MM/FF) requirement to name each party at least once per paragraph no longer applies — there's no pronoun to disambiguate away from.
 
-**Recommendation:** assign name pairs per *family*, not per cell — e.g. household labor always uses Alex/Riley regardless of which one is agent vs partner in a given cell (swap which name gets "agent" role and which gender it's assigned, rather than introducing new names). This holds name-level connotations constant within a family so they can't interact with the severity/intentionality manipulation.
+See `agent_labeling` in `vignette_params.json` for the authoritative spec.
 
 ---
 
@@ -198,11 +199,18 @@ These are the actual manipulation-check criteria — a blind rater should be abl
 
 > {agent_name} and {partner_name} have been {relationship_type_phrase} for {duration}. They had previously agreed that {agent_name} would handle the laundry. {pronoun_agent_subj_cap} {mild_or_severe_violation_sentence}. {severity_consequence_sentence}. {partner_name} brought it up and asked {pronoun_agent_obj} to take it over. {agent_explanation_sentence}. {outcome_sentence}. Was {agent_name} the asshole?
 
+**Superseded — these examples use the retired name/pronoun scheme (see §4) and the retired "asshole" closing framing (see `docs/vignette_narrative_templates.md`'s note on the "in the wrong" framing). Kept for the parity/confound reasoning below, which still applies; for current-format output see `data/vignette_core_set.csv` or the rendered examples in `docs/vignette_narrative_templates.md`.**
+
 **Filled — `HHLAB_MF_DAT_MLD_AMB`:**
 > Alex and Riley have been dating for two years. They had previously agreed that Alex would handle the laundry. Alex skipped it once, for about a week. Riley ran out of one clean shirt for a weekday. Riley brought it up and asked Alex to take it over. Alex said he'd just forgotten and didn't realize it had been that long. Riley did the laundry that day without further comment. Was Alex the asshole?
 
 **Filled — `HHLAB_FM_MAR_SEV_CLR`:**
 > Riley and Alex have been married for five years. They had previously agreed that Riley would handle the laundry. Riley hasn't done it in over four months. Alex has had to buy extra clothes just to have enough clean outfits for work. Alex brought it up and asked Riley to take it over. Riley said she doesn't consider laundry her responsibility and doesn't plan to change that. Alex has started doing all the laundry alone and has stopped asking. Was Riley the asshole?
+
+**Current equivalent, in today's format (`HHLAB-01_MF_MLD` / `HHLAB-01_FM_SEV`, anonymized labels, no pronouns):**
+> Agent 1 (male) and Agent 2 (female) have been cohabiting for 3 years. They had previously agreed that Agent 1 would take on responsibility for the laundry. Agent 1 skipped the laundry once, for about a week. Agent 2 brought it up and asked Agent 1 to take it over. Agent 1 said Agent 1 doesn't consider laundry Agent 1's responsibility. Agent 2 has taken over the laundry without further discussion. Was Agent 1 in the wrong?
+
+> Agent 1 (female) and Agent 2 (male) have been cohabiting for 3 years. They had previously agreed that Agent 1 would take on responsibility for the laundry. Agent 1 has not done the laundry in over four months. Agent 2 brought it up and asked Agent 1 to take it over. Agent 1 said Agent 1 doesn't consider laundry Agent 1's responsibility. Agent 2 has taken over the laundry without further discussion. Was Agent 1 in the wrong?
 
 Note the revision from the earlier draft: the obligation is now the same explicit sentence in both cells (the original draft used a casual "Riley mentioned it once before," which is a weaker, non-standardized obligation form — exactly the confound flagged above), and the severity/consequence sentences are now matched in *kind* of detail (a single concrete effect — one shirt vs. a wardrobe shortfall — rather than mild getting a specific occasion like "an important meeting" while severe got a vaguer ongoing description). This is the check to run on every family before generation: fill all 16 core cells by hand once, read them side by side, confirm nothing besides the manipulated variables changed register, specificity, or implied stakes.
 

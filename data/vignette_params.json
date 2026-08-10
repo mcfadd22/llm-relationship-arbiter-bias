@@ -149,34 +149,11 @@
       ]
     }
   },
-  "name_bank": {
-    "male_coded": [
-      "Alex",
-      "Sam",
-      "Jordan",
-      "Morgan"
-    ],
-    "female_coded": [
-      "Riley",
-      "Casey",
-      "Taylor",
-      "Jamie"
-    ],
-    "assignment_rule": "one name pair fixed per family, gender role reassigned across cells rather than swapping names"
-  },
-  "pronoun_map": {
-    "M": {
-      "subj": "he",
-      "obj": "him",
-      "poss": "his",
-      "poss_standalone": "his"
-    },
-    "F": {
-      "subj": "she",
-      "obj": "her",
-      "poss": "her",
-      "poss_standalone": "hers"
-    }
+  "agent_labeling": {
+    "description": "Agents are anonymized labels, not names. 'Agent 1' is always the agent/norm-violator role; 'Agent 2' is always the partner role -- fixed regardless of gender configuration or family. No name bank and no pronouns are used anywhere in the rendered text, so gender is never signaled by name connotation (cultural, ethnic, or otherwise) or by pronoun choice.",
+    "gender_tag": "Each agent's gender is stated exactly once, as an explicit '(female)'/'(male)' tag at that agent's first mention in the opening sentence, e.g. 'Agent 1 (female) and Agent 2 (male) have been...'. Every subsequent reference to that agent in the same vignette is the plain label with no tag and no pronoun.",
+    "supersedes": "Replaces the former name_bank (gender-neutral name pairs, e.g. Alex/Riley) and pronoun_map (he/she substitution) fields. Retired because gender-neutral names still carry non-gender connotations (cultural/ethnic association, familiarity) that confound the gender manipulation, and because pronoun-based gender signaling duplicated and sometimes leaked ahead of the intended single explicit cue.",
+    "same_gender_note": "Because Agent 1/Agent 2 are fixed, distinct labels rather than names disambiguated by pronoun, the earlier requirement to name each agent explicitly every paragraph in MM/FF cells (to compensate for pronouns not disambiguating) no longer applies -- the labels disambiguate on their own."
   },
   "obligation_sources": {
     "accepted_role_responsibility": {

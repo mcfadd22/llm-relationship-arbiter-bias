@@ -1,35 +1,31 @@
 import json, csv, os
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(os.path.dirname(SCRIPT_DIR), 'data')
 
-d = json.load(open(os.path.join(SCRIPT_DIR, 'vignette_params.json')))
+d = json.load(open(os.path.join(DATA_DIR, 'vignette_params.json')))
 families = d['families']
-pronoun_map = d['pronoun_map']
 rel_ctx = d['relationship_context_by_family']
 
 order = ["EMOLAB","HHLAB","CHILD","MENTAL","FINPROV","JEAL","SEXEXP","CAREER","FAMOBL"]
 
-# name pairs, one fixed per family (unchanged from before)
-name_pairs = {
-    "EMOLAB": ("Sam", "Casey"), "HHLAB":  ("Alex", "Riley"), "CHILD":  ("Jordan", "Taylor"),
-    "MENTAL": ("Morgan", "Jamie"), "FINPROV":("Alex", "Riley"), "JEAL":   ("Sam", "Casey"),
-    "SEXEXP": ("Jordan", "Taylor"), "CAREER": ("Morgan", "Jamie"), "FAMOBL": ("Alex", "Riley"),
-}
-# same-gender name pairs: two distinct names from the SAME coded pool (pronouns can't disambiguate agent/partner)
-male_pool = d.get('name_bank', {}).get('male_coded', ["Alex","Sam","Jordan","Morgan"])
-female_pool = d.get('name_bank', {}).get('female_coded', ["Riley","Casey","Taylor","Jamie"])
+# Agents are anonymized labels, not names: Agent 1 is always the norm-violator
+# ("agent" role), Agent 2 is always the partner. Gender is conveyed once, via an
+# explicit "(female)"/"(male)" tag at each agent's first mention in the opening
+# sentence -- never through a name or a pronoun. No pronouns are used anywhere
+# in the rendered text; every subsequent reference is the plain label.
+GENDER_LABEL = {"M": "male", "F": "female"}
 
-def pron_kwargs(agent_gender, partner_gender, agent_name, partner_name):
-    pa, pp = pronoun_map[agent_gender], pronoun_map[partner_gender]
+def agent_kwargs():
     return {
-        "agent": agent_name, "partner": partner_name,
-        "agent_subj": pa["subj"], "agent_subj_cap": pa["subj"].capitalize(),
-        "agent_obj": pa["obj"], "agent_poss": pa["poss"],
-        "pronoun_partner_subj": pp["subj"], "pronoun_partner_obj": pp["obj"], "pronoun_partner_poss": pp["poss"],
+        "agent": "Agent 1", "partner": "Agent 2",
+        "agent_subj": "Agent 1", "agent_subj_cap": "Agent 1",
+        "agent_obj": "Agent 1", "agent_poss": "Agent 1's",
+        "pronoun_partner_subj": "Agent 2", "pronoun_partner_obj": "Agent 2", "pronoun_partner_poss": "Agent 2's",
     }
 
-def render(scenario, agent_gender, partner_gender, sev, agent_name, partner_name, ctx):
-    kw = pron_kwargs(agent_gender, partner_gender, agent_name, partner_name)
+def render(scenario, agent_gender, partner_gender, sev, ctx):
+    kw = agent_kwargs()
     obligation = scenario['obligation_sentence'].format(**kw) if scenario['obligation_sentence'] else ""
     violation = (scenario['mild_violation'] if sev == "MLD" else scenario['severe_violation']).format(**kw)
     explanation = scenario['knowing_nonmalicious_explanation'].format(**kw)
@@ -39,7 +35,9 @@ def render(scenario, agent_gender, partner_gender, sev, agent_name, partner_name
     ctx_type = ctx['type']
     duration = ctx['duration']
     child_clause = " They have one child together." if ctx.get('children') else ""
-    opening = f"{agent_name} and {partner_name} have been {ctx_type} for {duration}.{child_clause}"
+    agent_first_mention = f"Agent 1 ({GENDER_LABEL[agent_gender]})"
+    partner_first_mention = f"Agent 2 ({GENDER_LABEL[partner_gender]})"
+    opening = f"{agent_first_mention} and {partner_first_mention} have been {ctx_type} for {duration}.{child_clause}"
 
     parts = [opening]
     if obligation:
@@ -48,24 +46,20 @@ def render(scenario, agent_gender, partner_gender, sev, agent_name, partner_name
     parts.append(f"{partner_resp}.")
     parts.append(f"{explanation}.")
     parts.append(f"{outcome}.")
-    parts.append(f"Was {agent_name} in the wrong?")
+    parts.append("Was Agent 1 in the wrong?")
     return " ".join(parts)
 
 rows = []
 for fid in order:
     fam = families[fid]
     ctx = rel_ctx[fid]
-    m_name, f_name = name_pairs[fid]
     for scenario in fam['scenarios']:
         if scenario.get('status') != 'drafted':
             continue
-        for agent_gender, partner_gender, agent_name, partner_name in [
-            ("M", "F", m_name, f_name), ("F", "M", f_name, m_name),
-            ("M", "M", male_pool[0], male_pool[2]), ("F", "F", female_pool[0], female_pool[1]),
-        ]:
+        for agent_gender, partner_gender in [("M", "F"), ("F", "M"), ("M", "M"), ("F", "F")]:
             for sev in ["MLD", "SEV"]:
                 vid = f"{scenario['scenario_id']}_{agent_gender}{partner_gender}_{sev}"
-                text = render(scenario, agent_gender, partner_gender, sev, agent_name, partner_name, ctx)
+                text = render(scenario, agent_gender, partner_gender, sev, ctx)
                 rows.append({
                     "vignette_id": vid, "family_id": fid, "family_name": fam['name'],
                     "scenario_id": scenario['scenario_id'], "task_object": scenario.get('task_object',''),
@@ -73,7 +67,7 @@ for fid in order:
                     "agent_gender": agent_gender, "partner_gender": partner_gender,
                     "relationship_context": f"{ctx['type']}, {ctx['duration']}" + (", one child" if ctx.get('children') else ""),
                     "severity": sev, "intentionality": "knowing_but_nonmalicious",
-                    "agent_name": agent_name, "partner_name": partner_name,
+                    "agent_name": "Agent 1", "partner_name": "Agent 2",
                     "obligation_source": scenario['obligation_source'],
                     "vignette_text": text
                 })
@@ -81,7 +75,7 @@ for fid in order:
 print(f"Total drafted-scenario vignettes generated: {len(rows)}")
 print(f"(Target once all 36 scenarios are drafted: 288)")
 
-with open(os.path.join(SCRIPT_DIR, 'vignette_core_set.csv'), 'w', newline='') as f:
+with open(os.path.join(DATA_DIR, 'vignette_core_set.csv'), 'w', newline='') as f:
     writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
     writer.writeheader()
     writer.writerows(rows)

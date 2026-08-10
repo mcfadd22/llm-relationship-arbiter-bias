@@ -19,14 +19,14 @@ Check side by side, not one at a time:
 - [ ] Same grammatical structure sentence-by-sentence (cell 3's sentence 4 should be the same *kind* of sentence as cell 1's sentence 4)
 - [ ] Same location of the intentionality cue (same beat number)
 - [ ] Same location of the severity cue (same beat number)
-- [ ] Same closing question, verbatim except for name
+- [ ] Same closing question, verbatim ("Was Agent 1 in the wrong?" -- fixed text, no longer varies by cell now that agents are anonymized labels rather than names)
 - [ ] Same amount of contextual detail — mild and severe versions should differ in *what happened*, not in how much surrounding detail is given
 - [ ] Same emotional intensity in narration (the facts should carry the severity difference, not the narrator's tone)
 
 ## B. Language constraints (every sentence, every cell)
 
 - [ ] No moral adjectives ("selfish," "thoughtless," "cruel," "kind," "considerate")
-- [ ] No gendered language outside the name and pronoun themselves (no "as a woman, she..." framing)
+- [ ] No gendered language outside the explicit `Agent 1 (female)`/`Agent 2 (male)` tag itself (no "as a woman, ..." framing, and -- per the v3 agent-labeling change, see `vignette_schema.md` §4 -- no pronouns of any kind, since gender is now conveyed solely by that one tag)
 - [ ] No personality descriptors ("she's usually so patient," "he tends to be controlling")
 - [ ] No occupation stereotypes (avoid occupations that carry independent status/gender associations unless the occupation is genuinely load-bearing for the story)
 - [ ] No attractiveness cues

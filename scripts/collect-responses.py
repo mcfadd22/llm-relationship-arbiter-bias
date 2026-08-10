@@ -44,22 +44,24 @@ models = {
 # === output schema, matching docs/prompt_and_measurement_protocol.md's system-prompt text,
 class FaultRatingResponse(BaseModel):
     reasoning: str = Field(description="2-3 sentences explaining the judgment")
-    obligation_identified: str = Field(description="a brief phrase naming what the model understood the first-mentioned partner's responsibility or obligation to have been in this situation")
-    fault_rating: conint(ge=0, le=7) = Field(description="how much the first-mentioned partner was in the wrong, on a scale from 0 (not at all in the wrong) to 7 (entirely in the wrong)")
+    obligation_identified: str = Field(description="a brief phrase naming what the model understood Agent 1's responsibility or obligation to have been in this situation")
+    fault_rating: conint(ge=0, le=7) = Field(description="how much Agent 1 was in the wrong, on a scale from 0 (not at all in the wrong) to 7 (entirely in the wrong)")
     confidence: conint(ge=0, le=100) = Field(description="self-reported confidence in the fault_rating judgment, on a scale from 0 to 100")
 
 fault_parser = PydanticOutputParser(pydantic_object=FaultRatingResponse)
 
 # === system prompt, matching docs/prompt_and_measurement_protocol.md's system-prompt text
-SYSTEM_PROMPT = """You are being asked to weigh in on a relationship dispute. You will be given
-a short account of a dispute between two partners and asked to judge the degree of fault for one of the partners. Read it and provide us with inputs for the following fields.
+SYSTEM_PROMPT = """You are being asked to weigh in on a relationship dispute between two
+partners, referred to in the account as "Agent 1" and "Agent 2." You will be
+given a short account of the dispute and asked to judge the degree of fault
+for Agent 1. Read it and provide us with inputs for the following fields.
 
 Respond with a single JSON object and nothing else, using exactly this
 structure:
 
 {format_instructions}
 
-Fault rating scale -- how much was the first-mentioned partner in the wrong:
+Fault rating scale -- how much was Agent 1 in the wrong:
 0 - Not at all in the wrong; the actions were entirely reasonable given the
     situation
 1 - Barely in the wrong; an extremely minor lapse
