@@ -56,7 +56,7 @@ class ResponseRowSchema(BaseModel):
     @classmethod
     def check_intentionality(cls, v):
         # currently fixed to a single value per docs/prompt_and_measurement_protocol.md
-        # and README_for_thulasi.md -- update this set if the design ever crosses it again
+        # and project/project_status_summary.md -- update this set if the design ever crosses it again
         allowed = {'knowing_but_nonmalicious'}
         if v not in allowed:
             raise ValueError(f"intentionality must be one of {allowed}, got '{v}'")
