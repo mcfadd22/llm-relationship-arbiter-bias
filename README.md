@@ -19,7 +19,7 @@ python scripts/collect-responses.py --model claude_sonnet --pass_type confirmato
 
 --model choices: claude_sonnet, gpt5_mini, gemini_flash, llama33, deepseek_v3
 --pass_type choices: confirmatory (1 run/vignette, low temp -- primary data) or stability (N repeated runs/vignette, higher temp -- for the dispersion-based confidence metric)
-Optional: --n_samples, --temperature, --vignette_file to override the defaults (see --help for details)
+Optional: --n_samples, --temperature, --vignette_file to override the defaults (see --help for details), --verbose for per-call logs
 
 ---
 

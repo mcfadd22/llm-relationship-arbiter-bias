@@ -12,6 +12,7 @@ from os import getenv
 import csv
 import pandas as pd
 import logging
+from tqdm import tqdm
 
 # error handling
 from langchain_core.exceptions import OutputParserException
@@ -26,7 +27,6 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # === logging config ===
 log_max_str_len = 40
-logging.basicConfig(level=logging.INFO, encoding='utf-8')
 
 # === basic data collection config ===
 API_URL = "https://openrouter.ai/api/v1"
@@ -106,7 +106,13 @@ parser.add_argument("--disable_json_mode", action="store_true",
                     help="skip requesting OpenAI-compatible JSON mode (response_format=json_object). "
                          "Use this if a given model/provider rejects that parameter -- falls back to "
                          "prompt-only JSON compliance, still backstopped by the retry-on-parse-failure loop.")
+parser.add_argument("--verbose", action="store_true",
+                    help="print a detailed log line for every query/response (noisy -- interacts "
+                         "oddly with the progress bar). Off by default; the progress bar is the "
+                         "main indicator of how far along a run is.")
 args = parser.parse_args()
+
+logging.basicConfig(level=logging.INFO if args.verbose else logging.WARNING, encoding='utf-8')
 
 mname = args.model
 pass_type = args.pass_type
@@ -135,9 +141,7 @@ missing = REQUIRED_VIGNETTE_COLUMNS - set(all_vignettes.columns)
 if missing:
     raise ValueError(f"Vignette file is missing expected columns: {missing}")
 
-# === save responses to csv as you go ===
-outfile_handle = open(OUTFILE, 'w', newline='')
-writer = csv.writer(outfile_handle)
+# === save responses to csv, resuming from a prior partial run if one exists ===
 header = [
     "vignette_id", "model", "pass_type", "temperature", "sample_num",
     "family_id", "family_name", "scenario_id", "task_object", "violation_form",
@@ -145,7 +149,24 @@ header = [
     "intentionality", "agent_name", "partner_name", "obligation_source",
     "reasoning", "obligation_identified", "fault_rating", "confidence"
 ]
-writer.writerow(header)
+
+# count how many samples each vignette_id already has in an existing output file, so a
+# partial/interrupted run can resume without redoing already-collected rows
+completed_counts = {}
+outfile_path = Path(OUTFILE)
+resuming = outfile_path.exists() and outfile_path.stat().st_size > 0
+if resuming:
+    existing_df = pd.read_csv(OUTFILE)
+    completed_counts = existing_df['vignette_id'].value_counts().to_dict()
+    n_already_done = sum(completed_counts.values())
+    tqdm.write(f"Found existing output at {OUTFILE} with {len(existing_df)} rows "
+               f"across {len(completed_counts)} vignettes -- resuming, not overwriting.")
+    outfile_handle = open(OUTFILE, 'a', newline='')
+else:
+    outfile_handle = open(OUTFILE, 'w', newline='')
+writer = csv.writer(outfile_handle)
+if not resuming:
+    writer.writerow(header)
 
 if not getenv("OPENROUTER_API_KEY"):
     raise Exception(
@@ -155,6 +176,10 @@ if not getenv("OPENROUTER_API_KEY"):
     )
 
 # === collect responses ===
+
+MAX_RETRIES_PER_CALL = 5  # cap retries so a model that persistently returns invalid output
+                          # (e.g. a fault_rating outside 0-7) doesn't spin forever on one
+                          # vignette -- this is what actually caused the earlier "stuck" run
 
 model_kwargs = {} if args.disable_json_mode else {"response_format": {"type": "json_object"}}
 model = ChatOpenAI(
@@ -170,11 +195,18 @@ chain = prompt_template.partial(
     additional_format_instructions=additional_format_instructions,
 ) | model | fault_parser
 
+total_calls = len(all_vignettes) * N_SAMPLES
+already_done = sum(min(completed_counts.get(vid, 0), N_SAMPLES) for vid in all_vignettes['vignette_id'])
+pbar = tqdm(total=total_calls, initial=already_done, desc=f"{mname} ({pass_type})", unit="call")
+
+skipped_after_retries = []  # vignette_ids that never produced a valid response within the retry cap
+
 for _, vrow in all_vignettes.iterrows():
     vignette_id = vrow['vignette_id']
     vignette_text = vrow['vignette_text']
-    sample_num = 0
+    sample_num = min(completed_counts.get(vignette_id, 0), N_SAMPLES)  # resume: skip already-done samples
     prompt = vignette_text
+    retry_count = 0
     while sample_num < N_SAMPLES:
         try:
             logging.info(f"\tQUERY --- vignette ID: {vignette_id}; family: {vrow['family_name']}; "
@@ -182,13 +214,22 @@ for _, vrow in all_vignettes.iterrows():
                          f"text: {str(vignette_text)[:log_max_str_len]}...")
             response = chain.invoke({"vignette": prompt})
         except (OutputParserException, JSONDecodeError) as e:
+            retry_count += 1
+            if retry_count > MAX_RETRIES_PER_CALL:
+                tqdm.write(f"Vignette {vignette_id} failed {MAX_RETRIES_PER_CALL} retries in a row "
+                           f"(last error: {e}) -- skipping this vignette, not retrying forever. "
+                           f"Re-run the script afterward to pick it up again (resume logic will "
+                           f"retry it since it's still short of {N_SAMPLES} samples).")
+                skipped_after_retries.append(vignette_id)
+                break
             # ill-formed output -- flag and retry rather than silently dropping, per the
             # protocol doc's instruction to plan a defined fallback rule for malformed output
-            logging.error(f"Ill formed response for vignette {vignette_id}: {e}; trying again")
+            tqdm.write(f"Ill formed response for vignette {vignette_id} (attempt {retry_count}/{MAX_RETRIES_PER_CALL}): {e}; trying again")
             prompt = vignette_text + "\nYour output format was incorrect earlier. Please precisely adhere to the JSON format instructions."
             continue
         except TypeError as e:
             if "response_format" in str(e) or "model_kwargs" in str(e):
+                pbar.close()
                 raise SystemExit(
                     f"\nModel '{mname}' ({models[mname]}) rejected the response_format/JSON-mode "
                     f"parameter: {e}\nRerun with --disable_json_mode to fall back to prompt-only "
@@ -207,8 +248,16 @@ for _, vrow in all_vignettes.iterrows():
         ]
         writer.writerow(row)
         prompt = vignette_text  # reset prompt for next fresh draw
+        pbar.update(1)
 
+pbar.close()
 outfile_handle.close()
+
+if skipped_after_retries:
+    tqdm.write(f"\n{len(skipped_after_retries)} vignette(s) were skipped after exceeding "
+               f"{MAX_RETRIES_PER_CALL} retries: {skipped_after_retries}")
+    tqdm.write("Re-run this exact command again to retry just those -- resume logic will "
+               "skip everything already completed and only retry the gaps.")
 
 # === validate the collected output before wrapping up ===
 
