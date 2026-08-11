@@ -1,0 +1,57 @@
+\documentclass{article}
+
+% JUDGe 2026 workshop submission (NeurIPS 2026) -- double-blind workshop track.
+% Short paper track: 4 pages + references.
+%
+% This is the ONE file that actually compiles -- it wires together the
+% per-section tabs below via \input. The downloaded template
+% (neurips_2026.tex) is kept untouched as reference/instructions only and
+% is never \input from here. In Overleaf, set this file as the project's
+% main file (Menu -> Main document) if it isn't auto-detected.
+\usepackage[dblblindworkshop]{neurips_2026}
+\workshoptitle{JUDGe 2026: Can We Trust the Judge?}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+
+% TODO: finalize title once results/framing are settled.
+\title{[DRAFT] Does Agent Gender Bias LLM Fault Attribution in Relationship Disputes?}
+
+\author{%
+  Anonymous Author(s) \\
+  Affiliation withheld for double-blind review
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+% TODO -- blocked. Abstract claims depend on the confirmatory run's results,
+% which have not been collected yet (see limitations.tex). Draft after
+% results.tex has real content.
+\textcolor{red}{\bf [TODO -- abstract depends on results, not yet available]}
+\end{abstract}
+
+\input{intro.tex}
+\input{lit_review.tex}
+\input{dataset_design.tex}
+\input{measurement_protocol.tex}
+\input{results.tex}
+\input{limitations.tex}
+\input{broader_impacts.tex}
+
+\bibliographystyle{plainnat}
+\bibliography{ref}
+
+\newpage
+\input{checklist.tex}
+
+\end{document}

@@ -1,0 +1,95 @@
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{LLM-as-judge bias and construct validity.} A growing body of
+work questions whether LLM judges measure what evaluators intend
+\citep{gu2024survey}. \citet{chen2024humans} directly document gender,
+authority, and beauty bias in both human and LLM judges and show these
+biases are exploitable via targeted attacks, but treat gender as one bias
+type among several general-purpose evaluation tasks rather than isolating
+it with a factorial design in a single, fixed domain. A related but
+distinct use of LLM judges appears in \citet{kumar2024decoding}, who use
+an LLM as the instrument to \emph{detect} gender bias in the outputs of
+other models; there, bias lives in the judged model's generations, whereas
+the present study asks whether the bias lives in the judge itself.
+
+\paragraph{AITA and moral-judgment benchmarks.} Scruples
+\citep{lourie2021scruples} established the WHO-task reframing of AITA-style
+disputes adopted here (Section~\ref{sec:dataset}). More recently,
+\citet{sachdeva2025normative} evaluate seven LLMs' blame judgments
+against human verdicts on over 10,000 real AITA dilemmas, finding each
+model is internally self-consistent but that models diverge substantially
+from one another and from human judgments -- motivating this paper's RQ2
+(cross-model heterogeneity) and its choice to stratify by model rather
+than pool across models. Neither of these prior AITA-derived evaluations,
+however, manipulates the disputants' gender under a matched, factorial
+design; the underlying vignettes are naturally occurring and confounded
+with whatever demographic signal happened to be present in the original
+post.
+
+\paragraph{Gender and relational moral judgment in humans.}
+\citet{betti2025moral} find, using a large corpus of online moral
+discourse, no general causal effect of a story's protagonist's gender on
+the moral judgment they receive from human commenters -- \emph{except} in
+relationship and friendship stories specifically, where male protagonists
+received more negative evaluations than female protagonists in matched
+comparisons. This is a direct human-judgment precedent for exactly the
+domain this paper studies (relationship-norm disputes), and motivates
+asking whether an analogous effect transfers to LLM judges performing the
+same kind of evaluation, or is instead a distinctly human phenomenon.
+
+\paragraph{Closest prior work: gender asymmetry in LLM moral judgment.}
+Two prior studies directly anticipate RQ1, in opposite directions.
+\citet{bajaj2024genmo} introduce GenMO, parallel short stories differing
+only in a character's gender, and find several production models
+(including Claude 3 Sonnet and Opus) show a consistent gender-swap effect,
+inclining toward the female character in a majority of cases -- a
+general moral-judgment result, not specific to relationship-conflict
+framing, and not broken down by norm-violation type. More directly
+relevant, \citet{si2026gama} introduce GAMA-Bench, a gender-mirrored
+benchmark of intimate-relationship and public-conflict scenarios scored
+on six response-framing dimensions (punitive wording, therapeutic
+wording, severity, empathy toward the actor, accusatory content, and
+full-blame attribution) across ten current models. On the intimate track
+specifically, they find a consistent \emph{male-disadvantaging} asymmetry
+-- male actors receive more punitive, blame-centered framing for matched
+misconduct -- that persists across model families, model scale, and
+reasoning mode, and is not reduced (and sometimes widened) by
+chain-of-thought reasoning. \citet{si2026gama} is the closest existing
+work to this paper's design in spirit (matched gender-mirrored
+relationship-conflict scenarios, structured multi-dimensional scoring
+rather than a single verdict), and its finding must be engaged with
+directly rather than treated as background: it already establishes a
+relationship-conflict-specific gender asymmetry, in the opposite direction
+from \citet{bajaj2024genmo}'s general-domain result, that persists across
+model scale and reasoning style. This paper's distinguishing contribution
+is the decomposition by discrete relationship-norm-violation family (9
+families: household labor, childcare, financial provision, jealousy, and
+so on) using a single fixed fault-rating scale rather than open-ended
+response-framing metrics -- RQ2 asks directly whether the direction and
+magnitude of any gender asymmetry \emph{varies by which norm is violated},
+a question none of these three studies (Betti et al., Bajaj et al., Si
+et al.) answers, since none decomposes by norm-violation type.
+
+\paragraph{Hedging and both-sides validation.} \citet{cheng2025elephant}
+document ``social sycophancy'' in LLMs, including a tendency to affirm
+both parties in a paired moral-conflict scenario as not at fault in
+roughly half of cases -- direct evidence for the concern motivating RQ3
+and the hedge-rate tracking described in Section~\ref{sec:protocol}: a
+model's willingness to render a judgment at all, and whether that
+willingness itself varies by agent gender, is a site where bias could
+hide from any analysis that only looks at committed ratings.
+
+% TODO: this section merges two independent literature passes (2026-08-11):
+% an initial pass and the user's own separately-compiled lit_review.md
+% (paper/sources/), cross-checked against that doc's own verification
+% audit before any citation was added here. Still not checked against the
+% workshop's own accepted-papers/related submissions, and should be
+% revisited once Section~\ref{sec:results} exists in case specific
+% findings there change which prior work is most relevant to foreground.
+% Background-only sources from lit_review.md (care-ethics grounding,
+% marital-attribution literature beyond the one construct-precedent
+% citation in measurement_protocol.tex, general contamination-detection
+% vocabulary) were deliberately left out of this section given the 4-page
+% short-paper budget -- paper/sources/lit_review.md remains the fuller
+% reference if space allows expansion later.

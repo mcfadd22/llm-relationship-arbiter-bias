@@ -1,0 +1,38 @@
+\section{Limitations}
+\label{sec:limitations}
+
+Intentionality is fixed at a single (knowing-but-non-malicious) level in
+the core confirmatory design, so this study cannot yet speak to whether any
+observed gender effect on fault attribution varies with the norm-violator's
+stated intent; an intentionality-robustness arm is designed but deferred.
+Relationship context (type and duration) is fixed per family rather than
+crossed, so family-level effects cannot be cleanly separated from
+relationship-stage differences that happen to co-occur with a given family
+in this design. The severity manipulation has not yet been piloted against
+the full 288-vignette core set -- only a 20-vignette internal review sample
+has been read through by the research team -- so severity levels are
+currently validated by the design team's judgment rather than by an
+independent rater or manipulation check. The obligation-source taxonomy and
+severity anchors were authored by the research team rather than derived
+from or validated against a corpus of real disputes, and the four-gender
+configurations (male/female agent $\times$ male/female partner) operationalize
+gender as a strict binary, which does not capture non-binary or genderqueer
+identities and should not be over-generalized beyond that binary
+operationalization. The evaluated models are commercial and open-weight
+systems accessed through a single API aggregator (OpenRouter) at a fixed
+point in time; findings may not generalize to other models, model
+versions, or direct-vendor deployments with different system prompts or
+safety filtering. Because r/AmItheAsshole is heavily represented in
+pretraining data, there is a standing risk that a model's fault-rating
+output reflects memorized genre patterns rather than independent moral
+reasoning \citep{russo2025pluralistic}; writing every vignette from
+scratch in a fixed template (Section~\ref{sec:dataset}) avoids the
+verbatim-memorization risk Russo et al.\ had to engineer around by
+rewriting real posts, but the milder risk of \emph{structural} genre
+familiarity -- recognizing the AITA-style framing and conventions even in
+an invented scenario -- remains unaddressed, since memorization is known
+to scale with model capacity and exposure frequency
+\citep{carlini2023memorization} and is not fully caught by surface-level
+contamination checks \citep{xu2024contamination}. A model-based novelty
+check (prompting a separate call to guess whether a vignette is
+real-vs-synthetic) is designed but not yet run.

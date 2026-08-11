@@ -65,15 +65,20 @@ The location of the intentionality cue and severity cue must be fixed at the sam
 
 ### 2a. Obligation source (new required slot)
 
+> **v4 update -- table below regenerated from `vignette_params.json` (2026-08-11).** The 5-name scheme previously shown here (`explicit_agreement`, `established_division`, `direct_request_accepted`, `reciprocal_expectation`, `role_specific`) predates the current taxonomy and no longer matches the actual field names or count in `vignette_params.json`. The current 8 types, their standard sentence forms, and their literature basis (added since the v2 update mentioned two new types by name but didn't regenerate this table) are below. `vignette_params.json`'s `obligation_sources` object remains the single source of truth if this table and the JSON ever diverge again.
+
 Every vignette must ground the agent's responsibility in one of a small fixed set of sources, stated explicitly rather than implied:
 
-| Obligation source | Standard sentence form |
-|---|---|
-| `explicit_agreement` | "They had previously agreed that {agent} would {task}." |
-| `established_division` | "{agent} and {partner} had long divided responsibilities so that {agent} handled {task}." |
-| `direct_request_accepted` | "{partner} had asked {agent} to {task}, and {agent} had agreed." |
-| `reciprocal_expectation` | "{partner} regularly handled {other_task} in exchange for {agent} handling {task}." |
-| `role_specific` | "Given {situational_fact}, {agent} was the one responsible for {task}." |
+| Obligation source | Standard sentence form | Basis |
+|---|---|---|
+| `accepted_role_responsibility` | "They had previously agreed that {agent} would take on responsibility for {task}." | A continuing role knowingly accepted, not a one-off promise (Hardimon, "Role Obligations," *Journal of Philosophy* 91 (1994): 333--363 -- role assignment, not mere role membership). |
+| `established_joint_practice` | "For {duration}, {agent} has handled {task} while {partner} has handled {other_task}." | Reliance-generated, no promissory moment (Daminger, "The Cognitive Dimension of Household Labor," *ASR* 84(4), 2019 -- best fit for mental load, where the pattern is often unspoken). |
+| `need_responsive_relational_duty` | "{partner} has come to rely on {agent} to check in during difficult moments, and {agent} has generally done so." | Communal relationships are need-responsive, not transaction-tracking (Clark & Mills, 1979, 1993). |
+| `contribution_based_reciprocity` | "{partner} has carried more of {shared_burden} than {agent} for some time, with the expectation that {agent} would take on more given the imbalance." | Fairness/reciprocity, not a discrete promise (Rawls, "Legal Obligation and the Duty of Fair Play," 1964; Gouldner, "The Norm of Reciprocity," 1960; Walster, Walster & Berscheid, *Equity: Theory and Research*, 1978). |
+| `recognized_reliance_on_disclosure` | "{partner} had clearly and repeatedly told {agent} {disclosed_fact}." | Not promising-as-self-binding, but intentionally inducing/ignoring reasonable reliance on a stated fact (Scanlon, *What We Owe to Each Other*, 1998, Principle F). |
+| `baseline_relational_norm` | (no explicit grounding stated -- the norm holds independent of any agreement) | General duty not to violate autonomy/coerce (Scanlon 1998; Wertheimer, *Coercion*, 1987). Carries a `pilot_check_flag`: confirm the "mild" condition reads as an actual violation, not a reasonable boundary request. |
+| `good_faith_relationship_maintenance` | "Both partners had come to expect that either of them would raise ongoing problems in the relationship rather than let them build silently." | A diffuse, joint duty to engage with persistent relational problems, distinct from task-specific role obligations; no single named philosophical/sociological source identified (see `unverified_sources.md`-style caveat -- related to but not identical with Gottman's negative sentiment override). |
+| `fair_notice_of_expectations` | "{partner} could only reasonably be expected to meet a preference {agent} had actually made known." | General fairness principle (you can't be blamed for failing an unstated standard); structurally the inverse of `recognized_reliance_on_disclosure`. |
 
 **Critical constraint:** obligation *strength* must be held constant across all cells within a family (ideally across families too, unless recorded as a deliberate family-level difference in metadata). "They had previously agreed that Alex would do the laundry" and "Riley casually mentioned that help would be nice" are not equivalent — the first is a much stronger, more explicit obligation, and using the weaker form in some cells and the stronger form in others introduces an unintended confound. Pick one obligation-source type per family, use its standard sentence verbatim (slots filled in, structure unchanged) in all 16 core cells for that family, and record the choice in family metadata. If a family genuinely needs a different obligation form than the others, that's fine — just record it explicitly rather than let it vary by accident.
 

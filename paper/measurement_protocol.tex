@@ -1,0 +1,94 @@
+\section{Measurement Protocol}
+\label{sec:protocol}
+
+\paragraph{Prompting.} Each vignette is presented to each model as an
+independent single-turn call. The system prompt frames the task as
+weighing in on a relationship dispute between ``Agent 1'' and ``Agent 2''
+and asks the model to judge Agent 1's degree of fault, returning a single
+JSON object with four fields: a short free-text \texttt{reasoning}, a
+short \texttt{obligation\_identified} phrase naming what the model
+understood Agent 1's responsibility to have been (a manipulation check --
+did the model identify the intended norm, independent of how it rated
+fault), an integer \texttt{fault\_rating}, and a self-reported
+\texttt{confidence} field retained in the prompt for completeness but not
+used as the confidence measure (see below). The user message is the
+vignette text verbatim, with nothing added or wrapped around it. The
+prompt itself never mentions gender, asks the model to consider it, or
+asks the model to comment on it; the only place gender appears anywhere
+in the input is the vignette's own explicit \texttt{(female)}/\texttt{(male)}
+tag (Section~\ref{sec:dataset}). This is deliberate: a well-aligned model
+asked directly whether gender affected its judgment will simply say no
+regardless of what it actually did, so the only valid way to detect an
+effect is by comparing separately elicited gender-configuration cells of
+the same scenario/severity cell \emph{after} generation, never through
+self-report on the sensitive attribute itself.
+
+\paragraph{Fault rating scale.} \texttt{fault\_rating} is a single integer
+0--7 scale with defined anchors at every point (0: ``not at all in the
+wrong;'' 7: ``entirely in the wrong; a severe breach that would justify
+significant relationship consequences''), rather than a separate
+categorical verdict paired with a blameworthiness score. A categorical
+verdict can still be derived post hoc via a cutpoint decided during
+analysis (e.g.\ $\le 3$ as not-in-the-wrong-leaning, $\ge 4$ as
+in-the-wrong-leaning) without asking the model for a category directly.
+Each provider's native structured-output or tool-use feature is used to
+enforce the output schema where available, rather than relying on
+prompt-only compliance, since prompt-only JSON formatting is unreliable
+across models from multiple providers; a defined fallback parser and
+malformed-output rule apply where native schema enforcement is
+unavailable. The decomposition into \texttt{obligation\_identified} (what
+the model understood the obligation to be) and \texttt{fault\_rating}
+(how much that obligation's violation counts against the agent) mirrors
+the causal/responsibility/blame distinction established in the marital
+attribution literature \citep{bradburyfincham1990} -- the closest
+psychological-construct precedent for decomposing partner-directed fault
+judgment this way, rather than treating blame as a single undifferentiated
+intensity.
+
+\paragraph{Confidence as dispersion, not self-report.} Confidence is not
+treated as a prompt field to trust. It is measured empirically in two
+passes: a \emph{confirmatory pass} (each of the 288 core vignettes, run
+once per model at low/near-zero temperature, the primary data for RQ1--RQ2)
+and a \emph{stability pass} (each vignette run $N$ additional times at a
+higher, deployment-realistic temperature). The primary confidence measure
+is the dispersion of \texttt{fault\_rating} across the $N$ stability-pass
+samples (e.g.\ standard deviation) rather than a ``verdict flip rate,''
+which was the metric in an earlier draft of this protocol but does not
+transfer cleanly to a continuous rating -- a rating that moves from 3 to 4
+across samples is not a ``flip'' the way a discrete category is. A
+post-hoc categorical flip rate can still be reported as a secondary,
+more interpretable measure derived from the same cutpoint used for the
+categorical verdict above. Temperature-sensitivity findings in the
+LLM-as-judge reliability literature motivate treating $N$ and temperature
+as decisions to justify rather than default assumptions: same-verdict
+consistency across repeated samples has been reported to fall
+substantially as temperature rises from near-zero, and the temperature
+that maximizes reliability is not universal across models or tasks
+\citep{schroeder2024trust}, while a large-scale audit across judges and
+benchmarks finds internal consistency itself is an unreliable proxy for
+validity \citep{norman2026reliability} -- a caution directly relevant to
+treating dispersion as a \emph{confidence} measure rather than mistaking
+low dispersion for a guarantee that the rating is measuring the intended
+construct. \textbf{Open calibration decisions, not yet finalized:} the
+exact value of $N$ and the stability-pass sampling temperature, and
+whether the stability pass runs on all 288 core vignettes or a
+representative subset (running it on all 288 multiplies API calls by $N$
+and is a real cost, not a rounding error).
+
+\paragraph{Hedges, refusals, and malformed output.} Some fraction of
+responses are expected to hedge (e.g.\ ``both are somewhat at fault''),
+decline to commit to a rating, or fail schema validation outright. Per
+RQ3, this is tracked as a variable of direct interest rather than
+discarded as noise: whether a model hedges more often for a given agent
+gender or norm family is treated as a legitimate finding about
+differential willingness to render judgment, not a nuisance to code away.
+The exact coding rule for hedges (e.g.\ whether the free-text
+\texttt{reasoning} field is parsed for an implied lean, or counted as
+missing data) is calibrated from a small pilot run on the drafted
+scenarios before the confirmatory pass, rather than fixed in advance of
+seeing how often it actually occurs.
+
+\paragraph{Model roster.} Five models across four providers are evaluated:
+Anthropic Claude Sonnet 5, OpenAI GPT-5-mini, Google Gemini 2.5 Flash,
+Meta Llama 3.3 70B, and DeepSeek V3.2, accessed via a single inference
+API (OpenRouter) for a consistent calling interface across providers.
