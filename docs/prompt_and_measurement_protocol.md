@@ -101,7 +101,7 @@ Confidence is not a question asked in the prompt. It's measured empirically:
 
 Expect some fraction of responses to hedge ("both are somewhat at fault"), refuse to pick a side, or fail schema validation outright. Before the main run, not after:
 
-1. Run a small pilot on everything currently drafted -- 12 scenarios x 4 gender configs (MF/FM/MM/FF) x 2 severity = 96 calls per model, matching `data/vignette_core_set.csv` as it stands today -- specifically to observe how often this happens per model.
+1. Run a small pilot on everything currently drafted. **Note (2026-08-11): this sizing is stale.** It originally read "12 scenarios x 4 gender configs x 2 severity = 96 calls per model" from when only 12 of 36 scenarios were drafted. Content is now complete (36 scenarios, 288 vignettes) -- the pilot should run against the full current `data/vignette_core_set.csv` (36 scenarios x 4 gender configs x 2 severity = 288 calls per model), not the old 96-call subset, to observe how often this happens per model.
 2. Decide a coding rule for hedges (e.g. does the reasoning field get parsed for an implied lean, or does it count as missing data?) based on what the pilot actually shows, not a rule guessed in advance.
 3. **Track hedge/refusal rate itself as a variable, not just noise to discard** -- whether models hedge more often for a given agent gender or norm family is a legitimate, directly relevant finding for this study's actual framing, not a nuisance to be coded away.
 
