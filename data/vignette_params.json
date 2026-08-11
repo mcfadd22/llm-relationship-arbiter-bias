@@ -351,7 +351,7 @@
           "violation_form": "left partner to manage medical logistics alone",
           "obligation_source": "contribution_based_reciprocity",
           "obligation_sentence": "{partner} has handled more of their child's medical appointments and paperwork than {agent} for some time, with the expectation that {agent} would take on a fairer share.",
-          "mild_violation": "{agent} once again let {partner} handle pediatrician scheduling and paperwork alone, without offering to help",
+          "mild_violation": "{agent} again let {partner} handle pediatrician scheduling and paperwork alone, without offering to help",
           "severe_violation": "{agent} has let {partner} handle all pediatrician scheduling and paperwork for the past several months, without offering to help",
           "knowing_nonmalicious_explanation": "{agent_subj_cap} said {agent_subj} knew {partner} was doing most of this but finds it easier to let {pronoun_partner_obj} keep handling it",
           "partner_response": "{partner} asked {agent} to take on a fairer share of the appointments",
