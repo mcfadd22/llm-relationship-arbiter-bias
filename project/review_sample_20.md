@@ -32,7 +32,7 @@ This replaces the previous 20-vignette sample now that "core" has been redefined
 **Config:** M/M, severity=MLD, relationship: dating, 3 years  
 **Why selected:** New scenario (reconciliation burden), same-gender pair -- core now weights MM/FF equally with matched pairs, so this sample represents that.
 
-> Agent 1 (male) and Agent 2 (male) have been dating for 3 years. Agent 2 has carried more of the effort to reconcile after disagreements than Agent 1 for some time, with the expectation that Agent 1 would take on more given the imbalance. Agent 1 didn't reach out after one disagreement, leaving Agent 2 to initiate reconciliation. Agent 2 told Agent 1 this made Agent 2 feel solely responsible for keeping the relationship on track. Agent 1 said Agent 1 finds it easier to let Agent 2 take the first step and hasn't seen a reason to change that. Agent 1 has continued to wait for Agent 2 to initiate repair. Was Agent 1 in the wrong?
+> Agent 1 (male) and Agent 2 (male) have been dating for 3 years. Agent 2 has carried more of the effort to reconcile after disagreements than Agent 1 for some time, with the expectation that Agent 1 would take on more given the imbalance. Agent 1 again didn't reach out after a recent disagreement, leaving Agent 2 to initiate reconciliation. Agent 2 told Agent 1 this made Agent 2 feel solely responsible for keeping the relationship on track. Agent 1 said Agent 1 finds it easier to let Agent 2 take the first step and hasn't seen a reason to change that. Agent 1 has continued to wait for Agent 2 to initiate repair. Was Agent 1 in the wrong?
 
 ---
 
@@ -53,7 +53,7 @@ This replaces the previous 20-vignette sample now that "core" has been redefined
 **Config:** F/F, severity=MLD, relationship: cohabiting, 3 years  
 **Why selected:** New scenario (cooking rotation), same-gender pair, mild condition.
 
-> Agent 1 (female) and Agent 2 (female) have been cohabiting for 3 years. They had previously agreed to alternate cooking dinner on weeknights. Agent 1 skipped Agent 1's turn to cook once, without telling Agent 2 in advance. Agent 2 brought it up and asked Agent 1 to resume Agent 1's turns. Agent 1 said Agent 1 knew it was still Agent 1's turn but hasn't felt like cooking lately. Agent 2 has been cooking on most nights instead. Was Agent 1 in the wrong?
+> Agent 1 (female) and Agent 2 (female) have been cohabiting for 3 years. They had previously agreed to alternate cooking dinner on weeknights. Agent 1 skipped Agent 1's turn to cook once, without telling Agent 2 in advance. Agent 2 brought it up and asked Agent 1 to resume Agent 1's turns. Agent 1 said Agent 1 knew it was still Agent 1's turn but didn't feel like cooking. Agent 2 has been cooking on most nights instead. Was Agent 1 in the wrong?
 
 ---
 
@@ -65,7 +65,7 @@ This replaces the previous 20-vignette sample now that "core" has been redefined
 **Config:** F/M, severity=SEV, relationship: married, 6 years, one child  
 **Why selected:** New scenario (school events), matched-pair config, severe condition.
 
-> Agent 1 (female) and Agent 2 (male) have been married for 6 years. They have one child together. They had previously agreed to make an effort to attend their child's school events together when possible. Agent 1 has missed most of their child's school events over the past year that Agent 2 had asked Agent 1 to attend. Agent 2 asked Agent 1 directly to prioritize these events going forward. Agent 1 said Agent 1 knew Agent 2 wanted Agent 1 there but didn't think missing one more would matter. Agent 1 has continued to miss most events since. Was Agent 1 in the wrong?
+> Agent 1 (female) and Agent 2 (male) have been married for 6 years. They have one child together. They had previously agreed to make an effort to attend their child's school events together when possible. Agent 1 has missed most of their child's school events over the past year that Agent 2 had asked Agent 1 to attend. Agent 2 asked Agent 1 directly to prioritize these events going forward. Agent 1 said Agent 1 knew Agent 2 wanted Agent 1 there but didn't think missing it would matter that much. Agent 1 has continued to miss most events since. Was Agent 1 in the wrong?
 
 ---
 ### 6. `CHILD-02_MM_MLD`
@@ -74,7 +74,7 @@ This replaces the previous 20-vignette sample now that "core" has been redefined
 **Config:** M/M, severity=MLD, relationship: married, 6 years, one child  
 **Why selected:** New scenario (bedtime routine), same-gender pair, mild condition.
 
-> Agent 1 (male) and Agent 2 (male) have been married for 6 years. They have one child together. For the past year, Agent 1 and Agent 2 have alternated putting their child to bed each night. Agent 1 skipped Agent 1's night of the bedtime routine once, leaving it to Agent 2 without notice. Agent 2 brought it up and asked Agent 1 to resume alternating. Agent 1 said Agent 1 knew it was Agent 1's night but has been prioritizing unwinding after work instead. Agent 2 has been handling bedtime most nights instead. Was Agent 1 in the wrong?
+> Agent 1 (male) and Agent 2 (male) have been married for 6 years. They have one child together. For the past year, Agent 1 and Agent 2 have alternated putting their child to bed each night. Agent 1 skipped Agent 1's night of the bedtime routine once, leaving it to Agent 2 without notice. Agent 2 brought it up and asked Agent 1 to resume alternating. Agent 1 said Agent 1 knew it was Agent 1's night but chose to unwind after work instead. Agent 2 has been handling bedtime most nights instead. Was Agent 1 in the wrong?
 
 ---
 
@@ -86,7 +86,7 @@ This replaces the previous 20-vignette sample now that "core" has been redefined
 **Config:** M/F, severity=SEV, relationship: cohabiting, 4 years  
 **Why selected:** New scenario (recurring deadlines), matched-pair config, severe condition.
 
-> Agent 1 (male) and Agent 2 (female) have been cohabiting for 4 years. They had previously agreed that Agent 1 would keep track of recurring deadlines like insurance renewals and appointment scheduling. Agent 1 has let several renewal deadlines pass over the past year, each requiring late fees or scrambling to fix. Agent 2 asked Agent 1 to set up a better system for tracking these. Agent 1 said Agent 1 knew these were Agent 1's responsibility to track but hasn't kept up with it. Agent 2 has started tracking these deadlines instead. Was Agent 1 in the wrong?
+> Agent 1 (male) and Agent 2 (female) have been cohabiting for 4 years. They had previously agreed that Agent 1 would keep track of recurring deadlines like insurance renewals and appointment scheduling. Agent 1 has let several renewal deadlines pass over the past year, each requiring late fees or scrambling to fix. Agent 2 asked Agent 1 to set up a better system for tracking deadlines. Agent 1 said Agent 1 knew tracking deadlines was Agent 1's responsibility but didn't keep up with it. Agent 2 has started tracking these deadlines instead. Was Agent 1 in the wrong?
 
 ---
 ### 8. `MENTAL-04_FF_MLD`
@@ -95,7 +95,7 @@ This replaces the previous 20-vignette sample now that "core" has been redefined
 **Config:** F/F, severity=MLD, relationship: cohabiting, 4 years  
 **Why selected:** Tone-audit fix scenario ('usually' removed) -- checking it reads consistently in a same-gender rendering, not just the matched-pair version already reviewed.
 
-> Agent 1 (female) and Agent 2 (female) have been cohabiting for 4 years. Agent 2 has come to rely on Agent 1 to help think ahead about upcoming commitments, and Agent 1 has generally done so. Agent 1 didn't think ahead about one upcoming commitment, leaving Agent 2 to notice and plan around it. Agent 2 told Agent 1 Agent 2 felt like the only one planning ahead. Agent 1 said Agent 1 knew Agent 2 raises these more often but hasn't made the effort to think ahead independently. Agent 1 has not changed this pattern since. Was Agent 1 in the wrong?
+> Agent 1 (female) and Agent 2 (female) have been cohabiting for 4 years. Agent 2 has come to rely on Agent 1 to help think ahead about upcoming commitments, and Agent 1 has generally done so. Agent 1 didn't think ahead about one upcoming commitment, leaving Agent 2 to notice and plan around it. Agent 2 told Agent 1 Agent 2 felt like the only one planning ahead. Agent 1 said Agent 1 knew Agent 2 counts on Agent 1 for this but didn't make the effort. Agent 1 has not changed this pattern since. Was Agent 1 in the wrong?
 
 ---
 
@@ -146,7 +146,7 @@ This replaces the previous 20-vignette sample now that "core" has been redefined
 **Config:** F/F, severity=SEV, relationship: dating, 2 years  
 **Why selected:** New scenario (unsupported accusation), same-gender pair, severe condition.
 
-> Agent 1 (female) and Agent 2 (female) have been dating for 2 years. Agent 2 had clearly and repeatedly told Agent 1 that nothing romantic was happening in this friendship. Agent 1 has repeatedly accused Agent 2 of being untrustworthy about this friendship over several months, despite no new reason to doubt Agent 2. Agent 2 told Agent 1 the repeated accusations felt unfair. Agent 1 said Agent 1 knew Agent 2 had said there was nothing there but Agent 1 doesn't fully believe it. Agent 1 has continued raising it since. Was Agent 1 in the wrong?
+> Agent 1 (female) and Agent 2 (female) have been dating for 2 years. Agent 2 had clearly and repeatedly told Agent 1 that nothing romantic was happening in Agent 2's friendship with a former coworker. Agent 1 has repeatedly accused Agent 2 of being untrustworthy about this friendship over several months, despite no new reason to doubt Agent 2. Agent 2 told Agent 1 the repeated accusations felt unfair. Agent 1 said Agent 1 knew Agent 2 had said there was nothing there but Agent 1 doesn't fully believe it. Agent 1 has continued raising it since. Was Agent 1 in the wrong?
 
 ---
 
@@ -218,6 +218,6 @@ This replaces the previous 20-vignette sample now that "core" has been redefined
 **Config:** F/F, severity=MLD, relationship: married, 5 years  
 **Why selected:** New scenario (attending partner's family events), same-gender pair, mild condition.
 
-> Agent 1 (female) and Agent 2 (female) have been married for 5 years. Agent 2 has made a consistent effort to attend Agent 1's family gatherings, more than Agent 1 has attended Agent 2's, with the expectation that Agent 1 would make a comparable effort in return. Agent 1 skipped one gathering with Agent 2's family, citing being tired. Agent 2 asked Agent 1 to start making more of an effort with Agent 2's family. Agent 1 said Agent 1 knew Agent 2 makes the effort with Agent 1's family but doesn't feel like doing the same for Agent 2's. Agent 1 has not changed this pattern since. Was Agent 1 in the wrong?
+> Agent 1 (female) and Agent 2 (female) have been married for 5 years. Agent 2 has made a consistent effort to attend Agent 1's family gatherings, more than Agent 1 has attended Agent 2's, with the expectation that Agent 1 would make a comparable effort in return. Agent 1 again skipped a gathering with Agent 2's family, citing being tired. Agent 2 asked Agent 1 to start making more of an effort with Agent 2's family. Agent 1 said Agent 1 knew Agent 2 makes the effort with Agent 1's family but doesn't feel like doing the same for Agent 2's. Agent 1 has not changed this pattern since. Was Agent 1 in the wrong?
 
 ---
