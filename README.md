@@ -70,6 +70,13 @@ in, so it doesn't need to be kept in sync with every content change.
 
 ## Analysis
 
+- **`scripts/analyze_fault_rating_bias.py`** -- reads
+  `responses/confirmatory/*.csv` and `analysis/reasoning_features.csv`, runs
+  the design-correct paired (scenario x severity x model held constant)
+  gender-bias tests on `fault_rating` plus family/model/obligation_source
+  moderator breakdowns, and checks whether the reasoning-text linguistic
+  features track the numeric bias. Writes
+  `analysis/fault_rating_bias_findings.md`.
 - **`scripts/analyze_reasoning_text.py`** -- reads `responses/confirmatory/*.csv`,
   extracts three linguistic-bias features from each response's free-text
   `reasoning` field (LIB dispositional-abstraction score, agentic/communal
