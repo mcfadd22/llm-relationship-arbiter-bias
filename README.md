@@ -21,6 +21,17 @@ python scripts/collect-responses.py --model claude_sonnet --pass_type confirmato
 --pass_type choices: confirmatory (1 run/vignette, low temp -- primary data) or stability (N repeated runs/vignette, higher temp -- for the dispersion-based confidence metric)
 Optional: --n_samples, --temperature, --vignette_file to override the defaults (see --help for details), --verbose for per-call logs
 
+Running the reasoning-text linguistic-bias analysis needs a separate venv on
+Python >=3.10 (spaCy doesn't build on the system Python 3.9 used above):
+
+```bash
+/opt/homebrew/bin/python3.11 -m venv venv   # or any Python >=3.10
+source venv/bin/activate
+pip install -r requirements-analysis.txt
+python -m spacy download en_core_web_sm
+python scripts/analyze_reasoning_text.py
+```
+
 ---
 
 # Repo Map
@@ -56,6 +67,27 @@ in, so it doesn't need to be kept in sync with every content change.
   expected schema and value domains. Standalone: `python scripts/validate.py
   --file <path>`.
 - **`requirements.txt`** -- pinned Python dependencies.
+
+## Analysis
+
+- **`scripts/analyze_reasoning_text.py`** -- reads `responses/confirmatory/*.csv`,
+  extracts three linguistic-bias features from each response's free-text
+  `reasoning` field (LIB dispositional-abstraction score, agentic/communal
+  domain-word rate, moral-intensity harsh-minus-mitigating rate), writes
+  `analysis/reasoning_features.csv`. Requires `requirements-analysis.txt`
+  (`spacy` + the `en_core_web_sm` model, `nltk`) on top of the base venv --
+  spaCy needs Python >=3.10 (this repo's venv uses 3.11 via Homebrew, not the
+  system Python 3.9). Method and validation notes: see the script's docstring
+  and `project/project_status_summary.md`'s "Confirmatory-pass analysis"
+  section.
+- **`analysis/lexicons/agentic_communal.csv`**,
+  **`analysis/lexicons/moral_intensity.csv`** -- the word lists
+  `analyze_reasoning_text.py` matches against, one term per row with a
+  `source_note` citing its literature basis and/or corpus frequency. Edit
+  these (not the script) to adjust what counts as a hit.
+- **`analysis/reasoning_features.csv`** -- generated output, one row per
+  response (regenerate via `analyze_reasoning_text.py` after any lexicon or
+  script edit).
 
 ## Reasoning & reference
 
