@@ -41,17 +41,27 @@ models = {
     'deepseek_v3': 'deepseek/deepseek-v3.2',  
 }
 
-# === output schema, matching docs/prompt_and_measurement_protocol.md's system-prompt text,
+# === output schema, matching docs/prompt_and_measurement_protocol.md's system-prompt text
 class FaultRatingResponse(BaseModel):
     reasoning: str = Field(description="2-3 sentences explaining the judgment")
     obligation_identified: str = Field(description="a brief phrase naming what the model understood Agent 1's responsibility or obligation to have been in this situation")
     fault_rating: conint(ge=0, le=7) = Field(description="how much Agent 1 was in the wrong, on a scale from 0 (not at all in the wrong) to 7 (entirely in the wrong)")
     confidence: conint(ge=0, le=100) = Field(description="self-reported confidence in the fault_rating judgment, on a scale from 0 to 100")
 
-fault_parser = PydanticOutputParser(pydantic_object=FaultRatingResponse)
+# `hedged` variant added 2026-08-12 for the RQ3 hedge-rate pilot (--pass_type
+# confirmatory_hedge) -- a subclass, not a change to FaultRatingResponse itself, so the
+# original 'confirmatory'/'stability' schema and prompt are completely untouched by this
+# addition. The field is placed after fault_rating/confidence deliberately, so it's a
+# retrospective self-report on an already-committed number rather than a field that could
+# shift the number itself by asking the model to decide "am I hedging?" before it commits
+# to a rating. fault_rating stays required even when hedged=true -- see
+# docs/prompt_and_measurement_protocol.md's "Handling hedges, refusals, and malformed
+# output" section for the full rationale and the pre-registered analysis plan.
+class FaultRatingResponseHedge(FaultRatingResponse):
+    hedged: bool = Field(description="true if fault genuinely feels roughly shared between Agent 1 and Agent 2, or if the account doesn't give enough information to responsibly single out Agent 1 -- even if true, fault_rating above should still be your best-estimate rating for Agent 1. false if you were able to assign fault_rating with reasonable confidence as a one-sided judgment of Agent 1 specifically.")
 
 # === system prompt, matching docs/prompt_and_measurement_protocol.md's system-prompt text
-SYSTEM_PROMPT = """You are being asked to weigh in on a relationship dispute between two
+SYSTEM_PROMPT_BASE = """You are being asked to weigh in on a relationship dispute between two
 partners, referred to in the account as "Agent 1" and "Agent 2." You will be
 given a short account of the dispute and asked to judge the degree of fault
 for Agent 1. Read it and provide us with inputs for the following fields.
@@ -74,27 +84,36 @@ Fault rating scale -- how much was Agent 1 in the wrong:
 6 - Highly in the wrong; a serious and likely damaging failure
 7 - Entirely in the wrong; a severe breach that would justify significant
     relationship consequences
-
+{hedge_instructions}
 Do not include any text outside the JSON object. Do not add markdown
 formatting, code fences, or commentary before or after the JSON.
 
 {additional_format_instructions}"""
 
-additional_format_instructions = "Please do not provide any text in addition to the specified JSON response format. Please do not add formatting or indentation to the JSON response."
+HEDGE_INSTRUCTIONS = """
+After choosing fault_rating, also set hedged: true if fault genuinely feels
+roughly shared between Agent 1 and Agent 2, or if the account doesn't give
+you enough information to responsibly single out Agent 1 -- even then,
+fault_rating should still be your best-estimate rating for Agent 1, not left
+blank or defaulted. Set hedged: false if you were able to assign fault_rating
+with reasonable confidence as a one-sided judgment of Agent 1 specifically.
+"""
 
-prompt_template = ChatPromptTemplate.from_messages([
-    ("system", SYSTEM_PROMPT),
-    ("human", "{vignette}"),
-])
+additional_format_instructions = "Please do not provide any text in addition to the specified JSON response format. Please do not add formatting or indentation to the JSON response."
 
 # === config for data collection, mostly as arguments ===
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", type=str, required=True, choices=models.keys(), help="model to use for data collection")
-parser.add_argument("--pass_type", type=str, required=True, choices=["confirmatory", "stability"],
+parser.add_argument("--pass_type", type=str, required=True,
+                    choices=["confirmatory", "stability", "confirmatory_hedge"],
                     help="'confirmatory' = single low-temp run per vignette (primary fault_rating data); "
-                         "'stability' = N repeated higher-temp runs per vignette (dispersion-based confidence metric)")
+                         "'stability' = N repeated higher-temp runs per vignette (dispersion-based confidence metric); "
+                         "'confirmatory_hedge' = same as confirmatory but with the added `hedged` self-report "
+                         "field and per-attempt logging, for the RQ3 hedge-rate analysis (see "
+                         "docs/prompt_and_measurement_protocol.md). Writes to a separate responses/ subfolder -- "
+                         "does not touch or overwrite the original confirmatory data.")
 parser.add_argument("--n_samples", type=int, required=False, default=None,
-                    help="samples per vignette. Defaults: 1 for confirmatory, 10 for stability "
+                    help="samples per vignette. Defaults: 1 for confirmatory/confirmatory_hedge, 10 for stability "
                          "(N=10 is a proposed default per the protocol doc -- confirm before a real run, it's still marked open)")
 parser.add_argument("--temperature", type=float, required=False, default=None,
                     help="sampling temperature. Defaults: 0.1 for confirmatory (doc proposes 0.0-0.2), "
@@ -116,13 +135,30 @@ logging.basicConfig(level=logging.INFO if args.verbose else logging.WARNING, enc
 
 mname = args.model
 pass_type = args.pass_type
-N_SAMPLES = args.n_samples if args.n_samples is not None else (1 if pass_type == "confirmatory" else 10)
-TEMP = args.temperature if args.temperature is not None else (0.1 if pass_type == "confirmatory" else 1.0)
+N_SAMPLES = args.n_samples if args.n_samples is not None else (1 if pass_type in ("confirmatory", "confirmatory_hedge") else 10)
+TEMP = args.temperature if args.temperature is not None else (0.1 if pass_type in ("confirmatory", "confirmatory_hedge") else 1.0)
 VIGNETTE_FILE = args.vignette_file if args.vignette_file is not None else str(REPO_ROOT / "data" / "vignette_core_set.csv")
 
 RESPONSES_DIR = REPO_ROOT / "responses" / pass_type
 RESPONSES_DIR.mkdir(parents=True, exist_ok=True)
 OUTFILE = str(RESPONSES_DIR / f"{mname}.csv")
+ATTEMPT_LOG_FILE = str(RESPONSES_DIR / f"{mname}_attempt_log.csv")
+
+# === select schema/parser/prompt: confirmatory_hedge gets the hedged field and per-attempt
+# logging, confirmatory/stability are completely unaffected by this addition ===
+IS_HEDGE_RUN = pass_type == "confirmatory_hedge"
+response_model = FaultRatingResponseHedge if IS_HEDGE_RUN else FaultRatingResponse
+fault_parser = PydanticOutputParser(pydantic_object=response_model)
+# only substitute {hedge_instructions} here -- {format_instructions} and
+# {additional_format_instructions} are left as literal placeholders, filled in later via
+# prompt_template.partial(...) below
+SYSTEM_PROMPT = SYSTEM_PROMPT_BASE.replace(
+    "{hedge_instructions}", HEDGE_INSTRUCTIONS if IS_HEDGE_RUN else ""
+)
+prompt_template = ChatPromptTemplate.from_messages([
+    ("system", SYSTEM_PROMPT),
+    ("human", "{vignette}"),
+])
 
 # === load vignettes ===
 # expects the actual columns produced by scripts/generate_vignettes.py:
@@ -148,7 +184,7 @@ header = [
     "agent_gender", "partner_gender", "relationship_context", "severity",
     "intentionality", "agent_name", "partner_name", "obligation_source",
     "reasoning", "obligation_identified", "fault_rating", "confidence"
-]
+] + (["hedged"] if pass_type == "confirmatory_hedge" else [])
 
 # count how many samples each vignette_id already has in an existing output file, so a
 # partial/interrupted run can resume without redoing already-collected rows
@@ -167,6 +203,29 @@ else:
 writer = csv.writer(outfile_handle)
 if not resuming:
     writer.writerow(header)
+
+# === attempt log: every call attempt (success or failure), not just the final valid one ===
+# gated to confirmatory_hedge -- confirmatory/stability behavior is unchanged, no attempt
+# log is written for them. This is what makes the true schema-failure/refusal rate (as
+# opposed to the self-reported `hedged` field above) visible at all -- previously every
+# failed attempt was silently retried over and never persisted anywhere, console-only.
+ATTEMPT_LOG_HEADER = [
+    "vignette_id", "model", "pass_type", "agent_gender", "partner_gender", "family_name",
+    "attempt_number", "success", "error_type", "error_message"
+]
+if IS_HEDGE_RUN:
+    attempt_log_resuming = Path(ATTEMPT_LOG_FILE).exists() and Path(ATTEMPT_LOG_FILE).stat().st_size > 0
+    attempt_log_handle = open(ATTEMPT_LOG_FILE, 'a' if attempt_log_resuming else 'w', newline='')
+    attempt_log_writer = csv.writer(attempt_log_handle)
+    if not attempt_log_resuming:
+        attempt_log_writer.writerow(ATTEMPT_LOG_HEADER)
+
+    def log_attempt(vrow, attempt_number, success, error_type="", error_message=""):
+        attempt_log_writer.writerow([
+            vrow['vignette_id'], mname, pass_type, vrow['agent_gender'], vrow['partner_gender'],
+            vrow['family_name'], attempt_number, success, error_type, error_message[:500],
+        ])
+        attempt_log_handle.flush()
 
 if not getenv("OPENROUTER_API_KEY"):
     raise Exception(
@@ -215,6 +274,9 @@ for _, vrow in all_vignettes.iterrows():
             response = chain.invoke({"vignette": prompt})
         except (OutputParserException, JSONDecodeError) as e:
             retry_count += 1
+            if IS_HEDGE_RUN:
+                log_attempt(vrow, retry_count, success=False,
+                            error_type=type(e).__name__, error_message=str(e))
             if retry_count > MAX_RETRIES_PER_CALL:
                 tqdm.write(f"Vignette {vignette_id} failed {MAX_RETRIES_PER_CALL} retries in a row "
                            f"(last error: {e}) -- skipping this vignette, not retrying forever. "
@@ -238,6 +300,8 @@ for _, vrow in all_vignettes.iterrows():
             raise
 
         sample_num += 1
+        if IS_HEDGE_RUN:
+            log_attempt(vrow, retry_count + 1, success=True)
         logging.info(f"\tRESPONSE --- fault_rating: {response.fault_rating}; confidence: {response.confidence}; obligation_identified: {response.obligation_identified}")
         row = [
             vignette_id, mname, pass_type, TEMP, sample_num,
@@ -245,12 +309,14 @@ for _, vrow in all_vignettes.iterrows():
             vrow['agent_gender'], vrow['partner_gender'], vrow['relationship_context'], vrow['severity'],
             vrow['intentionality'], vrow['agent_name'], vrow['partner_name'], vrow['obligation_source'],
             response.reasoning, response.obligation_identified, response.fault_rating, response.confidence
-        ]
+        ] + ([response.hedged] if IS_HEDGE_RUN else [])
         writer.writerow(row)
         prompt = vignette_text  # reset prompt for next fresh draw
         pbar.update(1)
 
 pbar.close()
+if IS_HEDGE_RUN:
+    attempt_log_handle.close()
 outfile_handle.close()
 
 if skipped_after_retries:

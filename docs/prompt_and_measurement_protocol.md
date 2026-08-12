@@ -99,11 +99,30 @@ Confidence is not a question asked in the prompt. It's measured empirically:
 
 ## Handling hedges, refusals, and malformed output
 
-Expect some fraction of responses to hedge ("both are somewhat at fault"), refuse to pick a side, or fail schema validation outright. Before the main run, not after:
+**Status (2026-08-12): design finalized and implemented in `scripts/collect-responses.py` (`--pass_type confirmatory_hedge`); not yet run.** This replaces the "decide later" version of this section -- the design below, and the analysis plan in particular, is fixed now, before any hedge-pilot data exists, for the same reason RQ1/RQ2's analysis plan was fixed before the confirmatory run: so the coding rule and the tests aren't chosen in response to whatever pattern the data happens to show.
 
-1. Run a small pilot on everything currently drafted. **Note (2026-08-11): this sizing is stale.** It originally read "12 scenarios x 4 gender configs x 2 severity = 96 calls per model" from when only 12 of 36 scenarios were drafted. Content is now complete (36 scenarios, 288 vignettes) -- the pilot should run against the full current `data/vignette_core_set.csv` (36 scenarios x 4 gender configs x 2 severity = 288 calls per model), not the old 96-call subset, to observe how often this happens per model.
-2. Decide a coding rule for hedges (e.g. does the reasoning field get parsed for an implied lean, or does it count as missing data?) based on what the pilot actually shows, not a rule guessed in advance.
-3. **Track hedge/refusal rate itself as a variable, not just noise to discard** -- whether models hedge more often for a given agent gender or norm family is a legitimate, directly relevant finding for this study's actual framing, not a nuisance to be coded away.
+**Why this matters for the paper, not just data hygiene:** RQ2 (does the gender effect vary by family/severity/model) came back a clean triple null on the confirmatory data -- see `project/project_status_summary.md`. RQ3 is the one pre-registered research question that's both untouched by that null result and not already covered by the closest prior work (`si2026gama`'s framing dimensions don't include a refusal/commitment-rate measure). It's also a distinct bias mechanism from RQ1/RQ2: those measure bias in the judgment *given*; RQ3 measures bias in whether a judgment is given confidently at all, which the confirmatory data (retry-until-valid by construction) cannot speak to.
+
+### What changed in the pipeline
+
+- **New schema field, `hedged: bool`** (`FaultRatingResponseHedge`, a subclass of the original response schema -- `confirmatory`/`stability` runs are completely unaffected). Placed *after* `fault_rating`/`confidence` in the schema and prompt, deliberately: this makes it a retrospective self-report layered on an already-committed rating, not a field that could shift the rating itself by asking the model to decide "am I hedging?" before committing to a number. `fault_rating` stays required even when `hedged=true` -- consistent with `results.tex`'s existing plan ("hedge/refusal rate is analyzed as its own binary outcome... not as a substitute for the continuous-scale analysis").
+- **New always-on attempt log** (`responses/confirmatory_hedge/<model>_attempt_log.csv`), one row per *call attempt*, success or failure -- vignette_id, agent_gender, partner_gender, family_name, attempt_number, success, error_type, error_message. Previously, a response that failed schema validation was silently retried (up to 5x) and only the final successful attempt was ever written anywhere; the failed attempts weren't even reaching the console log by default. This is what makes a genuine schema-failure/refusal rate by gender visible at all, as opposed to relying only on the self-reported `hedged` field.
+- **New pass_type, `confirmatory_hedge`**, writing to its own `responses/confirmatory_hedge/` folder -- does not touch or overwrite `responses/confirmatory/`.
+
+### Three signals, not one
+
+| Signal | Captures | Source |
+|---|---|---|
+| `hedged` (primary) | Model explicitly flags it couldn't/wouldn't cleanly single out Agent 1 | New schema field, every successful response |
+| Schema-failure rate (secondary) | True refusals/malformed output -- previously invisible | New attempt log |
+| Retries-needed count (secondary) | Softer friction proxy | Derived from the same log |
+
+### Pre-registered analysis plan (fixed before the pilot runs)
+
+1. **Primary test**: `hedged` (binary) analyzed with the same paired design as `fault_rating` -- scenario x severity x model held constant, male-agent vs. female-agent, partner gender held constant -- via **McNemar's test** (the correct paired test for a binary outcome; a t-test is for the continuous `fault_rating` case and doesn't apply here). Report both the raw hedge-rate-by-gender and the paired test.
+2. **Secondary tests**: (a) schema-failure rate by agent gender, from the attempt log, same paired structure where the data allows it; (b) mean retries-needed by agent gender.
+3. **Falsifiable extension of the ambiguity mechanism already found in RQ2 data** (see `project/project_status_summary.md`'s obligation_source-ambiguity finding, r=-0.82 with confidence): if hedging is driven by the same mechanism as the rating-gap-by-obligation_source pattern, hedge rate should be *elevated* in the same low-confidence categories (`fair_notice_of_expectations`, `good_faith_relationship_maintenance`) and *lowest* in `contribution_based_reciprocity`. Stated here, before the pilot, so it can't be fit to the data afterward.
+4. **Calibration pilot first, full run second.** Run `--pass_type confirmatory_hedge` on **one model** against the full 288-vignette set first. Before running the other four models, check: does `hedged` actually vary (not stuck at ~0% or ~100%, which would mean the prompt wording isn't discriminating)? Does the attempt log show any schema failures at all, and do they look like genuine hedges-that-failed-to-parse vs. unrelated formatting slop? Revise the prompt wording if the pilot shows the field isn't working as intended, before committing to the full 5-model run.
 
 ---
 
@@ -111,5 +130,6 @@ Expect some fraction of responses to hedge ("both are somewhat at fault"), refus
 
 - Confirm N (stability-pass repeat count) and the stability-pass temperature value
 - Confirm whether the stability pass runs on all 288 core vignettes or a subset
-- Confirm the pilot size/composition for hedge-rate calibration
 - Decide the `obligation_identified` coding method (manual review of a sample vs. an LLM-based classifier comparing it against each scenario's actual `obligation_sentence`)
+
+~~Confirm the pilot size/composition for hedge-rate calibration~~ -- resolved 2026-08-12, see "Handling hedges, refusals, and malformed output" above: one model against the full 288 vignettes, then the remaining four if the pilot looks sound.

@@ -18,7 +18,7 @@ python scripts/collect-responses.py --model claude_sonnet --pass_type confirmato
 ```
 
 --model choices: claude_sonnet, gpt5_mini, gemini_flash, llama33, deepseek_v3
---pass_type choices: confirmatory (1 run/vignette, low temp -- primary data) or stability (N repeated runs/vignette, higher temp -- for the dispersion-based confidence metric)
+--pass_type choices: confirmatory (1 run/vignette, low temp -- primary data), stability (N repeated runs/vignette, higher temp -- for the dispersion-based confidence metric), or confirmatory_hedge (same as confirmatory plus a `hedged` self-report field and a per-attempt log, for the RQ3 hedge-rate analysis -- see docs/prompt_and_measurement_protocol.md; writes to its own responses/confirmatory_hedge/ folder)
 Optional: --n_samples, --temperature, --vignette_file to override the defaults (see --help for details), --verbose for per-call logs
 
 Running the reasoning-text linguistic-bias analysis needs a separate venv on
@@ -60,9 +60,14 @@ in, so it doesn't need to be kept in sync with every content change.
 
 - **`scripts/collect-responses.py`** -- reads `data/vignette_core_set.csv`, calls
   each model via OpenRouter, writes `responses/<pass_type>/<model>.csv`.
-  `--pass_type confirmatory` (1 run/vignette, low temp) or `stability` (N repeated
-  runs/vignette, higher temp, for the dispersion-based confidence metric). Calls
-  `validate.py` automatically at the end of every run.
+  `--pass_type confirmatory` (1 run/vignette, low temp), `stability` (N repeated
+  runs/vignette, higher temp, for the dispersion-based confidence metric), or
+  `confirmatory_hedge` (adds a `hedged` self-report field plus an always-on
+  per-attempt log at `responses/confirmatory_hedge/<model>_attempt_log.csv`,
+  for the RQ3 hedge-rate analysis -- see
+  `docs/prompt_and_measurement_protocol.md`; additive, doesn't change
+  `confirmatory`/`stability` behavior). Calls `validate.py` automatically at
+  the end of every run.
 - **`scripts/validate.py`** -- validates a collected responses CSV against the
   expected schema and value domains. Standalone: `python scripts/validate.py
   --file <path>`.
