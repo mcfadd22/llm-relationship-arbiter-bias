@@ -32,6 +32,15 @@ Sign breakdown: 545 ties (75.7%), M>F in 137, F>M in 38 (ratio 3.61:1, sign-test
 - claude_sonnet: n=144, diff=+0.132, t=+3.55, d_z=+0.296, disagreement rate=31/144=21.5%, M-blamed:F-blamed ratio=4.17:1
 - llama33: n=144, diff=+0.125, t=+3.29, d_z=+0.274, disagreement rate=23/144=16.0%, M-blamed:F-blamed ratio=4.75:1
 
+## Formal test: does family (or model) significantly moderate the gender effect?
+
+The per-family and per-model breakdowns above each test whether that subgroup's own effect differs from zero -- they do NOT test whether the subgroups differ from *each other* more than chance would. That's a separate, harder question, tested here with a label-shuffle permutation one-way ANOVA on the per-pair fault_rating gender-diffs (family or model as the grouping label, 20000 shuffles, seed=42).
+
+- **Family**: F(8,711)=1.538, permutation p=0.1349
+- **Model**: F(4,715)=2.073, permutation p=0.0847
+
+**Neither reaches conventional significance (both p>0.05).** The per-family and per-model rankings reported above are a real, corroborated *descriptive* pattern (consistent across effect size, disagreement rate, and -- for family -- language visibility), but this formal test says we do not yet have the statistical power/evidence to claim family or model *significantly* moderates the size of the gender effect. With only 9 family groups or 5 model groups of ~80-144 pairs each, and the pooled effect itself modest (d_z=0.29), this omnibus test is inherently underpowered relative to the individual within-subgroup tests. **Correct framing for the paper:** the bias direction is remarkably consistent (never reverses across 9 families, 5 models, 2 severities), but claims that specific domains (e.g. Sexuality/Jealousy) show a *significantly larger* bias than others (e.g. Financial provision/Emotional labor) are not currently supported by a formal test and should be described as a suggestive, not confirmed, pattern -- a good candidate for the stability-pass/larger-N follow-up rather than a claim in the current paper's Results section.
+
 ## Agent-gender effect by obligation_source
 
 - good_faith_relationship_maintenance: n=20, diff=+0.250, t=+2.03, d_z=+0.454
@@ -42,6 +51,8 @@ Sign breakdown: 545 ties (75.7%), M>F in 137, F>M in 38 (ratio 3.61:1, sign-test
 - recognized_reliance_on_disclosure: n=40, diff=+0.200, t=+2.08, d_z=+0.329
 - accepted_role_responsibility: n=220, diff=+0.109, t=+3.41, d_z=+0.230
 - contribution_based_reciprocity: n=160, diff=+0.069, t=+2.23, d_z=+0.176
+
+Same formal-test caveat as family/model above: permutation omnibus test F(7,712)=1.554, p=0.1458 -- does not reach conventional significance. The ranking above is descriptive, corroborated by the disagreement-rate-by-source breakdown below, but not (yet) a confirmed difference between sources.
 
 ## Obligation_source profile across all vignettes (not nested in family)
 

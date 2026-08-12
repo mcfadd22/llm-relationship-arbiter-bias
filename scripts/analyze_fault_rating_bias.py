@@ -18,8 +18,12 @@ import csv
 import glob
 import math
 import os
+import random
 import statistics
 from collections import defaultdict
+
+N_PERMUTATIONS = 20000
+PERMUTATION_SEED = 42
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RESPONSES_GLOB = os.path.join(REPO_ROOT, "responses", "confirmatory", "*.csv")
@@ -84,6 +88,44 @@ def paired_stat(pairs, key):
     t = mean_d / se_d if se_d and not math.isnan(se_d) else float("nan")
     d_z = mean_d / sd_d if sd_d > 0 else float("nan")
     return n, mean_d, sd_d, t, d_z
+
+
+def one_way_anova_F(labels, values):
+    groups = defaultdict(list)
+    for l, v in zip(labels, values):
+        groups[l].append(v)
+    k = len(groups)
+    n = len(values)
+    grand = statistics.mean(values)
+    group_means = {l: statistics.mean(g) for l, g in groups.items()}
+    ss_between = sum(len(g) * (group_means[l] - grand) ** 2 for l, g in groups.items())
+    ss_within = sum(sum((x - group_means[l]) ** 2 for x in g) for l, g in groups.items())
+    df_between = k - 1
+    df_within = n - k
+    ms_between = ss_between / df_between
+    ms_within = ss_within / df_within
+    F = ms_between / ms_within if ms_within > 0 else float("inf")
+    return F, df_between, df_within
+
+
+def permutation_omnibus_test(labels, values, n_perm=N_PERMUTATIONS, seed=PERMUTATION_SEED):
+    """Label-shuffle permutation test for whether `labels` (e.g. family, model)
+    significantly moderates `values` (e.g. the per-pair fault_rating gender
+    diff) -- a formal, distribution-free omnibus interaction test, as opposed
+    to eyeballing whether each group's own effect size is individually
+    significant (which doesn't test whether the groups differ from each
+    other more than chance would produce)."""
+    F_obs, df1, df2 = one_way_anova_F(labels, values)
+    rng = random.Random(seed)
+    shuffled = list(labels)
+    count_ge = 0
+    for _ in range(n_perm):
+        rng.shuffle(shuffled)
+        F_perm, _, _ = one_way_anova_F(shuffled, values)
+        if F_perm >= F_obs:
+            count_ge += 1
+    p = (count_ge + 1) / (n_perm + 1)
+    return F_obs, df1, df2, p
 
 
 def pearson(xs, ys):
@@ -163,6 +205,44 @@ def main():
                     f"M-blamed:F-blamed ratio={ratio:.2f}:1")
     out.append("")
 
+    # 4b. Formal omnibus test: do family/model significantly moderate the
+    # size of the gender effect, rather than each subgroup just being
+    # individually nonzero? A per-family/per-model paired t-test (sections 3
+    # and 4 above) tests "is this subgroup's effect different from zero," NOT
+    # "do the subgroups differ from each other more than chance would." The
+    # latter is the actual formal interaction test, done here via a
+    # label-shuffle permutation one-way ANOVA (F-test, distribution-free).
+    out.append("## Formal test: does family (or model) significantly moderate the gender effect?\n")
+    out.append("The per-family and per-model breakdowns above each test whether that "
+                "subgroup's own effect differs from zero -- they do NOT test whether the "
+                "subgroups differ from *each other* more than chance would. That's a "
+                "separate, harder question, tested here with a label-shuffle permutation "
+                "one-way ANOVA on the per-pair fault_rating gender-diffs (family or model "
+                f"as the grouping label, {N_PERMUTATIONS} shuffles, seed={PERMUTATION_SEED}).\n")
+    fam_labels = [m["family_name"] for m, f in pairs]
+    diffs_all = [m["fault_rating"] - f["fault_rating"] for m, f in pairs]
+    F_fam, df1_fam, df2_fam, p_fam = permutation_omnibus_test(fam_labels, diffs_all)
+    out.append(f"- **Family**: F({df1_fam},{df2_fam})={F_fam:.3f}, permutation p={p_fam:.4f}")
+    model_labels = [m["model"] for m, f in pairs]
+    F_mod, df1_mod, df2_mod, p_mod = permutation_omnibus_test(model_labels, diffs_all)
+    out.append(f"- **Model**: F({df1_mod},{df2_mod})={F_mod:.3f}, permutation p={p_mod:.4f}\n")
+    out.append("**Neither reaches conventional significance (both p>0.05).** The per-family "
+                "and per-model rankings reported above are a real, corroborated *descriptive* "
+                "pattern (consistent across effect size, disagreement rate, and -- for "
+                "family -- language visibility), but this formal test says we do not yet "
+                "have the statistical power/evidence to claim family or model *significantly* "
+                "moderates the size of the gender effect. With only 9 family groups or 5 "
+                "model groups of ~80-144 pairs each, and the pooled effect itself modest "
+                "(d_z=0.29), this omnibus test is inherently underpowered relative to the "
+                "individual within-subgroup tests. **Correct framing for the paper:** the "
+                "bias direction is remarkably consistent (never reverses across 9 families, "
+                "5 models, 2 severities), but claims that specific domains (e.g. "
+                "Sexuality/Jealousy) show a *significantly larger* bias than others "
+                "(e.g. Financial provision/Emotional labor) are not currently supported by a "
+                "formal test and should be described as a suggestive, not confirmed, pattern "
+                "-- a good candidate for the stability-pass/larger-N follow-up rather than "
+                "a claim in the current paper's Results section.\n")
+
     # 5. Obligation-source moderator
     out.append("## Agent-gender effect by obligation_source\n")
     src_pairs = defaultdict(list)
@@ -176,6 +256,14 @@ def main():
     for src, n, md, t, d in src_results:
         out.append(f"- {src}: n={n}, diff={md:+.3f}, t={t:+.2f}, d_z={d:+.3f}")
     out.append("")
+    src_labels = [m["obligation_source"] for m, f in pairs]
+    F_src, df1_src, df2_src, p_src = permutation_omnibus_test(src_labels, diffs_all)
+    out.append(f"Same formal-test caveat as family/model above: permutation omnibus test "
+                f"F({df1_src},{df2_src})={F_src:.3f}, p={p_src:.4f} -- "
+                f"{'reaches' if p_src < 0.05 else 'does not reach'} conventional "
+                "significance. The ranking above is descriptive, corroborated by the "
+                "disagreement-rate-by-source breakdown below, but not (yet) a confirmed "
+                "difference between sources.\n")
 
     # 5b. Obligation_source profile independent of family -- not just the gender
     # gap, but absolute blameworthiness, disagreement rate, language, and

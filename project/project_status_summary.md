@@ -142,18 +142,41 @@ Analysis of `responses/confirmatory/*.csv` (5 models x 288 vignettes = 1,440 row
   - **obligation_source**: effect ranges from d_z=0.45 (good-faith relationship
     maintenance) down to d_z=0.18 (contribution-based reciprocity) -- bias is
     stronger for emotional/interpersonal-responsiveness obligations than for
-    concrete transactional-reciprocity ones. Worth a sentence in Discussion.
+    concrete transactional-reciprocity ones. **Descriptive pattern only** --
+    see the formal omnibus test below before citing this as a confirmed effect.
   - **relationship_context**: no clean monotonic pattern by relationship
     length/stage; effect stays positive (d_z=0.20-0.41) throughout.
   - **Per-model disagreement-pair rate**: every model shows the male-blamed-more
     asymmetry when it disagrees by gender at all, ranging 2.5:1 (Gemini Flash)
-    to 5.25:1 (GPT-5-mini). GPT-5-mini also has both the highest disagreement
-    rate (34.7% of its pairs) and the largest paired effect (d_z=0.44) --
-    corroborates it as a genuine outlier rather than a fluke of the earlier
-    naive test.
+    to 5.25:1 (GPT-5-mini). GPT-5-mini's own effect is individually significant
+    on its own data (d_z=0.44, t=+5.23, n=144) -- that claim stands on its own.
+    Whether GPT-5-mini's effect is *significantly larger* than the other
+    models' is a different, harder claim; see the formal test below.
   - **Per-family disagreement-pair rate**: highest in Jealousy/possessiveness
     (37.5%) and Sexuality & Intimacy (30.0%), lowest in Emotional labor (17.5%)
-    -- consistent with the family-level effect-size ranking already reported.
+    -- consistent with the family-level effect-size ranking, but again see the
+    formal test below before treating family differences as confirmed.
+- **Formal test: does family / model / obligation_source significantly
+  moderate the gender effect? No, not yet.** Each per-subgroup breakdown above
+  tests whether *that subgroup's own* effect differs from zero -- it does NOT
+  test whether the subgroups differ from *each other* more than chance would
+  (that's the actual interaction/moderation question). Tested with a
+  label-shuffle permutation one-way ANOVA on the 720 per-pair fault_rating
+  gender-diffs (20,000 shuffles): **family F(8,711)=1.54, p=0.135; model
+  F(4,715)=2.07, p=0.085; obligation_source F(7,712)=1.55, p=0.146**. None
+  reach conventional significance. With only 9 (or 5, or 8) groups of
+  ~80-220 pairs each and a modest pooled effect (d_z=0.29), this omnibus test
+  is inherently underpowered relative to the individual within-subgroup
+  tests reported above -- a case where many subgroup analyses can each look
+  individually significant while the heterogeneity between them remains
+  statistically unconfirmed. **Correct framing for the paper:** the bias
+  *direction* is remarkably consistent (never reverses across 9 families, 5
+  models, 8 obligation sources, 2 severities) -- that consistency is real and
+  citable. But claims that specific domains/models/obligation-types show a
+  *significantly larger* bias than others are not currently supported by a
+  formal test and should be written up as a suggestive, not confirmed,
+  pattern -- a candidate for the stability-pass/larger-N follow-up rather
+  than a Results-section claim as-is.
 - **Is the obligation_source effect divorceable from family/domain?** Mostly
   not. Two sources (`fair_notice_of_expectations`,
   `good_faith_relationship_maintenance`) occur only in Sexuality & Intimacy --
