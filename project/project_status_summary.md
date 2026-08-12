@@ -223,7 +223,7 @@ Analysis of `responses/confirmatory/*.csv` (5 models x 288 vignettes = 1,440 row
     situational lapse when a man is. Worth a sentence in Discussion and a
     candidate target for the LLM-assisted pattern-discovery pass.
 
-## RQ3 (hedge/refusal rate) -- design finalized 2026-08-12, implementation is Thulasi's
+## RQ3 (hedge/refusal rate) -- draft idea as of 2026-08-12, to discuss with Thulasi
 
 Full research-question landscape, from `paper/intro.tex` (recovered to disk
 2026-08-12 -- see note below): RQ1 (main effect, confirmed) replicates
@@ -237,10 +237,11 @@ unanswerable from existing data: `collect-responses.py` retries up to 5x on
 schema failures and keeps only the final valid response, so no refusal/hedge
 signal survives to the CSV, and nothing was logged to a persisted file either.
 
-**Design spec finalized 2026-08-12** in `docs/prompt_and_measurement_protocol.md`
-("Handling hedges, refusals, and malformed output") -- **not implemented in
-code here**; the pipeline change (`scripts/collect-responses.py`,
-`scripts/validate.py`) is Thulasi's to make, consistent with her owning the
+**A first-pass idea sketched out 2026-08-12** in `docs/prompt_and_measurement_protocol.md`
+("Handling hedges, refusals, and malformed output") -- not decided, not
+reviewed with Thulasi yet, and **not implemented in code here**; the pipeline
+change (`scripts/collect-responses.py`, `scripts/validate.py`) would be
+Thulasi's to make if this direction survives discussion, consistent with her owning the
 data collection pipeline (see Division of labor below). Spec summary:
 - A new `hedged: bool` self-report field on the response schema, placed after
   `fault_rating`/`confidence` so it's a retrospective self-report rather than
@@ -337,11 +338,12 @@ dependency, not an action item for them.
 
 ## Open items, most to least urgent
 
-1. **RQ3 hedge-rate pipeline change + pilot run** -- design and analysis plan
-   are finalized (see the RQ3 section above and
-   `docs/prompt_and_measurement_protocol.md`), but the actual pipeline change
-   is not implemented -- that's Thulasi's to make in `scripts/collect-responses.py`,
-   consistent with her owning the collection pipeline. Once implemented: run
+1. **RQ3 hedge-rate idea -- to discuss with Thulasi, nothing decided.** A
+   draft idea and rough analysis approach are sketched out (see the RQ3
+   section above and `docs/prompt_and_measurement_protocol.md`), but this
+   hasn't been discussed with Thulasi yet, and no pipeline change has been
+   made -- that would be hers to do in `scripts/collect-responses.py` if the
+   direction survives discussion. If it does: run
    the one-model calibration pilot, confirm `hedged` is discriminating as
    intended, then run the remaining four models. Currently the paper's single
    most promising untapped source of genuine novelty, given RQ1 replicates
