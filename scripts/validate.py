@@ -1,5 +1,3 @@
-from typing import Optional
-
 import pandas as pd
 from pydantic import BaseModel, field_validator, ValidationError
 
@@ -27,12 +25,11 @@ class ResponseRowSchema(BaseModel):
     obligation_identified: str
     fault_rating: int
     confidence: int
-    hedged: Optional[bool] = None  # only present for pass_type == 'confirmatory_hedge'
 
     @field_validator('pass_type')
     @classmethod
     def check_pass_type(cls, v):
-        allowed = {'confirmatory', 'stability', 'confirmatory_hedge'}
+        allowed = {'confirmatory', 'stability'}
         if v not in allowed:
             raise ValueError(f"pass_type must be one of {allowed}, got '{v}'")
         return v
@@ -94,18 +91,15 @@ REQUIRED_COLUMNS = {
     "intentionality", "agent_name", "partner_name", "obligation_source",
     "reasoning", "obligation_identified", "fault_rating", "confidence"
 }
-# confirmatory_hedge adds this one extra column (see docs/prompt_and_measurement_protocol.md)
-OPTIONAL_COLUMNS = {"hedged"}
 
 
 def validate_dataframe(df: pd.DataFrame) -> int:
     """Validate a responses dataframe against the expected schema.
     Returns the number of invalid rows found (0 = all rows valid)."""
 
-    columns = set(df.columns)
-    missing = REQUIRED_COLUMNS - columns
-    extra = columns - REQUIRED_COLUMNS - OPTIONAL_COLUMNS
-    if missing or extra:
+    if set(df.columns) != REQUIRED_COLUMNS:
+        missing = REQUIRED_COLUMNS - set(df.columns)
+        extra = set(df.columns) - REQUIRED_COLUMNS
         raise ValueError(
             f"DataFrame columns do not match expected schema.\n"
             f"Missing: {missing or 'none'}\nUnexpected: {extra or 'none'}"
@@ -137,7 +131,6 @@ def validate_dataframe(df: pd.DataFrame) -> int:
                 obligation_identified=row['obligation_identified'],
                 fault_rating=row['fault_rating'],
                 confidence=row['confidence'],
-                hedged=row['hedged'] if 'hedged' in df.columns else None,
             )
         except ValidationError as e:
             print(f"Row {idx} (vignette_id={row.get('vignette_id')}) is invalid: {e}")

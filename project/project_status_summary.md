@@ -223,7 +223,7 @@ Analysis of `responses/confirmatory/*.csv` (5 models x 288 vignettes = 1,440 row
     situational lapse when a man is. Worth a sentence in Discussion and a
     candidate target for the LLM-assisted pattern-discovery pass.
 
-## RQ3 (hedge/refusal rate) -- pipeline built 2026-08-12, ready for Thulasi to run
+## RQ3 (hedge/refusal rate) -- design finalized 2026-08-12, implementation is Thulasi's
 
 Full research-question landscape, from `paper/intro.tex` (recovered to disk
 2026-08-12 -- see note below): RQ1 (main effect, confirmed) replicates
@@ -237,26 +237,27 @@ unanswerable from existing data: `collect-responses.py` retries up to 5x on
 schema failures and keeps only the final valid response, so no refusal/hedge
 signal survives to the CSV, and nothing was logged to a persisted file either.
 
-**Fixed 2026-08-12**, all in `scripts/collect-responses.py` (new `--pass_type
-confirmatory_hedge`, additive -- `confirmatory`/`stability` behavior
-completely unchanged):
-- New `hedged: bool` self-report field on the response schema (a subclass,
-  `FaultRatingResponseHedge`), placed after `fault_rating`/`confidence` so
-  it's a retrospective self-report rather than something that could shift the
-  rating itself.
-- New always-on attempt log (`responses/confirmatory_hedge/<model>_attempt_log.csv`)
-  recording every call attempt, success or failure -- this is what makes a
-  true schema-failure/refusal rate by gender visible at all.
-- `scripts/validate.py` updated to accept the new column/pass_type.
+**Design spec finalized 2026-08-12** in `docs/prompt_and_measurement_protocol.md`
+("Handling hedges, refusals, and malformed output") -- **not implemented in
+code here**; the pipeline change (`scripts/collect-responses.py`,
+`scripts/validate.py`) is Thulasi's to make, consistent with her owning the
+data collection pipeline (see Division of labor below). Spec summary:
+- A new `hedged: bool` self-report field on the response schema, placed after
+  `fault_rating`/`confidence` so it's a retrospective self-report rather than
+  something that could shift the rating itself.
+- A new always-on attempt log recording every call attempt, success or
+  failure -- needed to make a true schema-failure/refusal rate by gender
+  visible at all, since failed attempts currently aren't persisted anywhere.
+- A new pass_type, additive only -- `confirmatory`/`stability` behavior
+  should be completely unaffected.
 - Full pre-registered analysis plan (McNemar's test on paired hedge rate by
   gender; secondary schema-failure-rate and retries-needed checks; a
   falsifiable extension of the obligation_source-ambiguity mechanism found in
-  RQ2 data) written into `docs/prompt_and_measurement_protocol.md` **before**
-  any hedge-pilot data exists.
-- **Next step, explicitly sequenced**: one model against the full 288
-  vignettes first (calibration pilot -- confirm `hedged` actually
-  discriminates, not stuck near 0%/100%), *then* the remaining four models
-  once that looks sound. Not a full 5-model run on the first attempt.
+  RQ2 data), written **before** any hedge-pilot data exists.
+- **Sequencing**: one model against the full 288 vignettes first (calibration
+  pilot -- confirm `hedged` actually discriminates, not stuck near 0%/100%),
+  *then* the remaining four models once that looks sound. Not a full
+  5-model run on the first attempt.
 
 Note: `paper/` was found empty (untracked-but-actually-deleted from disk by
 commit `2262a9b`, whose message said "keep local files only") and was
@@ -336,13 +337,15 @@ dependency, not an action item for them.
 
 ## Open items, most to least urgent
 
-1. **RQ3 hedge-rate pilot run** -- pipeline change is done (`--pass_type
-   confirmatory_hedge`, see the RQ3 section above), analysis plan is
-   pre-registered in `docs/prompt_and_measurement_protocol.md`. Needs Thulasi
-   to run the one-model calibration pilot, confirm `hedged` is discriminating
-   as intended, then run the remaining four models. Currently the paper's
-   single most promising untapped source of genuine novelty, given RQ1
-   replicates prior work and RQ2 came back null.
+1. **RQ3 hedge-rate pipeline change + pilot run** -- design and analysis plan
+   are finalized (see the RQ3 section above and
+   `docs/prompt_and_measurement_protocol.md`), but the actual pipeline change
+   is not implemented -- that's Thulasi's to make in `scripts/collect-responses.py`,
+   consistent with her owning the collection pipeline. Once implemented: run
+   the one-model calibration pilot, confirm `hedged` is discriminating as
+   intended, then run the remaining four models. Currently the paper's single
+   most promising untapped source of genuine novelty, given RQ1 replicates
+   prior work and RQ2 came back null.
 2. **Independent hand-read validation of the reasoning-text linguistic
    features** -- paired statistical tests are now done (see Confirmatory-pass
    analysis above); what's still missing is Meredith's own independent
