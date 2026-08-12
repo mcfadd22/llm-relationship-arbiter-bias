@@ -154,6 +154,51 @@ Analysis of `responses/confirmatory/*.csv` (5 models x 288 vignettes = 1,440 row
   - **Per-family disagreement-pair rate**: highest in Jealousy/possessiveness
     (37.5%) and Sexuality & Intimacy (30.0%), lowest in Emotional labor (17.5%)
     -- consistent with the family-level effect-size ranking already reported.
+- **Is the obligation_source effect divorceable from family/domain?** Mostly
+  not. Two sources (`fair_notice_of_expectations`,
+  `good_faith_relationship_maintenance`) occur only in Sexuality & Intimacy --
+  fully confounded by design, cannot be separated at all. For the rest,
+  residualizing each pair's diff by its own family's mean diff shows most
+  sources' apparent effect shrinking toward ~0 (|residual t|<1.5) once family
+  is removed -- i.e. most of the obligation_source ranking above **is** the
+  family/domain effect. One partial exception: `contribution_based_reciprocity`
+  (the most cross-cutting source, 8/9 families) keeps a negative residual
+  (t~-1.9, marginal) after removing family means, and is the lowest-or-near-
+  lowest-bias source within its own family in 5 of 6 families where it
+  co-occurs with another source -- a real but modest, family-independent
+  damping effect for transactional/reciprocity-framed obligations. Small
+  per-cell n and no multiple-comparison correction throughout.
+- **Obligation_source profile independent of the gender question entirely**
+  (a more basic finding, not nested in family): absolute `fault_rating` level
+  varies by ~0.8 points (0-7 scale) by obligation type alone --
+  `contribution_based_reciprocity` judged most harshly and most confidently
+  (mean=5.43, confidence=87.5), `fair_notice_of_expectations` least (mean=4.60).
+  **Ambiguity appears to predict the size of the gender gap**: across the 8
+  sources, lower mean confidence and lower mean fault_rating correlate with a
+  *larger* gender gap (r=-0.82 with confidence, r=-0.62 with mean fault_rating,
+  n=8 source-level points -- an ecological correlation, a strong descriptive
+  pattern and plausible mechanism hypothesis, not an individual-response-level
+  significance test). The two lowest-bias sources are also the two judged most
+  harshly/confidently overall. This is the closest thing to a unifying
+  explanation across today's findings: **when a violation is clear-cut, models
+  judge it harshly and consistently regardless of agent gender; when it's more
+  ambiguous, gender has more room to influence the verdict.**
+- **Linguistic features by family** (extends the corpus-wide near-null
+  language result): small per-cell n (~20-80 pairs/family/feature), no
+  multiple-comparison correction across 9 families x 4 features -- exploratory
+  leads, not confirmed effects.
+  - **Sexuality & Intimacy** is the only family with a significant
+    agentic-language gender gap (t=+2.4) and has by far the largest
+    communal-language gap (t=+2.3) -- here the numeric bias comes *with*
+    visible language differentiation, unlike most other families.
+  - **Jealousy/possessiveness** -- the family with the single largest numeric
+    fault_rating bias -- shows a significant *negative* LIB effect (t=-2.1):
+    female agents get *more* dispositional/trait-level blame language there
+    even though male agents get the higher numeric fault_rating. Verdict and
+    narrative point opposite directions in this one domain -- plausibly
+    jealousy read as a character trait when a woman is judged vs. a
+    situational lapse when a man is. Worth a sentence in Discussion and a
+    candidate target for the LLM-assisted pattern-discovery pass.
 
 ## Options for further data collection (not yet run; Thulasi's call)
 
