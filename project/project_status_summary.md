@@ -8,23 +8,96 @@ forward rather than creating another parallel status doc.
 
 ## Current state, in one paragraph
 
-The vignette dataset is content-complete and QC-audited: 288 core vignettes (36
-scenarios x 4 gender configs x 2 severity), all passing the writing-standards
-checklist including a mild/severe-contradiction pass added 2026-08-11. A short-paper
-draft for the JUDGe 2026 workshop is underway, with everything not gated on actual
-model output drafted. The confirmatory pass (1 run/vignette, all 5 models, full
-288-vignette set) has now been run and committed (`responses/confirmatory/`) --
-see "Confirmatory-pass analysis" below for the fault_rating gender-bias findings
-and the reasoning-text linguistic-bias pass now underway on top of it.
+**Two dataset generations now exist -- do not conflate them.** The **original
+288-vignette set** (36 scenarios x 4 gender configs x 2 severity) is what
+`responses/confirmatory/` was actually collected against (1 run/vignette, all 5
+models, 1,440 rows) -- every finding in "Confirmatory-pass analysis" below (the
+fault_rating gender-bias results, the family power analysis, the BBQ/KoBBQ
+diff-bias score, the same-gender control) is based on that 288-vignette set and
+remains valid as a description of that data. A **new, expanded 1,458-vignette
+set** (81 scenarios x 9 gender configs x 2 severity) was drafted 2026-08-18 for
+the *next* run -- see "Dataset (2026-08-18 expansion, not yet run)" below --
+but **no model has seen this expanded set yet**; nothing in the
+Confirmatory-pass analysis section reflects it. A short-paper draft for GeBNLP
+2026 (replacing JUDGe 2026, see memory) is underway.
 
-## Dataset
+## Dataset (2026-08-18 expansion, not yet run)
+
+- **Design formula:** 9 relationship-norm families x 9 scenarios per family (81
+  total, up from 4/family) x 9 gender configurations (full crossing of
+  {M, F, NB} for agent x partner: MF/FM/MM/FF/NBM/NBF/NBNB/MNB/FNB, equal
+  weight) x 2 severity levels = **1,458 vignettes** (up from 288). At 5 models
+  this is 7,290 responses for the next confirmatory pass, vs. 1,440 for the
+  current one -- a ~5x cost increase, the "significant change" to confirm with
+  Thulasi before running.
+- **Why the scenario increase:** targeted directly at the family-omnibus power
+  problem identified in `analysis/family_power_analysis_findings.md` (+4 to +6
+  scenarios/family needed for ~94-98% power) -- went to +5/family. Each
+  family's 5 new scenarios were chosen to close obligation_source gaps (see
+  `scripts/family_omnibus_power_analysis.py`'s discussion and the diversification
+  plan worked out in conversation 2026-08-18): every family now has all 6
+  cross-cutting obligation sources represented (verified programmatically),
+  most notably `contribution_based_reciprocity` now appearing in all 9/9
+  families (previously missing only from Jealousy/possessiveness, which sat at
+  the checklist-minimum 2 sources). The 2 SEXEXP-locked sources
+  (`good_faith_relationship_maintenance`, `fair_notice_of_expectations`) remain
+  correctly confined to that family.
+- **Why the gender-config increase (NB extension):** added to engage GeBNLP's
+  explicit call to go "beyond binary gender," and because scenario content
+  required zero rewriting to support it -- every template field was already
+  gender-neutral (anonymized Agent 1/Agent 2, no pronouns) by the v3
+  agent-labeling design, so adding a third gender value is a rendering-only
+  change (`GENDER_LABEL`, `GENDER_CONFIGS` in `scripts/generate_vignettes.py`).
+  Verified the actual rendered `vignette_text` says "Agent 1 (nonbinary)" in
+  full -- M/F/NB letter codes exist only in CSV metadata columns
+  (`agent_gender`/`partner_gender`/`vignette_id`), never in what the model
+  reads. NB is a full third level of both `agent_gender` and `partner_gender`
+  (complete 3x3 crossing): NB-as-agent (NBM/NBF, holding partner gender
+  constant) tests whether the existing agent-gender effect holds up for a
+  nonbinary agent, the same way M-vs-F already is; NB-as-partner (MNB/FNB)
+  tests whether a nonbinary partner changes how the agent is judged, the same
+  way the existing partner-gender secondary effect already is; NBNB is a
+  same-identity control, analogous to MM/FF.
+- **Generation process:** all 45 new scenarios were drafted by 9 parallel
+  LLM-assisted drafting passes (one per family, per the process
+  `docs/vignette_generation_spec.md` was written for), each given the family's
+  existing 4 scenarios plus a specific ordered obligation_source target list,
+  then hand-reviewed against the writing-standards checklist before
+  integration into `data/vignette_params.json`.
+- **QC status on the expanded set:** `scripts/lint_vignette_params.py` reports
+  **0 hard issues** (3 lint-tool false positives found and fixed by rewording
+  -- a bare-pronoun "this from," a pronominal "this one," and an "again...the
+  one to" idiom the isolation-regex misread -- documented as false positives,
+  not content bugs, so the lint script itself wasn't changed). 10 soft review
+  flags remain, all manually verified as benign (each describes the partner's
+  state or a background fact, matching patterns already accepted in the
+  original 36 scenarios). Word-count parity (<20% spread across each
+  scenario's 18 cells) and a whole-word banned-language scan (pronouns, moral
+  adjectives, personality descriptors) both clean across all 1,458 rendered
+  vignettes.
+- **Known blocker: `scripts/validate.py` will reject NB rows as written.** Its
+  `check_gender` validator only allows `{'M', 'F'}`. This is Thulasi's file
+  (data-collection pipeline, not touched here per division of labor) -- needs
+  a one-line fix to allow `'NB'` before any response data from the expanded
+  set can pass validation.
+- **Pilot manipulation/severity check against the expanded set:** not run
+  (this is a fresh gap on top of the original set's severity check, which
+  already passed -- see Confirmatory-pass analysis below -- but that check
+  only covers the original 288, not the new scenarios or the new NB configs).
+
+## Dataset (original 288-vignette set -- what `responses/confirmatory/` was collected against)
 
 - **Design formula:** 9 relationship-norm families x 4 scenarios per family (36
   total) x 4 gender configurations (MF/FM/MM/FF, equal weight -- same-gender pairs
   are not a separate deferred arm) x 2 severity levels = **288 vignettes**.
 - **Source of truth:** `data/vignette_params.json`. Generated output:
   `data/vignette_core_set.csv` (regenerate via `scripts/generate_vignettes.py`
-  after any edit to the params file).
+  after any edit to the params file) -- **note this file now reflects the
+  expanded 1,458-vignette set** (the params file was edited in place); the
+  original 288-row version is not separately preserved on disk, but every
+  scenario/gender-config/severity combination it contained is a subset still
+  present in the expanded params file, and `responses/confirmatory/*.csv`
+  (the actual collected data the analysis below is based on) is untouched.
 - **Agent labeling (v3, current):** anonymized `Agent 1` (norm-violator) /
   `Agent 2` (partner) labels, no names, no pronouns anywhere. Gender stated once
   per agent as an explicit `(female)`/`(male)` tag at first mention. Retired the
@@ -48,10 +121,9 @@ and the reasoning-text linguistic-bias pass now underway on top of it.
   This check is now automated in `scripts/lint_vignette_params.py` (currently
   reports zero hard issues) and documented as checklist item G in
   `docs/vignette_writing_standards.md`.
-- **Pilot manipulation/severity check against the full 288:** still not run. This
-  is the most important remaining step before treating the dataset as
-  analysis-ready, and needs to cover all 4 gender configs (the original plan only
-  covered MF/FM, written before same-gender pairs were folded into core).
+- **Pilot manipulation/severity check against the full 288:** passed (see
+  Confirmatory-pass analysis below) -- but only covers the original 288, see
+  the expanded-set section above for what's still outstanding there.
 
 ## Measurement / prompt design
 
@@ -96,6 +168,56 @@ Analysis of `responses/confirmatory/*.csv` (5 models x 288 vignettes = 1,440 row
   secondary effect: agents rated slightly more at fault when the partner/victim
   is female (d=-0.11). Cross-model fault_rating agreement is moderate (pairwise
   r=0.57-0.74 on matched vignettes).
+- **BBQ/KoBBQ positioning (2026-08-18).** GeBNLP reviewers will know BBQ
+  (Parrish et al. 2022, Findings of ACL, arXiv:2110.08193) -- its ambiguous-vs-
+  disambiguated-context design is structurally close to what this project's
+  domain-heterogeneity work is after, and not citing/positioning against it
+  would look like an oversight. Verified both papers' actual formulas directly
+  (an externally-sourced summary had the BBQ ambiguous/disambiguated formula
+  assignment backwards -- worth knowing since a wrong formula in the paper
+  would be exactly the kind of thing GeBNLP's desk-rejection criteria flag):
+  BBQ's `s_DIS = 2*(n_biased/n_non-UNKNOWN)-1` is the *disambiguated*-context
+  score; `s_AMB = (1-accuracy)*s_DIS` is ambiguous, scaled by how often the
+  model failed to correctly answer "Unknown." KoBBQ (Jin et al. 2024, TACL,
+  arXiv:2307.16778) fixes the disambiguated side specifically via an
+  *accuracy*-difference (`Diff-bias_d = Acc_biased - Acc_counter-biased`), and
+  the ambiguous side via `Diff-bias_a = (n_biased-n_counter-biased)/n_total`.
+  **Only the ambiguous-context, no-accuracy-needed formula transfers to this
+  study** -- fault_rating is a normative judgment with no ground-truth
+  correct answer, and models are never given BBQ's explicit "Unknown/decline
+  to judge" option, so the disambiguated-context formulas (which both papers
+  build around an accuracy concept) don't apply here at all. Implemented the
+  transferable piece in `scripts/analyze_fault_rating_bias.py` ("BBQ/KoBBQ-style
+  diff-bias score"): overall Diff-bias=(137-38)/720=+0.1375, also broken out
+  by family (tracks the existing d_z ranking, since it's a sign-only version
+  of the same effect) -- a free, benchmark-comparable number using existing
+  data, with the "ties as Unknown" disanalogy explicitly flagged (BBQ's
+  Unknown is a single model-chosen response in one query; a tie here is an
+  emergent match between two independently-scored configs, not a choice the
+  model makes). **Possible metric-development angle for GeBNLP's Measurement
+  track:** the deferred intentionality-robustness arm (accidental/negligent/
+  knowing/purposeful, 72 vignettes -- see Open items) is a much cleaner
+  structural analog to BBQ's ambiguous/disambiguated axis than the
+  obligation_source split already tried and found not to hold at the pair
+  level (see above) -- accidental/negligent readings are genuinely ambiguous
+  about fault, purposeful is clear-cut, and there's no forced ground-truth
+  answer either way, meaning an extension of diff-bias-style scoring to a
+  continuous, no-ground-truth judgment task could be a genuine, citable
+  methodological contribution, not just a borrowed metric. Not yet built --
+  raises the priority of the intentionality arm considerably if this
+  direction is pursued.
+- **Same-gender (MM/FF) control: run for the first time (2026-08-18), supports
+  the main finding.** `paper/results.tex`'s Planned Analysis specifies this
+  control -- MM vs. FF pairs, holding scenario/severity/model constant -- but
+  it had never actually been run, despite the data existing in the confirmatory
+  pass all along (360 MM rows, 360 FF rows already collected). Now implemented
+  in `scripts/analyze_fault_rating_bias.py` ("Same-gender (MM/FF) control"):
+  mean diff (MM-FF)=+0.050, d_z=0.105, n=360 -- about a third the size of the
+  main MF/FM effect (d_z=0.288). The effect isn't exactly zero (t=2.00,
+  marginally significant on its own), so this isn't a perfectly clean null
+  control, but it's substantially attenuated relative to the opposite-sex
+  comparison, which is the pattern a genuine agent-gender effect (rather than a
+  scenario-content confound) should produce.
 - **Reasoning-text linguistic-bias pass (in progress):**
   `scripts/analyze_reasoning_text.py` extracts three features per response's
   free-text `reasoning` field into `analysis/reasoning_features.csv`:
@@ -177,6 +299,24 @@ Analysis of `responses/confirmatory/*.csv` (5 models x 288 vignettes = 1,440 row
   formal test and should be written up as a suggestive, not confirmed,
   pattern -- a candidate for the stability-pass/larger-N follow-up rather
   than a Results-section claim as-is.
+- **Pre-registered ambivalent-sexism family-group contrast: does not hold up
+  (2026-08-18).** `paper/results.tex`'s Planned Analysis already committed, before
+  this was tested, to a specific 2-group prediction (Glick & Fiske 1996, 1999):
+  benevolent-sexism families (Emotional labor, Sexuality & Intimacy) and
+  hostile-sexism/power-control families (Financial provision, Household labor,
+  Jealousy/possessiveness) should together show a larger male-disadvantaging gap
+  than the four families with no theoretical prediction (Childcare, Mental load,
+  Career sacrifice, Family obligations). Implemented and run in
+  `scripts/analyze_fault_rating_bias.py` ("Pre-registered test: ambivalent-sexism
+  family-group contrast"): predicted families mean diff=+0.168 (n=400) vs.
+  no-prediction families mean diff=+0.116 (n=320), F(1,718)=1.90, permutation
+  p=0.17 -- **not significant, and not just underpowered:** Financial provision
+  and Emotional labor -- two of the five theory-predicted families -- individually
+  show some of the *smallest* effects in the whole dataset despite being predicted
+  to run high, so the within-group pattern is genuinely mixed, not a real signal
+  buried in noise. This specific ambivalent-sexism grouping should not be reported
+  as supported. See `paper/sources/design_decisions_log.md` for the traceability
+  note.
 - **Is the obligation_source effect divorceable from family/domain?** Mostly
   not. Two sources (`fair_notice_of_expectations`,
   `good_faith_relationship_maintenance`) occur only in Sexuality & Intimacy --
@@ -196,16 +336,29 @@ Analysis of `responses/confirmatory/*.csv` (5 models x 288 vignettes = 1,440 row
   varies by ~0.8 points (0-7 scale) by obligation type alone --
   `contribution_based_reciprocity` judged most harshly and most confidently
   (mean=5.43, confidence=87.5), `fair_notice_of_expectations` least (mean=4.60).
-  **Ambiguity appears to predict the size of the gender gap**: across the 8
-  sources, lower mean confidence and lower mean fault_rating correlate with a
-  *larger* gender gap (r=-0.82 with confidence, r=-0.62 with mean fault_rating,
-  n=8 source-level points -- an ecological correlation, a strong descriptive
-  pattern and plausible mechanism hypothesis, not an individual-response-level
-  significance test). The two lowest-bias sources are also the two judged most
-  harshly/confidently overall. This is the closest thing to a unifying
-  explanation across today's findings: **when a violation is clear-cut, models
-  judge it harshly and consistently regardless of agent gender; when it's more
-  ambiguous, gender has more room to influence the verdict.**
+  **Ambiguity-predicts-gender-gap finding: did not survive a pair-level
+  retest (2026-08-18) -- treat as not supported.** The original version of
+  this claim was an ecological correlation across only 8 obligation_source-level
+  points (r=-0.82 with confidence, r=-0.62 with mean fault_rating, n=8). Retested
+  at the actual unit of analysis -- the 720 individual matched pairs, via
+  `scripts/analyze_confidence_ambiguity.py` (output in
+  `analysis/confidence_ambiguity_findings.md`) -- the relationship is
+  essentially null: pair confidence vs. signed gender gap r=-0.048 (p=0.20),
+  vs. absolute gap r=-0.036 (p=0.34), disagreement pairs (n=175) vs. tied pairs
+  (n=545) show no meaningful confidence difference (85.79 vs. 86.21), and the
+  family-residualized version is also null (r=-0.034). Even the family-level
+  version of the correlation is much weaker than the obligation_source one
+  (r=-0.46 on 9 families vs. r=-0.82 on 8 sources). This looks like a classic
+  ecological-correlation artifact from aggregating down to 8 points, not a
+  signal that holds at the level individual responses actually live at. One
+  likely contributor: self-reported `confidence` is heavily compressed
+  (family means only span 83-88 out of 0-100), so there may not be much real
+  variance in the self-report field for anything to track -- a measurement-
+  sensitivity problem, not necessarily proof the underlying mechanism is
+  false, but it means this field as currently collected can't support the
+  claim. **Do not report the r=-0.82 framing in the paper as-is; do not
+  prioritize a stability pass or new arm to chase this mechanism further
+  without a stronger prior result to justify the cost** -- see Open items.
 - **Linguistic features by family** (extends the corpus-wide near-null
   language result): small per-cell n (~20-80 pairs/family/feature), no
   multiple-comparison correction across 9 families x 4 features -- exploratory
@@ -298,6 +451,34 @@ Thulasi has bandwidth:
 6. **Broader model roster.** Marginal value given the effect already replicates
    across 5 models / 4 providers without reversing; would mostly add
    robustness rather than new mechanism insight.
+7. **More scenarios per family (content-writing, Meredith's, not a run decision)
+   -- now backed by an actual power analysis (2026-08-18).** With the
+   ambivalent-sexism planned contrast tested and not supported and the
+   ambiguity/confidence mechanism not holding at the pair level, there's no
+   theory-driven shortcut left -- the direct lever is more scenarios per family
+   (currently 4). `scripts/family_omnibus_power_analysis.py` (output in
+   `analysis/family_power_analysis_findings.md`) quantifies this: at the
+   current n=80 pairs/family, the omnibus test has only ~65-67% power even if
+   today's per-family estimates are exactly correct, so the observed
+   non-significant result (p=0.135) is a plausible underpowered draw, not
+   evidence of no effect. **+4 to +6 new scenarios per family gets to ~94-98%
+   power.** A bootstrap check of the top-3 families (Jealousy, Sexuality &
+   Intimacy, Household labor) shows that ranking is reasonably stable
+   (93%/82%/69% bootstrap top-3 rates vs. <=20% for the other 6 families) --
+   not pure noise -- but concentrating new scenarios only in those 3 is not
+   recommended: it's about as power-efficient as spreading evenly for the
+   omnibus test itself at moderate budgets, but leaves the other 6 families
+   permanently under-estimated (bad for a deployment "risk map," which needs
+   confidently-ruled-out low-risk domains too, not just confirmed high-risk
+   ones) and invites a circularity objection (selecting domains and testing
+   them on the same data). **Recommendation: add new scenarios evenly across
+   all 9 families**, using the current ranking only as a disclosed Stage-1
+   hypothesis that the Stage-2 (new-scenario) data can independently confirm
+   or not -- not as a target for where to spend the new writing budget.
+   When choosing each new scenario's `obligation_source`, prefer one not yet
+   used in that family (see the obligation_source-diversification discussion
+   above/in conversation) so the added content also helps the family-vs-source
+   confound, not just the raw N.
 
 ## Paper (JUDGe 2026 workshop)
 
@@ -376,6 +557,32 @@ dependency, not an action item for them.
    defined (9 families x 2 selected scenarios x MF/FM x mild/severe = 72), but the
    actual accidental/negligent/purposeful explanation text has not been written
    for any scenario. Deliberately deferred until the core is piloted.
+9a. **Proposed new schema field: `confidence_reasoning` (free text), discussed
+   2026-08-18, not yet decided or built.** Idea: alongside the existing
+   numeric `confidence` (0-100) field, add a short free-text rationale for
+   why the model gave that confidence value. Recommended placement: after
+   both `fault_rating` and `confidence` in the schema/prompt, same logic
+   already used for the `hedged` field design (RQ3 section above) -- a
+   retrospective self-report layered on an already-committed judgment,
+   rather than a field that could shift the numeric values themselves.
+   Doesn't fix the core problem found in the pair-level confidence retest
+   (self-reported numeric confidence is compressed/uninformative, see
+   above) by itself, but the free text could be lexicon/LLM-coded for
+   hedging or insufficient-information language (similar to the existing
+   agentic/communal/moral-intensity/LIB coding of the main `reasoning`
+   field) -- potentially a more sensitive ambiguity signal than the numeric
+   field, and possibly relevant to the BBQ/KoBBQ positioning above (coded
+   "insufficient information" language would be the closest thing this
+   design has to BBQ's forced Unknown option). Standard self-report caveat
+   applies: free-text rationales aren't guaranteed to faithfully reflect
+   the model's actual computation (well-documented post-hoc-rationalization
+   risk for chain-of-thought-style explanations) -- useful as a qualitative/
+   descriptive signal, not a ground-truth explanation. This is a schema
+   change to `scripts/collect-responses.py`/`validate.py`, so needs
+   Thulasi's buy-in same as the RQ3 `hedged` field, and per this project's
+   existing discipline (RQ1-3's pre-registered plans), what will be *done*
+   with the field (a coding scheme) should be decided before it's collected,
+   not after.
 9. **Jealousy family sits at 2 distinct obligation sources**, the checklist
    minimum rather than the preferred 3 -- judged as a reasonable fit for a family
    inherently about autonomy violations rather than an oversight, but flagged for

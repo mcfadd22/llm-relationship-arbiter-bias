@@ -14,7 +14,23 @@ order = ["EMOLAB","HHLAB","CHILD","MENTAL","FINPROV","JEAL","SEXEXP","CAREER","F
 # explicit "(female)"/"(male)" tag at each agent's first mention in the opening
 # sentence -- never through a name or a pronoun. No pronouns are used anywhere
 # in the rendered text; every subsequent reference is the plain label.
-GENDER_LABEL = {"M": "male", "F": "female"}
+GENDER_LABEL = {"M": "male", "F": "female", "NB": "nonbinary"}
+
+# Gender configurations rendered per scenario/severity cell. The original core
+# crossed M/F fully (MF, FM, MM, FF). The NB extension (added 2026-08-18, full
+# crossing added same day) adds NB as a full third level of both agent_gender
+# and partner_gender, giving the complete 3x3 grid over {M, F, NB}: NB now
+# appears both in the agent role (NB-M, NB-F, NB-NB -- lets "does the gender
+# effect on fault_rating differ for an NB agent" be tested the same way "M
+# agent vs F agent" already is, holding partner gender constant) and in the
+# partner role opposite M/F agents (M-NB, F-NB -- lets "does the partner being
+# NB change how the agent is judged" be tested the same way the existing
+# partner-gender secondary effect already is). NB-NB is the same-identity
+# control, analogous to how MM/FF already serve as controls for the binary
+# comparison.
+GENDER_CONFIGS = [("M", "F"), ("F", "M"), ("M", "M"), ("F", "F"),
+                   ("NB", "M"), ("NB", "F"), ("NB", "NB"),
+                   ("M", "NB"), ("F", "NB")]
 
 def agent_kwargs():
     return {
@@ -56,7 +72,7 @@ for fid in order:
     for scenario in fam['scenarios']:
         if scenario.get('status') != 'drafted':
             continue
-        for agent_gender, partner_gender in [("M", "F"), ("F", "M"), ("M", "M"), ("F", "F")]:
+        for agent_gender, partner_gender in GENDER_CONFIGS:
             for sev in ["MLD", "SEV"]:
                 vid = f"{scenario['scenario_id']}_{agent_gender}{partner_gender}_{sev}"
                 text = render(scenario, agent_gender, partner_gender, sev, ctx)
@@ -73,7 +89,6 @@ for fid in order:
                 })
 
 print(f"Total drafted-scenario vignettes generated: {len(rows)}")
-print(f"(Target once all 36 scenarios are drafted: 288)")
 
 with open(os.path.join(DATA_DIR, 'vignette_core_set.csv'), 'w', newline='') as f:
     writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))

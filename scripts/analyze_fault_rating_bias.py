@@ -79,6 +79,21 @@ def matched_pairs(cells):
     return pairs
 
 
+def diag_pairs(cells):
+    """Same-gender (MM, FF) pairs holding scenario/severity/model constant --
+    the control specified in paper/results.tex's Planned Analysis: a genuine
+    agent-gender effect should appear as an MF/FM asymmetry that is absent (or
+    much smaller) here, since MM vs FF holds 'partner is same gender as agent'
+    constant instead of literal partner gender."""
+    pairs = []
+    for cell in cells.values():
+        mm_row = cell.get(("M", "M"))
+        ff_row = cell.get(("F", "F"))
+        if mm_row is not None and ff_row is not None:
+            pairs.append((mm_row, ff_row))
+    return pairs
+
+
 def paired_stat(pairs, key):
     diffs = [m[key] - f[key] for m, f in pairs]
     n = len(diffs)
@@ -171,6 +186,75 @@ def main():
     out.append(f"Sign breakdown: {n_tie} ties ({n_tie/n*100:.1f}%), M>F in {n_pos}, "
                 f"F>M in {n_neg} (ratio {n_pos/n_neg:.2f}:1, sign-test z={z:.2f}).\n")
 
+    # 2a. BBQ/KoBBQ diff-bias-style score. Only the *ambiguous*-context
+    # formula transfers here: BBQ (Parrish et al. 2022) and KoBBQ (Jin et al.
+    # 2024)'s disambiguated-context formulas both require a ground-truth
+    # correct answer (a factual QA accuracy concept), which fault_rating
+    # doesn't have -- it's a normative judgment, not a fact lookup, and models
+    # are never given an "Unknown/decline to judge" option the way BBQ's QA
+    # format does. The ambiguous-context Diff-bias_a formula needs no
+    # accuracy term, so it does transfer: Diff-bias_a = (n_biased -
+    # n_counter-biased) / n_total (KoBBQ Eq. 3). Here, "biased" = male agent
+    # rated more at fault (matching this study's main finding's direction),
+    # "counter-biased" = female agent rated more at fault, and "Unknown"
+    # (excluded from BBQ's numerator/denominator split) has no exact analog
+    # -- ties are the closest structural match (no revealed directional
+    # preference) but are an emergent match between two independently-scored
+    # configs, not a model actively choosing "decline to pick a side" in a
+    # single query the way BBQ's Unknown option is. Reported for
+    # cross-benchmark comparability, with that disanalogy flagged rather than
+    # glossed over.
+    out.append("## BBQ/KoBBQ-style diff-bias score (ambiguous-context formula only)\n")
+    out.append("Adapted from KoBBQ's (Jin et al. 2024) ambiguous-context "
+                "`Diff-bias_a = (n_biased - n_counter-biased) / n_total` (itself based on "
+                "Parrish et al. 2022's BBQ). Only this formula transfers -- BBQ/KoBBQ's "
+                "disambiguated-context formulas need a ground-truth-accuracy concept this "
+                "task doesn't have (fault_rating is a normative judgment, not a fact with a "
+                "correct answer, and models are never offered an explicit \"decline to "
+                "judge\" option the way BBQ offers \"Unknown\"). Ties are used here as the "
+                "closest structural analog to \"Unknown,\" with that disanalogy noted: BBQ's "
+                "Unknown is a single model-chosen response option, while a tie here is an "
+                "emergent match between two independently-scored configs, not a choice the "
+                "model makes in one query.\n")
+    diff_bias = (n_pos - n_neg) / n
+    out.append(f"Overall: Diff-bias = ({n_pos} - {n_neg}) / {n} = {diff_bias:+.4f}.\n")
+
+    # 2b. Same-gender (MM/FF) control -- specified in paper/results.tex's
+    # Planned Analysis but not previously run. If the MF/FM effect above is a
+    # genuine agent-gender effect (not a scenario-content artifact), this
+    # same-gender comparison -- MM vs FF, holding "partner matches agent's
+    # gender" constant instead of literal partner gender -- should show a
+    # much smaller (or absent) asymmetry.
+    out.append("## Same-gender (MM/FF) control\n")
+    out.append("Specified in `paper/results.tex`'s Planned Analysis as the control for "
+                "whether the MF/FM effect above is a genuine agent-gender effect rather "
+                "than a scenario-content confound: MM vs. FF pairs, holding scenario x "
+                "severity x model constant (partner gender matches agent gender in both "
+                "arms, rather than being held literally constant as in the main test "
+                "above). A much smaller or absent asymmetry here supports the main "
+                "finding; a comparably large asymmetry would undercut it.\n")
+    dpairs = diag_pairs(cells)
+    n_d, mean_d_diag, sd_d_diag, t_diag, dz_diag = paired_stat(dpairs, "fault_rating")
+    out.append(f"Paired (scenario x severity x model held constant): n={n_d} pairs, "
+                f"mean diff (MM-FF)={mean_d_diag:+.3f}, paired t={t_diag:.2f}, d_z={dz_diag:.3f}.")
+    out.append(f"For comparison, the main MF/FM effect above: mean diff={mean_d:+.3f}, d_z={d_z:.3f}.\n")
+    n_pos_d = sum(1 for m, f in dpairs if m["fault_rating"] > f["fault_rating"])
+    n_neg_d = sum(1 for m, f in dpairs if m["fault_rating"] < f["fault_rating"])
+    n_tie_d = n_d - n_pos_d - n_neg_d
+    out.append(f"Sign breakdown: {n_tie_d} ties ({n_tie_d/n_d*100:.1f}%), MM>FF in {n_pos_d}, "
+                f"FF>MM in {n_neg_d} (ratio {n_pos_d/n_neg_d:.2f}:1).\n")
+    if abs(dz_diag) < abs(d_z) / 2:
+        out.append(f"**Supports the main finding**: the same-gender control effect "
+                    f"(d_z={dz_diag:+.3f}) is well under half the size of the main "
+                    f"MF/FM effect (d_z={d_z:+.3f}).\n")
+    else:
+        out.append(f"**Does not clearly support the main finding**: the same-gender "
+                    f"control effect (d_z={dz_diag:+.3f}) is not much smaller than the "
+                    f"main MF/FM effect (d_z={d_z:+.3f}) -- worth investigating before "
+                    "treating the MF/FM effect as cleanly attributable to agent gender "
+                    "rather than some other systematic difference between how MM- and "
+                    "FF-labeled scenarios were judged.\n")
+
     # 3. By family
     out.append("## Agent-gender effect by relationship-norm family\n")
     fam_pairs = defaultdict(list)
@@ -179,10 +263,13 @@ def main():
     fam_results = []
     for fam, fp in fam_pairs.items():
         n, md, sd, t, d = paired_stat(fp, "fault_rating")
-        fam_results.append((fam, n, md, t, d))
+        n_pos_f = sum(1 for m, f in fp if m["fault_rating"] > f["fault_rating"])
+        n_neg_f = sum(1 for m, f in fp if m["fault_rating"] < f["fault_rating"])
+        db = (n_pos_f - n_neg_f) / n
+        fam_results.append((fam, n, md, t, d, db))
     fam_results.sort(key=lambda x: -abs(x[4]))
-    for fam, n, md, t, d in fam_results:
-        out.append(f"- {fam}: n={n}, diff={md:+.3f}, t={t:+.2f}, d_z={d:+.3f}")
+    for fam, n, md, t, d, db in fam_results:
+        out.append(f"- {fam}: n={n}, diff={md:+.3f}, t={t:+.2f}, d_z={d:+.3f}, diff-bias={db:+.4f}")
     out.append("")
 
     # 4. By model, with disagreement-pair ratio
@@ -242,6 +329,68 @@ def main():
                 "formal test and should be described as a suggestive, not confirmed, pattern "
                 "-- a good candidate for the stability-pass/larger-N follow-up rather than "
                 "a claim in the current paper's Results section.\n")
+
+    # 4c. Pre-registered ambivalent-sexism family-group contrast (see
+    # paper/results.tex Planned Analysis, and paper/sources/design_decisions_log.md).
+    # The 9-way omnibus above is underpowered by construction (9 groups of
+    # ~80 pairs against a modest pooled effect). Ambivalent-sexism theory
+    # (Glick & Fiske 1996, 1999) makes a specific, pre-registered 2-group
+    # prediction instead: benevolent sexism (protective paternalism) predicts
+    # elevated male-disadvantaging bias in families framable as the agent
+    # needing protection/accommodation (Emotional labor, Sexuality &
+    # Intimacy); hostile sexism (resentment of paternalism) predicts it in
+    # families about power/control/failed provider role (Financial
+    # provision, Household labor, Jealousy/possessiveness). Both mechanisms
+    # predict the same direction (larger male-disadvantaging gap), just via
+    # different families, so the falsifiable test is: do these 5
+    # theory-predicted families show a larger gap than the 4 families with
+    # no theory-based prediction (Childcare, Mental load, Career sacrifice,
+    # Family obligations)? A planned 2-group contrast has much more power
+    # than the 9-group omnibus at the same N.
+    out.append("## Pre-registered test: ambivalent-sexism family-group contrast\n")
+    out.append("Fixed grouping, from `paper/results.tex`'s Planned Analysis (written "
+                "before this test was run): **theory-predicted** families -- "
+                "Emotional labor, Sexuality & Intimacy (benevolent-sexism mechanism), "
+                "Financial provision, Household labor, Jealousy/possessiveness "
+                "(hostile-sexism mechanism) -- vs. **no-prediction** families -- "
+                "Childcare, Mental load, Career sacrifice, Family obligations. Both "
+                "mechanisms predict the *same direction* (larger male-disadvantaging "
+                "gap) via different families, so this collapses to a single planned "
+                "2-group contrast, tested the same way as the omnibus tests above "
+                f"(label-shuffle permutation F-test, {N_PERMUTATIONS} shuffles, "
+                f"seed={PERMUTATION_SEED}) -- a 2-group test has much more power than "
+                "the 9-group omnibus at the same N.\n")
+    predicted_families = {
+        "Emotional labor", "Sexuality & Intimacy",
+        "Financial provision", "Household labor", "Jealousy/possessiveness",
+    }
+    sexism_labels = ["predicted" if fam in predicted_families else "no_prediction"
+                      for fam in fam_labels]
+    F_sex, df1_sex, df2_sex, p_sex = permutation_omnibus_test(sexism_labels, diffs_all)
+    grp_predicted = [d for d, l in zip(diffs_all, sexism_labels) if l == "predicted"]
+    grp_none = [d for d, l in zip(diffs_all, sexism_labels) if l == "no_prediction"]
+    out.append(f"predicted families: n={len(grp_predicted)}, mean diff={statistics.mean(grp_predicted):+.3f}. "
+                f"no-prediction families: n={len(grp_none)}, mean diff={statistics.mean(grp_none):+.3f}.")
+    out.append(f"F({df1_sex},{df2_sex})={F_sex:.3f}, permutation p={p_sex:.4f} -- "
+                f"{'reaches' if p_sex < 0.05 else 'does not reach'} conventional significance.\n")
+    if p_sex < 0.05 and statistics.mean(grp_predicted) > statistics.mean(grp_none):
+        out.append("**Supports the ambivalent-sexism account**: the theory-predicted "
+                    "families show a significantly larger male-disadvantaging gap than "
+                    "the families with no theoretical prediction.\n")
+    else:
+        out.append("**Does not support the ambivalent-sexism account as tested**: the "
+                    "theory-predicted families are not significantly different from the "
+                    "no-prediction families on this planned contrast. Note two of the five "
+                    "theory-predicted families individually run in the *opposite* direction "
+                    "from what their own mechanism predicts (Financial provision has one of "
+                    "the *smallest* effects despite being a hostile-sexism-predicted family; "
+                    "Emotional labor similarly one of the smallest despite being "
+                    "benevolent-sexism-predicted) -- so this isn't just an underpowered "
+                    "null, the within-group pattern is genuinely mixed. Correct framing for "
+                    "the paper: this specific ambivalent-sexism grouping is not supported by "
+                    "the confirmatory data as collected; the family heterogeneity that does "
+                    "exist (see omnibus test above) doesn't line up with this particular "
+                    "theoretical account.\n")
 
     # 5. Obligation-source moderator
     out.append("## Agent-gender effect by obligation_source\n")

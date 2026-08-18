@@ -12,17 +12,34 @@ Paired (scenario x severity x model held constant): n=720 pairs, mean diff (M-F)
 
 Sign breakdown: 545 ties (75.7%), M>F in 137, F>M in 38 (ratio 3.61:1, sign-test z=7.48).
 
+## BBQ/KoBBQ-style diff-bias score (ambiguous-context formula only)
+
+Adapted from KoBBQ's (Jin et al. 2024) ambiguous-context `Diff-bias_a = (n_biased - n_counter-biased) / n_total` (itself based on Parrish et al. 2022's BBQ). Only this formula transfers -- BBQ/KoBBQ's disambiguated-context formulas need a ground-truth-accuracy concept this task doesn't have (fault_rating is a normative judgment, not a fact with a correct answer, and models are never offered an explicit "decline to judge" option the way BBQ offers "Unknown"). Ties are used here as the closest structural analog to "Unknown," with that disanalogy noted: BBQ's Unknown is a single model-chosen response option, while a tie here is an emergent match between two independently-scored configs, not a choice the model makes in one query.
+
+Overall: Diff-bias = (137 - 38) / 720 = +0.1375.
+
+## Same-gender (MM/FF) control
+
+Specified in `paper/results.tex`'s Planned Analysis as the control for whether the MF/FM effect above is a genuine agent-gender effect rather than a scenario-content confound: MM vs. FF pairs, holding scenario x severity x model constant (partner gender matches agent gender in both arms, rather than being held literally constant as in the main test above). A much smaller or absent asymmetry here supports the main finding; a comparably large asymmetry would undercut it.
+
+Paired (scenario x severity x model held constant): n=360 pairs, mean diff (MM-FF)=+0.050, paired t=2.00, d_z=0.105.
+For comparison, the main MF/FM effect above: mean diff=+0.144, d_z=0.288.
+
+Sign breakdown: 284 ties (78.9%), MM>FF in 46, FF>MM in 30 (ratio 1.53:1).
+
+**Supports the main finding**: the same-gender control effect (d_z=+0.105) is well under half the size of the main MF/FM effect (d_z=+0.288).
+
 ## Agent-gender effect by relationship-norm family
 
-- Jealousy/possessiveness: n=80, diff=+0.275, t=+3.65, d_z=+0.408
-- Sexuality & Intimacy: n=80, diff=+0.225, t=+3.51, d_z=+0.393
-- Household labor: n=80, diff=+0.188, t=+3.50, d_z=+0.391
-- Career sacrifice: n=80, diff=+0.113, t=+2.39, d_z=+0.267
-- Family obligations: n=80, diff=+0.113, t=+2.39, d_z=+0.267
-- Childcare: n=80, diff=+0.113, t=+2.24, d_z=+0.250
-- Mental load: n=80, diff=+0.125, t=+2.08, d_z=+0.233
-- Emotional labor: n=80, diff=+0.075, t=+1.62, d_z=+0.181
-- Financial provision: n=80, diff=+0.075, t=+1.42, d_z=+0.159
+- Jealousy/possessiveness: n=80, diff=+0.275, t=+3.65, d_z=+0.408, diff-bias=+0.2500
+- Sexuality & Intimacy: n=80, diff=+0.225, t=+3.51, d_z=+0.393, diff-bias=+0.2000
+- Household labor: n=80, diff=+0.188, t=+3.50, d_z=+0.391, diff-bias=+0.1875
+- Career sacrifice: n=80, diff=+0.113, t=+2.39, d_z=+0.267, diff-bias=+0.1125
+- Family obligations: n=80, diff=+0.113, t=+2.39, d_z=+0.267, diff-bias=+0.1125
+- Childcare: n=80, diff=+0.113, t=+2.24, d_z=+0.250, diff-bias=+0.1125
+- Mental load: n=80, diff=+0.125, t=+2.08, d_z=+0.233, diff-bias=+0.1125
+- Emotional labor: n=80, diff=+0.075, t=+1.62, d_z=+0.181, diff-bias=+0.0750
+- Financial provision: n=80, diff=+0.075, t=+1.42, d_z=+0.159, diff-bias=+0.0750
 
 ## Agent-gender effect and disagreement-pair ratio by model
 
@@ -40,6 +57,15 @@ The per-family and per-model breakdowns above each test whether that subgroup's 
 - **Model**: F(4,715)=2.073, permutation p=0.0847
 
 **Neither reaches conventional significance (both p>0.05).** The per-family and per-model rankings reported above are a real, corroborated *descriptive* pattern (consistent across effect size, disagreement rate, and -- for family -- language visibility), but this formal test says we do not yet have the statistical power/evidence to claim family or model *significantly* moderates the size of the gender effect. With only 9 family groups or 5 model groups of ~80-144 pairs each, and the pooled effect itself modest (d_z=0.29), this omnibus test is inherently underpowered relative to the individual within-subgroup tests. **Correct framing for the paper:** the bias direction is remarkably consistent (never reverses across 9 families, 5 models, 2 severities), but claims that specific domains (e.g. Sexuality/Jealousy) show a *significantly larger* bias than others (e.g. Financial provision/Emotional labor) are not currently supported by a formal test and should be described as a suggestive, not confirmed, pattern -- a good candidate for the stability-pass/larger-N follow-up rather than a claim in the current paper's Results section.
+
+## Pre-registered test: ambivalent-sexism family-group contrast
+
+Fixed grouping, from `paper/results.tex`'s Planned Analysis (written before this test was run): **theory-predicted** families -- Emotional labor, Sexuality & Intimacy (benevolent-sexism mechanism), Financial provision, Household labor, Jealousy/possessiveness (hostile-sexism mechanism) -- vs. **no-prediction** families -- Childcare, Mental load, Career sacrifice, Family obligations. Both mechanisms predict the *same direction* (larger male-disadvantaging gap) via different families, so this collapses to a single planned 2-group contrast, tested the same way as the omnibus tests above (label-shuffle permutation F-test, 20000 shuffles, seed=42) -- a 2-group test has much more power than the 9-group omnibus at the same N.
+
+predicted families: n=400, mean diff=+0.168. no-prediction families: n=320, mean diff=+0.116.
+F(1,718)=1.903, permutation p=0.1725 -- does not reach conventional significance.
+
+**Does not support the ambivalent-sexism account as tested**: the theory-predicted families are not significantly different from the no-prediction families on this planned contrast. Note two of the five theory-predicted families individually run in the *opposite* direction from what their own mechanism predicts (Financial provision has one of the *smallest* effects despite being a hostile-sexism-predicted family; Emotional labor similarly one of the smallest despite being benevolent-sexism-predicted) -- so this isn't just an underpowered null, the within-group pattern is genuinely mixed. Correct framing for the paper: this specific ambivalent-sexism grouping is not supported by the confirmatory data as collected; the family heterogeneity that does exist (see omnibus test above) doesn't line up with this particular theoretical account.
 
 ## Agent-gender effect by obligation_source
 
