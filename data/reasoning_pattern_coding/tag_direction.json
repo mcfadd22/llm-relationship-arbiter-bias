@@ -1,0 +1,1242 @@
+[
+  {
+    "pair_id": "pair_000",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_000",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_001",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_002",
+    "tag": "shifts-partial-responsibility",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_003",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_004",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_004",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_006",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_006",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_007",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_008",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_009",
+    "tag": "references-relationship-history",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_009",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_010",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_012",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_013",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_013",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_014",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_017",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_017",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_018",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_019",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_019",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_020",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_020",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_023",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_024",
+    "tag": "references-relationship-history",
+    "side": "unclear"
+  },
+  {
+    "pair_id": "pair_024",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_025",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_025",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_026",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_026",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_027",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_027",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_028",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_029",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_030",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_030",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_031",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_031",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_031",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_032",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_032",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_033",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_033",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_034",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_034",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_035",
+    "tag": "cites-external-circumstances",
+    "side": "unclear"
+  },
+  {
+    "pair_id": "pair_036",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_037",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_037",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_038",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_039",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_039",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_040",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_040",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_041",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_041",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_043",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_043",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_044",
+    "tag": "cites-external-circumstances",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_045",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_046",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_046",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_047",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_047",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_048",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_048",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_050",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_050",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_052",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_052",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_053",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_053",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_053",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_054",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_054",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_055",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_056",
+    "tag": "references-relationship-history",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_057",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_058",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_059",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_060",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_060",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_061",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_061",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_062",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_062",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_063",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_063",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_064",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_064",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_065",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_065",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_066",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_066",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_068",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_069",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_070",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_071",
+    "tag": "cites-external-circumstances",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_071",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_073",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_074",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_074",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_078",
+    "tag": "cites-external-circumstances",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_078",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_080",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_081",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_082",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_083",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_084",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_084",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_085",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_087",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_087",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_088",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_089",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_090",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_091",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_091",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_092",
+    "tag": "references-relationship-history",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_093",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_094",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_096",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_096",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_097",
+    "tag": "cites-external-circumstances",
+    "side": "unclear"
+  },
+  {
+    "pair_id": "pair_097",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_098",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_099",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_099",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_100",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_101",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_102",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_102",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_103",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_105",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_105",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_106",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_106",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_107",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_108",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_108",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_109",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_110",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_110",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_111",
+    "tag": "references-relationship-history",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_111",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_112",
+    "tag": "relational-vs-practical-framing",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_113",
+    "tag": "relational-vs-practical-framing",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_114",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_115",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_115",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_116",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_116",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_117",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_117",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_118",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_118",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_119",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_119",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_120",
+    "tag": "cites-external-circumstances",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_120",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_120",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_121",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_121",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_122",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_122",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_123",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_124",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_124",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_125",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_125",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_126",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_126",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_127",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_127",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_128",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_128",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_129",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_129",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_130",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_131",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_131",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_131",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_132",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_132",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_133",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_133",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_134",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_134",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_136",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_136",
+    "tag": "cites-external-circumstances",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_136",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_137",
+    "tag": "references-relationship-history",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_137",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_138",
+    "tag": "centers-partner-feelings",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_138",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_139",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_139",
+    "tag": "frames-as-normative-obligation",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_140",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_140",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_141",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_141",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_142",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_142",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_142",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_143",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_143",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_144",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_144",
+    "tag": "forecloses-mutual-responsibility",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_145",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_146",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_147",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_147",
+    "tag": "references-relationship-history",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_148",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_148",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_149",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_150",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_150",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_151",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_152",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_153",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_153",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_155",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_156",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_156",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_157",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_158",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_159",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_160",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_160",
+    "tag": "harsher-language",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_161",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_162",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_163",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_164",
+    "tag": "cites-external-circumstances",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_165",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_166",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_167",
+    "tag": "hedges-qualifies",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_167",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_168",
+    "tag": "attributes-character",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_168",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_169",
+    "tag": "hedges-qualifies",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_170",
+    "tag": "cites-external-circumstances",
+    "side": "A"
+  },
+  {
+    "pair_id": "pair_171",
+    "tag": "harsher-language",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_171",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_172",
+    "tag": "centers-partner-feelings",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_172",
+    "tag": "attributes-character",
+    "side": "B"
+  },
+  {
+    "pair_id": "pair_173",
+    "tag": "harsher-language",
+    "side": "B"
+  }
+]

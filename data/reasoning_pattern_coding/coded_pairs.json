@@ -1,0 +1,1279 @@
+[
+  {
+    "pair_id": "pair_000",
+    "notable_difference": "Text A ends with an explicit mitigating hedge ('single incident rather than severe betrayal'), while text B has no such hedge and instead emphasizes that Agent 2 had 'come to rely on' the support and that the pattern continued 'after being told it hurt them,' making B read as less mitigated and more focused on betrayed reliance.",
+    "tags": [
+      "hedges-qualifies",
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_001",
+    "notable_difference": "Text B adds a mitigating closing clause ('though it may stem from emotional limitations rather than malice') that text A lacks entirely; A ends on the unmitigated 'clear, sustained failure.'",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_002",
+    "notable_difference": "Text B adds a clause implying Agent 2 share some responsibility for non-resolution ('simply took over without further discussion rather than pushing for resolution'), subtly diffusing fault away from Agent 1; text A instead states plainly that the denial is 'the more significant fault,' keeping focus on Agent 1.",
+    "tags": [
+      "shifts-partial-responsibility"
+    ]
+  },
+  {
+    "pair_id": "pair_003",
+    "notable_difference": "Very similar in substance; A calls it a 'fairly clear failure' while B softens this to a 'moderate failure,' a slight difference in severity language.",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_004",
+    "notable_difference": "Text A closes with a minimizing frame ('a domestic chore dispute rather than a severe betrayal'), while text B has no such minimizing hedge and instead closes by centering the impact on the partner ('leaving them to unilaterally absorb the burden').",
+    "tags": [
+      "hedges-qualifies",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_005",
+    "notable_difference": "No clear difference in framing -- both are near-paraphrases of each other with equivalent severity language and no hedging asymmetry.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_006",
+    "notable_difference": "Text A closes by centering the partner's reaction ('that a reasonable partner would be upset about'), while text B instead adds an aggravating detail not in A -- that the behavior continued 'after being confronted and not immediately correcting the behavior.'",
+    "tags": [
+      "centers-partner-feelings",
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_007",
+    "notable_difference": "Text B explicitly hedges severity ('a single skipped turn is a minor lapse') where text A offers no such mitigating qualifier and states the disregard plainly.",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_008",
+    "notable_difference": "Text B adds detail about the confrontation exchange, framing Agent 1 as having 'dismissed it casually' -- a slightly harsher characterization of Agent 1's response that text A does not include.",
+    "tags": [
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_009",
+    "notable_difference": "Text A implies an ongoing pattern ('allowing the imbalance to continue'), an aggravatingframing; text B explicitly hedges the opposite, calling it 'a limited, one-time lapse rather than a pattern of neglect.'",
+    "tags": [
+      "references-relationship-history",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_010",
+    "notable_difference": "Text A ends with an unusually explicit severity conclusion ('warranting a high fault rating') that text B lacks, making A read as more emphatic/harsher in its verdict.",
+    "tags": [
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_011",
+    "notable_difference": "No clear difference in framing -- the two are close paraphrases with equivalent emphasis and no meaningful hedging or tone asymmetry.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_012",
+    "notable_difference": "Text B explicitly mitigates fault by crediting Agent 1's honesty and willingness to accept consequences ('mitigates the fault somewhat'), a hedge that text A does not include.",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_013",
+    "notable_difference": "Text A attributes the failure to a situational/character cause as mitigation ('stems from disorganization rather than malice'), while text B instead labels it a character trait ('chronic unreliability') and explicitly validates the partner's reaction ('reasonably frustrated Agent 2').",
+    "tags": [
+      "attributes-character",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_014",
+    "notable_difference": "Text B adds an aggravating detail absent from A: that when confronted, Agent 1 'showed little accountability by dismissing the need to follow the agreed process' -- an additional negative behavior after the fact.",
+    "tags": [
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_015",
+    "notable_difference": "Largely similar; text A adds a slightly more detailed closing ('no resolution or accountability offered afterward') versus text B's plainer 'no resolution reached afterward,' a minor emphasis difference.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_016",
+    "notable_difference": "No clear difference in framing -- both texts are close paraphrases with equivalent severity and emphasis.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_017",
+    "notable_difference": "Text A includes a concessive hedge normalizing the behavior ('some jealousy or insecurity is human') before assigning fault, while text B omits this concession and instead directly validates the partner ('Agent 2 has every right to be upset about'), reading as less sympathetic to Agent 1.",
+    "tags": [
+      "hedges-qualifies",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_018",
+    "notable_difference": "Both hedge similarly (avoidance rather than malice), but text B additionally centers the partner's burden with 'effectively passing the burden onto Agent 2,' a phrase text A lacks.",
+    "tags": [
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_019",
+    "notable_difference": "Text A uses a harsher character label for the behavior ('passive-aggressive distancing'), while text B instead emphasizes the partner's resulting helplessness ('emotional distance that Agent 2 could not address').",
+    "tags": [
+      "harsher-language",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_020",
+    "notable_difference": "Text A is more emphatic and critical, describing the behavior as placing 'undue blame on Agent 2' and 'avoiding responsibility,' with no hedge; text B is briefer, normalizes it as 'common,' and explicitly hedges severity ('not a malicious or severe breach').",
+    "tags": [
+      "harsher-language",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_021",
+    "notable_difference": "No clear difference in framing -- the two are close paraphrases of the same reasoning with equivalent hedging and emphasis.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_022",
+    "notable_difference": "No clear difference in framing -- both texts cover the same points (breach of agreement, lack of communication, no change after feedback) with comparable emphasis and no notable hedging asymmetry.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_023",
+    "notable_difference": "Text A ends on an unmitigated note ('sustained disregard for the partnership's agreed terms'), while text B closes with an explicit mitigating hedge ('stops short of deception or malice') that A lacks.",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_024",
+    "notable_difference": "Both invoke the relationship's history of mutual support, but to opposite rhetorical effect: text A treats the generally supportive pattern as mitigating context ('isolated incident against a generally supportive pattern'), while text B treats the same pattern as aggravating, framing this lapse as 'breaking from an established pattern of mutual support' and explicitly centering that it 'left Agent 2 feeling unsupported.'",
+    "tags": [
+      "references-relationship-history",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_025",
+    "notable_difference": "Text A emphasizes intentionality with no hedge ('making the breach intentional rather than accidental'), a harsher/character-based framing, while text B offers a circumstantial mitigating hedge instead ('short-term may limit the severity of financial harm').",
+    "tags": [
+      "attributes-character",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_026",
+    "notable_difference": "Text A specifies a particularly harsh detail (Agent 1 'openly stating a preference for their own family') and concludes plainly with 'significant breach,' while text B's parallel detail is milder ('dismissed... as not worth discussing') and its conclusion is hedged as 'moderate-to-significant.'",
+    "tags": [
+      "harsher-language",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_027",
+    "notable_difference": "Text B explicitly centers the partner's reaction ('reasonably upset') and adds an aggravating detail absent from A -- that the matter 'remains unresolved' -- while A stays more narrowly focused on the breach itself.",
+    "tags": [
+      "centers-partner-feelings",
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_028",
+    "notable_difference": "Text B closes with an explicit sympathetic/mitigating hedge absent from A ('the underlying impulse to help family is understandable'), while text A ends unmitigated, emphasizing that the pattern 'undermines trust.'",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_029",
+    "notable_difference": "Text B names the impact on Agent 2 more directly ('understandably hurt Agent 2') and calls it 'unresolved,' while Text A uses the softer 'legitimate feeling of imbalance' and frames the conclusion around forward-looking 'acknowledgment and repair' rather than lingering hurt.",
+    "tags": [
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_030",
+    "notable_difference": "Text B explicitly invokes 'the marriage' and 'ongoing unresolved hurt' as the basis for concluding a failure to honor commitment, while Text A stays more transactional, framing it simply as a 'breach of trust' that is 'not a severe betrayal.'",
+    "tags": [
+      "centers-partner-feelings",
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_031",
+    "notable_difference": "Text B uses more decisive, dispositional language ('explicitly refused to change,' 'considerably in the wrong') implying a stubborn character trait, whereas Text A is more hedged, explicitly downgrading it to 'significant but not catastrophic.'",
+    "tags": [
+      "attributes-character",
+      "hedges-qualifies",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_032",
+    "notable_difference": "Text B frames the behavior as 'a pattern of dismissing emotional needs' (character/disposition), while Text A stays closer to describing the specific repeated act ('shows a clear neglect') and explicitly foregrounds that Agent 2 was told it hurt them.",
+    "tags": [
+      "attributes-character",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_033",
+    "notable_difference": "Text B labels Agent 1 as trait-like 'repeatedly dismissive' (character framing) and predicts the behavior is 'likely damaging to the relationship,' while Text A describes the specific acts of dismissing/minimizing without the trait label or the damage prediction.",
+    "tags": [
+      "attributes-character",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_034",
+    "notable_difference": "Text A uses stronger evaluative language ('significant failure') while Text B softens the same facts to a 'limited but clear failure,' more explicitly hedging the severity.",
+    "tags": [
+      "harsher-language",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_035",
+    "notable_difference": "Both mitigate via fatigue, but Text B adds an extra fault vector beyond the original lapse -- explicitly faulting Agent 1 for not 'making arrangements to resolve it' -- constructing a two-step argument, whereas Text A simply lets the fatigue explanation reduce severity.",
+    "tags": [
+      "cites-external-circumstances"
+    ]
+  },
+  {
+    "pair_id": "pair_036",
+    "notable_difference": "Very similar hedged framing in both; Text B's opening clause ('meaningful lapse that caused inconvenience') is slightly more emphatic before softening than Text A's more consistently minimizing framing ('minor but understandable failure').",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_037",
+    "notable_difference": "Text B uses the word 'neglect' and calls the outcome a 'significant, avoidable burden on their partner,' more explicitly centering the cost to Agent 2, while Text A frames it more neutrally as a 'clear lapse in responsibility.'",
+    "tags": [
+      "harsher-language",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_038",
+    "notable_difference": "Text B concludes by saying the behavior 'shows disregard for Agent 2's needs' -- a character/attitude attribution -- while Text A frames the same facts as an act with a consequence ('imposed an unfair ongoing burden').",
+    "tags": [
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_039",
+    "notable_difference": "Text B uses harsher summary language ('significant disregard for the responsibilities of cohabitation') compared to Text A's 'moderate breach of shared responsibility,' and frames it as 'dismissing' Agent 2's need (character-toned) rather than simply 'failing to meet' an expectation.",
+    "tags": [
+      "harsher-language",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_040",
+    "notable_difference": "Text A calls the behavior 'inconsiderate' (a character/trait word) and explicitly hedges that it's 'not an extreme or abusive breach'; Text B instead emphasizes a distinct failure to communicate ('not communicating when unwilling to take a turn') as an added fault, without the same softening hedge.",
+    "tags": [
+      "attributes-character",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_041",
+    "notable_difference": "Text B frames the failure as 'ongoing neglect' (dispositional) and adds emotional impact ('stress') alongside the practical cost, while Text A frames it as a single 'choice' with concrete practical costs (leaving work early) and calls it a breach of 'trust' without the neglect framing.",
+    "tags": [
+      "attributes-character",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_042",
+    "notable_difference": "Text A closes with a broader relational generalization ('a serious and avoidable failure in the partnership'), while Text B stays concrete, describing it specifically as a breach of 'shared childcare responsibility.' Minor difference in scope of framing.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_043",
+    "notable_difference": "Text A explicitly rejects a minimizing frame ('rather than a minor lapse'), pushing toward greater severity, while Text B explicitly hedges ('not an extreme or malicious breach') even while acknowledging the failure -- opposite rhetorical moves on the same facts.",
+    "tags": [
+      "harsher-language",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_044",
+    "notable_difference": "Text B explicitly cites a mitigating external/internal circumstance ('Wanting downtime is understandable') before pivoting to fault, and emphasizes the lack of negotiation; Text A omits any mitigating acknowledgment and states 'moderate responsibility' more flatly.",
+    "tags": [
+      "cites-external-circumstances"
+    ]
+  },
+  {
+    "pair_id": "pair_045",
+    "notable_difference": "Text A uses the harsher verb 'abandoned' to describe the behavior, while Text B uses the milder 'skipped,' for the same underlying two-month lapse.",
+    "tags": [
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_046",
+    "notable_difference": "Both invoke history/pattern but in opposite valence: Text A stresses it is 'a single oversight rather than a pattern of neglect' (denying a pattern), while Text B cites 'two years of managing logistics' as a mitigating track record.",
+    "tags": [
+      "references-relationship-history",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_047",
+    "notable_difference": "Text A ends by centering the cost to Agent 2 ('placed an unfair burden on Agent 2'), while Text B instead adds an explicit softening hedge ('though not an extreme breach of the relationship') rather than dwelling on the partner impact.",
+    "tags": [
+      "centers-partner-feelings",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_048",
+    "notable_difference": "Text A labels the act itself with a severity term ('significant failure to meet a reasonable shared responsibility'), while Text B instead frames the conclusion around Agent 2's emotional reaction ('a reasonable cause for frustration'), centering the partner's feelings rather than rating the act.",
+    "tags": [
+      "harsher-language",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_049",
+    "notable_difference": "Very similar hedged conclusions in both; Text B explicitly names the domain as 'emotional labor expectations' while Text A stays generic ('a reasonable expectation'). Minimal difference otherwise.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_050",
+    "notable_difference": "Text A explicitly centers Agent 2's expressed emotional state ('Agent 2 communicated feeling burdened'), while Text B omits that and instead emphasizes the pattern continuing 'when confronted,' a more behavior/history-focused frame.",
+    "tags": [
+      "centers-partner-feelings",
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_051",
+    "notable_difference": "Text B adds forward-looking remedial language ('needs repair and a clear plan going forward') not present in Text A, which stops at assigning 'accountability' without prescribing next steps.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_052",
+    "notable_difference": "Text A uses the more deliberate/character-laden verb 'concealed the shortfall,' implying active deception, while Text B uses the more neutral 'not communicating,' an omission framing rather than an active cover-up framing.",
+    "tags": [
+      "attributes-character",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_053",
+    "notable_difference": "Text A explicitly attributes intent/calculation ('a deliberate breach,' 'expected them to notice later') and states 'significant failure,' while Text B is markedly softer, ending on 'reasonably warrants partner frustration' rather than labeling the act's severity.",
+    "tags": [
+      "attributes-character",
+      "harsher-language",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_054",
+    "notable_difference": "Text B uses more intent-attributing language throughout ('concealed the lapses,' 'Intentionally relying on Agent 2 to discover the gap,' 'refusing'), framing the behavior as deliberate deception, while Text A uses more neutral, passive phrasing ('did not communicate the issue').",
+    "tags": [
+      "attributes-character",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_055",
+    "notable_difference": "Text B explicitly attributes a character/dispositional trait ('shows a lack of empathy'), while Text A stays with act-based description ('failing to engage, validate, and negotiate') without the trait label.",
+    "tags": [
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_056",
+    "notable_difference": "Both use similarly harsh labels ('controlling behavior'), but Text A explicitly frames it as an ongoing pattern ('this pattern is a significant breach of trust') while Text B leads with 'invasion of privacy' as its harshest framing device. Largely similar severity of language overall.",
+    "tags": [
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_057",
+    "notable_difference": "Text B attributes a dispositional trait ('was dismissive') to Agent 1, while Text A calls the same behavior a 'minor communication lapse,' a more act-specific and minimizing frame.",
+    "tags": [
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_058",
+    "notable_difference": "B closes with an explicit hedge ('they bears partial responsibility') that softens the verdict, while A states the conclusion ('makes their behavior problematic') without that qualifier.",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_059",
+    "notable_difference": "A calls it 'a clear lapse' with no qualifier, while B explicitly hedges with 'Agent 1 is partially at fault' and frames it as a 'communication and boundary issue' rather than a firm violation.",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_060",
+    "notable_difference": "A opens with a mitigating hedge ('an occasional question can be understandable') before assigning blame, whereas B skips that hedge and closes with the stronger claim that Agent 1 'bears significant responsibility.'",
+    "tags": [
+      "hedges-qualifies",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_061",
+    "notable_difference": "A ends on a mitigating note ('occasional insecurity is understandable'), while B has no such hedge and uses stronger language ('breach of trust and disrespectful,' 'significant failure').",
+    "tags": [
+      "hedges-qualifies",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_062",
+    "notable_difference": "B adds relationship-history detail ('over months') and a hedge acknowledging legitimate concern ('While concerns can be discussed...'), giving a more qualified verdict than A's more direct, unhedged framing.",
+    "tags": [
+      "hedges-qualifies",
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_063",
+    "notable_difference": "A frames it as a 'limited failure' resolvable 'through communication and compromise' (solution-oriented, softer), while B calls it an 'inappropriate boundary overstep' and 'clear breach' -- somewhat harsher terms for the same act.",
+    "tags": [
+      "hedges-qualifies",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_064",
+    "notable_difference": "A minimizes the act as 'a minor lapse... not a severe breach,' while B labels it a 'clear relationship boundary violation,' using notably harsher language for the same underlying act.",
+    "tags": [
+      "hedges-qualifies",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_065",
+    "notable_difference": "B explicitly names the behavior 'controlling behavior' (character attribution) and says Agent 1 'bears significant responsibility,' while A stays more procedural, suggesting what Agent 1 should have done instead and calling it simply 'a clear fault.'",
+    "tags": [
+      "attributes-character",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_066",
+    "notable_difference": "B uses a stronger hedge ('somewhat at fault,' 'limited failure') and explicitly invokes relationship duration ('In a multi-year relationship'), while A's hedge is milder ('clear communication lapse, though not a severe betrayal') without referencing history.",
+    "tags": [
+      "hedges-qualifies",
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_067",
+    "notable_difference": "No clear difference in framing -- both use comparably strong language ('serious breach' vs 'significant breach') and similar structure; differences are limited to which specific facts are mentioned.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_068",
+    "notable_difference": "A explicitly attributes intent ('significant, intentional disregard'), framing the act as revealing deliberate character, while B sticks to describing the refusal and rates it 'considerably at fault' without the intentionality framing.",
+    "tags": [
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_069",
+    "notable_difference": "Largely similar in strength, but B's closing frames the harm in terms of Agent 2's 'emotional safety' while A frames it more abstractly as undermining 'trust and wellbeing' -- a mild difference in emotional centering.",
+    "tags": [
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_070",
+    "notable_difference": "B adds an explicit emotional-harm framing ('doesn't excuse persistent emotional harm,' 'validate their partner'), centering Agent 2's emotional experience more than A, which stays focused on describing the act and its breach of respect.",
+    "tags": [
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_071",
+    "notable_difference": "A includes a mitigating hedge citing situational justification ('even if the work reason was genuine'), while B omits this and instead attributes intent ('knowingly ignored').",
+    "tags": [
+      "cites-external-circumstances",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_072",
+    "notable_difference": "No clear difference in framing -- both describe the pattern and breach in comparably strong, similar terms.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_073",
+    "notable_difference": "B explicitly argues the behavior was 'intentional and ongoing rather than an occasional necessity,' an explicit character/intent attribution that rules out situational excuse; A describes the same facts without making this intent argument explicit.",
+    "tags": [
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_074",
+    "notable_difference": "B is more hedged, explicitly stating the failure 'isn't an extreme or abusive violation' and is 'significant... rather than a trivial lapse,' while A is less qualified and closes by centering how Agent 2 'would legitimately feel unsupported.'",
+    "tags": [
+      "hedges-qualifies",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_075",
+    "notable_difference": "No clear difference in framing -- both describe a knowing/unilateral violation of the agreement in similarly strong terms.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_076",
+    "notable_difference": "No clear difference in framing -- comparable severity and structure in both texts.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_077",
+    "notable_difference": "No clear difference in framing -- both texts describe the violation with similar strength and structure.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_078",
+    "notable_difference": "B explicitly cites a mitigating external circumstance ('Fatigue may mitigate occasional absences') before concluding the pattern still 'justifies criticism,' and adds relationship-history detail ('over a year'); A does not raise this mitigating factor.",
+    "tags": [
+      "cites-external-circumstances",
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_079",
+    "notable_difference": "No clear difference in framing -- both texts are close paraphrases with similar hedging ('not a severe breach of trust' / 'not a severe betrayal').",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_080",
+    "notable_difference": "B explicitly centers Agent 2's emotional experience ('made Agent 2 feel secondary'), while A omits this and focuses only on describing the act itself.",
+    "tags": [
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_081",
+    "notable_difference": "B includes an explicit exculpatory hedge ('Agent 1 is not obligated to acknowledge every accomplishment') before assigning fault, while A omits this hedge and states the disregard more directly.",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_082",
+    "notable_difference": "Largely similar, but B closes by centering Agent 2's feelings explicitly ('disregard for Agent 2's feelings') where A frames the failure more in terms of the expectation itself.",
+    "tags": [
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_083",
+    "notable_difference": "Nearly identical in framing; B uses a slightly stronger intensifier ('significant lack of empathy') compared to A's 'a lack of empathy,' a minor difference in severity of language.",
+    "tags": [
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_084",
+    "notable_difference": "B uses a stronger quantifier ('considerably in the wrong' vs A's 'in the wrong') and makes Agent 2's burden more concrete ('leaving Agent 2 to pick up the slack'), a mildly harsher and more partner-centered framing.",
+    "tags": [
+      "harsher-language",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_085",
+    "notable_difference": "B frames the impact in more emotionally loaded terms ('significant disruption and stress for Agent 2') while A states a concrete factual consequence ('causing Agent 2 to miss work'), a mild shift toward centering the partner's emotional toll.",
+    "tags": [
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_086",
+    "notable_difference": "No clear difference in framing -- both describe the unilateral decision and resulting unfair burden in comparable terms.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_087",
+    "notable_difference": "A adds an extra clause emphasizing 'intentional disregard,' explicitly attributing the act to deliberate character rather than just describing it, while B stays more descriptive and concise.",
+    "tags": [
+      "attributes-character",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_088",
+    "notable_difference": "A frames the disregard as being for the partner's 'feelings,' while B frames it in terms of the 'burden' and 'partnership expectation,' a more procedural framing.",
+    "tags": [
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_089",
+    "notable_difference": "A uses the word 'neglect' (a character-tinged label) and frames it as a past problem, while B frames it more procedurally as a 'failure to uphold' a responsibility and emphasizes Agent 2 having to take over 'entirely.'",
+    "tags": [
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_090",
+    "notable_difference": "B explicitly hedges by referencing that the facts 'warrant a moderate fault rating,' an overt qualification absent from A.",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_091",
+    "notable_difference": "A uses pattern/character language ('consistent neglect,' 'clear breach of partnership expectations'), while B stays more concrete and descriptive, listing specific consequences (late fees, scrambling) rather than labeling character.",
+    "tags": [
+      "attributes-character",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_092",
+    "notable_difference": "Nearly identical text; A calls it an 'ongoing disregard for a...relationship dynamic' (broader, pattern-like framing) while B calls it a 'conscious disregard for a...responsibility' (more intent-focused, duty-specific framing). Subtle difference only.",
+    "tags": [
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_093",
+    "notable_difference": "A labels the act a 'breach of trust' (relational/emotional harshness), while B labels it a 'breach of...agreement' and 'lack of transparency' (more procedural).",
+    "tags": [
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_094",
+    "notable_difference": "B adds an extra aggravating sentence noting the failure to make up missed contributions 'further exacerbates the breach of trust,' slightly more elaborated/harsher than A.",
+    "tags": [
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_095",
+    "notable_difference": "No clear difference in framing; both use similar disregard/violation language and similar severity of description.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_096",
+    "notable_difference": "A reaches an unqualified harsh conclusion ('lack of empathy,' 'significant failure') and calls the act 'a request,' while B hedges ('While Agent 1 is entitled to their feelings...'), calls the act 'a demand,' and lands on a milder conclusion.",
+    "tags": [
+      "hedges-qualifies",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_097",
+    "notable_difference": "A cites Agent 1's possible insecurity as mitigating context ('While Agent 1 may have felt insecure') yet still lands on a harsher character label ('controlling and dismissive'); B hedges similarly but lands on a milder label ('failure in communication and respect').",
+    "tags": [
+      "cites-external-circumstances",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_098",
+    "notable_difference": "B opens with an upfront character label ('Agent 1 is controlling and dismissive of Agent 2's feelings') before listing the specific acts, while A leads with the acts themselves and only implies the character judgment.",
+    "tags": [
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_099",
+    "notable_difference": "A hedges with 'can be damaging' while B asserts unhedged 'is damaging,' and B adds an extra clause citing Agent 1's own admission of doubt as further aggravating.",
+    "tags": [
+      "hedges-qualifies",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_100",
+    "notable_difference": "A includes an extra sentence citing Agent 2's expressed feeling of unfairness as an aggravating factor, which B omits.",
+    "tags": [
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_101",
+    "notable_difference": "Reverse of the pair_100 pattern: here B includes the extra sentence citing Agent 2's expressed feeling of unfairness as aggravating, while A omits it.",
+    "tags": [
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_102",
+    "notable_difference": "A hedges by first granting Agent 1 is 'entitled to them feelings' before condemning the specific act, while B skips the hedge and escalates to a harsher character read ('an attempt to isolate Agent 2, which is highly problematic').",
+    "tags": [
+      "hedges-qualifies",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_103",
+    "notable_difference": "B includes a small acknowledgment ('While Agent 1 acknowledged the issue') that slightly credits Agent 1, which A lacks; otherwise similar in tone and conclusion.",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_104",
+    "notable_difference": "No clear difference in rhetorical framing; the two differ mainly in which specific fact they foreground, not in tone or strategy.",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_105",
+    "notable_difference": "B explicitly names Agent 2 as the one negatively impacted ('negatively impacted Agent 2 and the relationship') while A uses the more generic 'negatively impacted the relationship'; B also adds an extra clause framing Agent 1's inaction as a known, willful refusal.",
+    "tags": [
+      "centers-partner-feelings",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_106",
+    "notable_difference": "A uses harsher, more blaming language ('refusal to articulate needs,' expectation is 'unreasonable') while B is more measured, calling it merely 'understandable to wish' and not labeling the expectation unreasonable.",
+    "tags": [
+      "harsher-language",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_107",
+    "notable_difference": "B explicitly defends Agent 2's position ('it's unfair to hold them accountable for not knowing something they were never told'), centering the partner's perspective, while A gives a more generic statement about the importance of communication.",
+    "tags": [
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_108",
+    "notable_difference": "A uses the blunter adjective 'severe,' while B elaborates a selfish-motive character frame ('prioritizing them own satisfaction over them partner's well-being').",
+    "tags": [
+      "harsher-language",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_109",
+    "notable_difference": "A is markedly harsher and more categorical ('entirely in the wrong,' 'complete lack of consideration'), directly quoting the offending statement, while B is comparatively measured ('significant lack of consideration').",
+    "tags": [
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_110",
+    "notable_difference": "A hedges by first crediting the value of honesty before condemning, and elaborates more on the emotional impact/feelings caused; B is terser and more direct, without the hedge or as much emotional elaboration.",
+    "tags": [
+      "hedges-qualifies",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_111",
+    "notable_difference": "A frames the continuation of a pattern as an aggravating factor ('especially since this pattern of behavior has continued'), leaning on relationship history, while B frames the single choice as a 'conscious decision,' emphasizing individual intent/character instead.",
+    "tags": [
+      "references-relationship-history",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_112",
+    "notable_difference": "Nearly identical text; A closes with a relational framing ('disregard for Agent 2's partnership and the agreed-upon terms of their relationship') while B closes with a more practical/transactional framing ('disregard for Agent 2's input and their shared financial well-being').",
+    "tags": [
+      "relational-vs-practical-framing"
+    ]
+  },
+  {
+    "pair_id": "pair_113",
+    "notable_difference": "Same pattern as pair_112 but reversed: here A uses the practical framing ('input and shared financial well-being') and B uses the relational framing ('partner's involvement and the agreed-upon terms of their relationship').",
+    "tags": [
+      "relational-vs-practical-framing"
+    ]
+  },
+  {
+    "pair_id": "pair_114",
+    "notable_difference": "A is heavily hedged throughout ('understandable,' 'minor lapse,' 'could be perceived as a slight imbalance'), while B delivers a direct, unqualified judgment ('shows a lack of consideration').",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_115",
+    "notable_difference": "A closes on the partner's emotional experience and a harsher label ('made Agent 2 feel secondary, which is a significant breach of trust and partnership'), while B closes on a fairness/equity framing that is comparatively softer ('lack of consideration...desire for equitable treatment').",
+    "tags": [
+      "centers-partner-feelings",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_116",
+    "notable_difference": "A explicitly hedges the verdict ('clear, though not severe, failure'); B omits that hedge and instead invokes the 'long-term relationship' role expectation, and uses the more willful-sounding 'refusal to change' rather than A's 'failure to change'.",
+    "tags": [
+      "hedges-qualifies",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_117",
+    "notable_difference": "A stresses disregard for Agent 2's feelings and lack of reciprocity/character ('prioritizing personal comfort'); B instead grounds the obligation in the relationship's history ('especially after acknowledging a prior imbalance') and uses comparatively milder language ('shirking', 'lack of effort').",
+    "tags": [
+      "centers-partner-feelings",
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_118",
+    "notable_difference": "A closes by centering the emotional impact on Agent 2 ('reasonably hurt Agent 2'); B instead closes with an explicit exculpatory hedge ('While not malicious') and frames the behavior as a character-revealing 'pattern' rather than an isolated relational failure.",
+    "tags": [
+      "centers-partner-feelings",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_119",
+    "notable_difference": "A ends on an unqualified condemnation ('significant failure in cooperative living'); B ends by explicitly mitigating impact and scope ('the impact was limited... a single instance').",
+    "tags": [
+      "hedges-qualifies",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_120",
+    "notable_difference": "B much more heavily hedges and excuses the behavior, explicitly citing fatigue as a non-malicious cause and situating the lapse within 'a long period of shared responsibility'; A only briefly notes 'While understandable' before condemning.",
+    "tags": [
+      "cites-external-circumstances",
+      "hedges-qualifies",
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_121",
+    "notable_difference": "A frames the situation with a relational out ('the obligation to either fulfill the agreement or renegotiate it respectfully') and centers the burden placed on Agent 2; B instead directly quotes the callous rationale ('didn't feel like it') for harsher effect and emphasizes the partner's time rather than burden.",
+    "tags": [
+      "hedges-qualifies",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_122",
+    "notable_difference": "A closes on relational trust and Agent 2 'counting on' Agent 1 (centers partner reliance); B closes by labeling it a 'repeated' breach of a 'core domestic responsibility,' framing it more as a character/pattern issue.",
+    "tags": [
+      "centers-partner-feelings",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_123",
+    "notable_difference": "B explicitly names this a 'pattern of neglect,' a character-level framing that A's parallel closing line ('breach of the partnership agreement') does not use.",
+    "tags": [
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_124",
+    "notable_difference": "B hedges more explicitly, calling it 'a moderate but not severe breach' and noting it was 'one instance,' while also invoking the resulting ongoing imbalance as historical context; A simply calls it 'a clear failure' with no such qualification.",
+    "tags": [
+      "hedges-qualifies",
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_125",
+    "notable_difference": "B adds the character-attributing word 'willful' and explicitly centers Agent 2's likely emotional response ('causing likely disappointment'), making the overall judgment somewhat harsher than A's parallel sentence.",
+    "tags": [
+      "attributes-character",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_126",
+    "notable_difference": "B explicitly hedges severity ('while not severe') and centers Agent 2's emotional reaction ('feeling let down'); A instead frames the harm abstractly as impact 'on the partnership dynamic.'",
+    "tags": [
+      "hedges-qualifies",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_127",
+    "notable_difference": "A explicitly downgrades severity ('though not a severe breach since Agent 1 did not actively refuse or cause harm'); B instead escalates, calling it 'a significant failure' and citing 'continued unfair burden on Agent 2.'",
+    "tags": [
+      "hedges-qualifies",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_128",
+    "notable_difference": "B additionally centers the unfair burden placed on Agent 2 and uses the harsher word 'betrayal' (in a hedge), where A's parallel hedge uses the milder 'breach.'",
+    "tags": [
+      "centers-partner-feelings",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_129",
+    "notable_difference": "A actively rejects a minimizing reading ('not a minor oversight but a breach'), while B explicitly mitigates by calling it 'a single incident and not malicious.'",
+    "tags": [
+      "harsher-language",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_130",
+    "notable_difference": "B hedges the culpability by attributing the lapse to 'negligence rather than intentional disregard,' a distinction A's shorter, unqualified closing line does not make.",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_131",
+    "notable_difference": "A centers Agent 2's emotional experience ('understandably upset Agent 2'); B instead frames it as a character-level 'pattern of neglect' while also crediting Agent 1's admission of fault as mitigating.",
+    "tags": [
+      "centers-partner-feelings",
+      "attributes-character",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_132",
+    "notable_difference": "A strongly mitigates, calling it 'a single lapse in an otherwise consistent pattern' and narrowing Agent 1's duty to merely 'assist, not solely manage'; B instead frames it as an 'ongoing failure' with no such mitigation, a more character/pattern-based and harsher reading.",
+    "tags": [
+      "hedges-qualifies",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_133",
+    "notable_difference": "A attributes a dismissive character trait to Agent 1 ('dismissal of the agreement's necessity,' 'lack of respect'); B's parallel closing line is more hedged and inferential ('suggests the breach was not trivial').",
+    "tags": [
+      "attributes-character",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_134",
+    "notable_difference": "A closes with a character judgment ('indicates a lack of accountability'); B closes with a strong mitigating hedge, calling it 'a single incident without malicious intent' and downplaying Agent 2's response as merely 'a request for future compliance' rather than 'an accusation of severe betrayal.'",
+    "tags": [
+      "attributes-character",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_135",
+    "notable_difference": "no clear difference in framing -- the two texts are near-paraphrases of each other with essentially the same structure, emphasis, and severity language ('exacerbates the wrong' vs. 'compounds the fault').",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_136",
+    "notable_difference": "A centers concrete harm to Agent 2 ('causing financial and relational harm'); B instead offers an external mitigating circumstance ('may stem from financial difficulty rather than malice').",
+    "tags": [
+      "centers-partner-feelings",
+      "cites-external-circumstances",
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_137",
+    "notable_difference": "A references relationship/financial history (Agent 2's 'larger financial contribution') and closes with a harsher 'clear breach of trust'; B's parallel closing line is shorter and omits both the historical detail and the strong trust-breach language.",
+    "tags": [
+      "references-relationship-history",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_138",
+    "notable_difference": "A centers Agent 2's feelings explicitly ('refusal to validate or discuss Agent 2's feelings'); B instead attributes a general character trait ('this dismissive approach') without naming feelings.",
+    "tags": [
+      "centers-partner-feelings",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_139",
+    "notable_difference": "A frames the violation abstractly as a 'significant breach of trust and relational norms' (harsher, emotionally coded around 'discomfort'); B frames it more procedurally as a failure to establish 'mutual agreements about privacy and social life,' a normative-obligation framing rather than a trust-breach framing.",
+    "tags": [
+      "harsher-language",
+      "frames-as-normative-obligation"
+    ]
+  },
+  {
+    "pair_id": "pair_140",
+    "notable_difference": "A's closing line frames the unresolved conflict as a joint 'failure to communicate and negotiate,' softening single-party blame; B's closing line places the failure squarely 'in the relationship' via Agent 1's side only, reading as more direct/harsher.",
+    "tags": [
+      "hedges-qualifies",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_141",
+    "notable_difference": "A closes with a character-trait framing ('failed in their obligation to be a considerate and communicative partner'); B closes by pointing to the 'ongoing unresolved nature' of the conflict as evidence, drawing more on relationship history/pattern.",
+    "tags": [
+      "attributes-character",
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_142",
+    "notable_difference": "A hedges the verdict as 'a minor but real failure'; B instead centers Agent 2's emotional harm ('causing unnecessary distress') and calls it simply 'a clear failure,' a less-hedged and harsher framing.",
+    "tags": [
+      "hedges-qualifies",
+      "centers-partner-feelings",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_143",
+    "notable_difference": "B foregrounds Agent 2's emotional experience and uses harsher language ('emotionally draining and unfair,' 'unjustly accuses Agent 2 of dishonesty'), while A frames the same point more clinically as a failure to manage insecurities.",
+    "tags": [
+      "centers-partner-feelings",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_144",
+    "notable_difference": "B explicitly forecloses shared blame, stating the dispute stems from Agent 1's request 'rather than a mutual issue,' and uses the harsher 'clear failure,' whereas A's parallel line is more general and does not rule out mutuality.",
+    "tags": [
+      "harsher-language",
+      "forecloses-mutual-responsibility"
+    ]
+  },
+  {
+    "pair_id": "pair_145",
+    "notable_difference": "Both are similarly firm, but B closes with a generalizing frame about the pattern creating an 'unhealthy dynamic' where one partner's discomfort 'overrides' the other's rights, a slightly more character/relational-pattern framing than A's act-focused close about disrespecting independence.",
+    "tags": [
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_146",
+    "notable_difference": "A explicitly hedges its judgment ('though not the most severe breach'), while B ends on an unqualified, more categorical claim ('undermining the relationship's health').",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_147",
+    "notable_difference": "B frames the behavior as a 'persistent pattern of inattentiveness' and says it 'demonstrates' a lack of respect/care, leaning on character and relationship-history framing, whereas A stays closer to describing the specific incident and defensive response.",
+    "tags": [
+      "attributes-character",
+      "references-relationship-history"
+    ]
+  },
+  {
+    "pair_id": "pair_148",
+    "notable_difference": "A uses more character-loaded/harsh language, calling the behavior a 'significant and selfish failure of consideration,' while B's phrasing ('failed to meet this basic relational obligation') is comparatively neutral and procedural.",
+    "tags": [
+      "harsher-language",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_149",
+    "notable_difference": "A adds extra inferential framing not needed to state fault: calling the act a 'deliberate choice, not an oversight' (character/intent attribution) and inferring relationship damage from the dispute being 'unresolved,' whereas B stays with a more direct procedural account of the breach.",
+    "tags": [
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_150",
+    "notable_difference": "B explicitly frames the act as something Agent 1 'deliberately chose to violate' and flags it as carrying 'significant risk,' both somewhat harsher/character-attributing framings; A's language is more procedural ('disregarded the partnership's mutual decision-making framework').",
+    "tags": [
+      "attributes-character",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_151",
+    "notable_difference": "B explicitly frames the disregard as being toward Agent 2's 'feelings' in its closing sentence, foregrounding the partner's emotional experience slightly more than A, which frames the harm in terms of trust/partnership rather than feelings.",
+    "tags": [
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_152",
+    "notable_difference": "B explicitly names 'Agent 2's feelings' as being disregarded, centering the partner's emotional experience slightly more than A, which frames the failure more abstractly as a breach of expected emotional support.",
+    "tags": [
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_153",
+    "notable_difference": "A is concise and measured. B is dramatically longer and more repetitive, piling on amplifying character judgments ('dismissive and uncaring,' 'lack of understanding or empathy,' 'considerable degree of fault') and reiterating the same points multiple times for emphasis.",
+    "tags": [
+      "harsher-language",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_154",
+    "notable_difference": "No clear difference in framing -- both texts use nearly identical structure and comparable severity of language, just minor wording swaps (e.g. 'lapse in empathy and support' vs 'did not prioritize emotional well-being').",
+    "tags": []
+  },
+  {
+    "pair_id": "pair_155",
+    "notable_difference": "B attributes a specific selfish motive to Agent 1 ('own comfort with mess was more important than Agent 2's desire'), a character-attribution framing, while A stays at the level of describing a failure to compromise/adjust behavior.",
+    "tags": [
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_156",
+    "notable_difference": "A is far longer and much more escalating/dramatic, repeating and intensifying the judgment ('particularly egregious,' 'highly in the wrong,' 'consistent disregard,' 'considerable upset and strain'), whereas B makes similar points once, more concisely and with less amplification.",
+    "tags": [
+      "harsher-language",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_157",
+    "notable_difference": "A is a single bare, factual sentence. B elaborates further, adding character judgment ('lack of consideration and responsibility') and emphasizing that Agent 1 knowingly chose not to cook, making the intentionality more explicit.",
+    "tags": [
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_158",
+    "notable_difference": "Largely parallel, but B adds an extra normative closing line calling it a 'significant breach of what a reasonable partner would be expected to do,' a slightly harsher/more evaluative framing than A's closing about failing to 'prioritize mutual support and fairness.'",
+    "tags": [
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_159",
+    "notable_difference": "B explicitly hedges the verdict ('suggests Agent 1 was somewhat in the wrong'), while A states the conclusion unhedged ('Agent 1 was in the wrong because...').",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_160",
+    "notable_difference": "A uses firmer, more direct language ('significant breach,' 'further exacerbates the issue'), while B uses more tentative/hedged phrasing ('suggests that Agent 1 was not meeting,' 'implies a level of negligence').",
+    "tags": [
+      "hedges-qualifies",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_161",
+    "notable_difference": "A is plain and measured, simply describing the failure. B escalates with stronger evaluative language ('significant breach of Agent 1's responsibility,' 'further emphasizes their fault').",
+    "tags": [
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_162",
+    "notable_difference": "A adds an extra critical point that B lacks: that Agent 1's response 'did not take responsibility for the lapse or commit to following the agreement in the future,' a character judgment about lack of accountability/remorse, whereas B focuses on the immediate rights/boundary violation.",
+    "tags": [
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_163",
+    "notable_difference": "B explicitly criticizes Agent 1 for 'downplaying the need for discussion' and frames this as 'a failure to take responsibility for their actions,' a character/accountability judgment not present in A, which sticks to describing the breach of the agreement itself.",
+    "tags": [
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_164",
+    "notable_difference": "A is much more elaborated and explicitly engages with and rejects Agent 1's justification ('not a valid excuse'), while B is a single terse sentence that doesn't address the justification at all.",
+    "tags": [
+      "cites-external-circumstances"
+    ]
+  },
+  {
+    "pair_id": "pair_165",
+    "notable_difference": "B explicitly hedges ('Agent 1 was somewhat in the wrong'), while A states the judgment without qualification ('Agent 1 was in the wrong').",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_166",
+    "notable_difference": "B is heavily hedged ('somewhat in the wrong,' 'can be seen as') and explicitly offers a mitigating counterpoint in Agent 1's favor ('However, Agent 1's preference... is also a reasonable aspect'), while A states the fault directly and unhedged with no counterbalancing point.",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_167",
+    "notable_difference": "A is hedged ('somewhat in the wrong,' 'can be seen as an overreach') and acknowledges Agent 1's preference as understandable, while B is unhedged and uses harsher character language ('possessive,' 'may lead to feelings of resentment').",
+    "tags": [
+      "hedges-qualifies",
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_168",
+    "notable_difference": "A adds a specific, more character-loaded detail -- that Agent 1 kept 'an unspoken tally of the imbalance and criticize[d] Agent 2' -- suggesting passive-aggressive disposition, while B instead emphasizes the downstream effect on Agent 2 (left 'unaware of the specific problems and unable to address them').",
+    "tags": [
+      "attributes-character",
+      "centers-partner-feelings"
+    ]
+  },
+  {
+    "pair_id": "pair_169",
+    "notable_difference": "A states the judgment unhedged ('is at fault'), while B hedges ('is somewhat in the wrong') and is notably shorter/less elaborated.",
+    "tags": [
+      "hedges-qualifies"
+    ]
+  },
+  {
+    "pair_id": "pair_170",
+    "notable_difference": "A additionally extends some sympathy toward Agent 1 ('Agent 1's frustration is understandable, but...'), a small charitable/balancing gesture toward Agent 1 that B omits; otherwise both are similarly hedged ('somewhat in the wrong').",
+    "tags": [
+      "cites-external-circumstances"
+    ]
+  },
+  {
+    "pair_id": "pair_171",
+    "notable_difference": "B is more pointed, framing Agent 1 as having actively 'blamed Agent 2' and criticizing their 'insistence' as unreasonable, a harsher, more character-driven framing than A's comparatively measured description of a failure to communicate leading to misunderstanding.",
+    "tags": [
+      "harsher-language",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_172",
+    "notable_difference": "B adds a significant emotionally-charged detail absent from A: that Agent 1 treated Agent 2's lack of initiation 'as proof of insufficient attraction,' which centers Agent 2's emotional experience/hurt, and frames Agent 1's non-communication as a 'refusal' (willful) rather than just a gap, both harsher than A's more neutral situational framing.",
+    "tags": [
+      "centers-partner-feelings",
+      "attributes-character"
+    ]
+  },
+  {
+    "pair_id": "pair_173",
+    "notable_difference": "Largely parallel framing referencing the pattern/history of prior accommodation in both; B's closing is slightly harsher ('significant breach of the support and understanding expected') versus A's milder close ('failure to prioritize the partnership and Agent 2's career needs').",
+    "tags": [
+      "harsher-language"
+    ]
+  },
+  {
+    "pair_id": "pair_174",
+    "notable_difference": "No clear difference in framing -- both use very similar rhetorical structure (acknowledgment of the prior agreement, unilateral action, breach of trust) with comparable intensity of language.",
+    "tags": []
+  }
+]

@@ -230,7 +230,18 @@ subsumes. `si2026gama`/GAMA-Bench stays cited in Related Work as the closest
 prior work on the numeric-rating side -- it just isn't the right source for
 a new reasoning-text metric.)
 
-- **(a) Primary: blind pairwise LLM-judge open coding.** For each matched
+- **(a) Primary: blind pairwise LLM-judge open coding -- prototyped
+  2026-08-18, promising.** Run on the 175 disagreement pairs from the
+  original confirmatory pass; two categories (hedging toward female agents,
+  character-attribution/harsher-language toward male agents) survive
+  Bonferroni correction -- see `analysis/reasoning_pattern_discovery_findings.md`
+  and `scripts/analyze_reasoning_patterns.py`. Not yet independently
+  validated (single coder, seeded categories, no inter-rater check) -- see
+  that findings doc's "What this is not yet" and "Recommended next steps"
+  before treating as confirmed. Original spec below, for the full-scale
+  version once the expanded dataset's run completes.
+
+  For each matched
   pair (same scenario/severity/model, M-agent vs. F-agent `reasoning` text),
   show a coding model both texts side by side as "Response A"/"Response B"
   -- gender labels and `fault_rating` scores stripped, order randomized --
@@ -322,7 +333,7 @@ a new reasoning-text metric.)
 | 5d | Cross-model agreement/confidence by orientation | needs new code |
 | 5e | Family x orientation interaction (exploratory) | needs new code |
 | 7 | New-scenarios-only (05-09) subset filter for the ambivalent-sexism contrast | needs new code + confirm the primary/secondary split |
-| 10a | Blind pairwise LLM-judge open coding of reasoning text | needs new code -- but runnable **now**, no new data needed |
+| 10a | Blind pairwise LLM-judge open coding of reasoning text | **prototyped, promising** -- needs independent validation (single coder, no inter-rater check yet), then scale to full 720 pairs and the new run |
 | 10b | Disparate-impact ratio | needs new code + the cutpoint decision (protocol doc, still open) |
 | 10c | Regard score on reasoning text | lower priority, needs new code, sequence after 10a |
 

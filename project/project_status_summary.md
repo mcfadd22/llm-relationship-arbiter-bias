@@ -168,6 +168,32 @@ Analysis of `responses/confirmatory/*.csv` (5 models x 288 vignettes = 1,440 row
   secondary effect: agents rated slightly more at fault when the partner/victim
   is female (d=-0.11). Cross-model fault_rating agreement is moderate (pairwise
   r=0.57-0.74 on matched vignettes).
+- **Reasoning-text pattern discovery: promising prototype result (2026-08-18).**
+  Ran the blind pairwise LLM-judge open-coding approach specced in
+  `docs/planned_analysis.md` Section 10(a) on the 175 disagreement pairs from
+  the original confirmatory pass (matched M/F reasoning texts, pronouns
+  scrubbed -- 24.6% of raw texts leaked "he/she" despite the pronoun-free
+  vignette design -- shown blind with no gender labels or fault_rating
+  scores). Full methodology, data, and caveats in
+  `scripts/analyze_reasoning_patterns.py` and
+  `analysis/reasoning_pattern_discovery_findings.md`. **Two findings survive
+  Bonferroni correction**: `hedges-qualifies` skews heavily toward the
+  female-agent text (M=14, F=48, n=62, p<0.0001) -- mitigating language
+  ("though not severe," "a single incident rather than a pattern") shows up
+  far more often explaining identical facts for a female agent than a male
+  one; `harsher-language` skews toward the male-agent text (M=38, F=18,
+  n=56, p=0.0075). `attributes-character` also skews male (M=33, F=17,
+  p=0.024) but doesn't survive strict Bonferroni. This is a specific
+  mechanism, not just numeric bias restated -- hedging and character
+  attribution are independent of overall harshness. **Notably succeeds where
+  the predefined-lexicon pipeline failed on the identical corpus**: LIB (the
+  feature specifically built to capture dispositional-vs-situational
+  attribution via automated parsing) showed d_z=-0.004 on this same data --
+  the construct is apparently real, automated parsing was just the
+  insensitive instrument. **Not yet independently validated** (single coder,
+  no inter-rater check, seeded not fully naive categories, disagreement-pairs-
+  only) -- see the findings doc's "What this is not yet" section before
+  treating this as a confirmed paper result rather than a strong lead.
 - **BBQ/KoBBQ positioning (2026-08-18).** GeBNLP reviewers will know BBQ
   (Parrish et al. 2022, Findings of ACL, arXiv:2110.08193) -- its ambiguous-vs-
   disambiguated-context design is structurally close to what this project's
