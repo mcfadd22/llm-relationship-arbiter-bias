@@ -192,8 +192,12 @@ confirmed.
 - By-family breakdown of these features. **[implemented]**.
 - Prior finding on old data: weak correlation with the numeric bias
   (|r|<0.11) -- worth checking whether that holds at the new, higher power,
-  or was itself an underpowered null. See Section 10(b)-(c) for candidate
-  additional text-based measures motivated by this weak result.
+  or was itself an underpowered null. **This is the motivation for Section
+  10's pairwise open-coding approach**, which doesn't rely on a predefined
+  lexicon the way these four features do, and (unlike everything else in
+  this document) doesn't need the new run at all -- it can be prototyped
+  right now on the existing 720 matched pairs from the original confirmatory
+  pass.
 
 ## 9. Confidence -- not a primary test on this run's data
 
@@ -210,13 +214,52 @@ confirmed.
   before this run, it would need its own coding-scheme analysis plan, not
   written yet.
 
-## 10. Additional bias metrics from the fairness/NLP-bias literature
+## 10. Beyond lexicons: pattern discovery and other bias metrics
 
-Beyond the BBQ/KoBBQ diff-bias score already adopted (Section 1), three
-further metric classes are worth considering. None are built yet; each is
-listed with what it would add beyond what's already planned.
+The four predefined `reasoning`-text features (Section 8) came back with weak
+correlations to the numeric bias (|r|<0.11) across the board, including LIB,
+the theoretically best-grounded of the four. That's a real finding, not a
+dead end -- but it means the fix is a different *strategy* for reading the
+reasoning text, not a fifth hand-built lexicon. (An earlier draft of this
+section proposed adopting GAMA-Bench's punitive-word-count and
+instructional/accusatory-framing measures -- dropped after review: both are
+close enough to the existing `moral_intensity` lexicon that they'd likely
+just replicate the same weak-signal result, and GAMA-Bench's full-blame-rate
+is a binarized `fault_rating`, which the continuous version already
+subsumes. `si2026gama`/GAMA-Bench stays cited in Related Work as the closest
+prior work on the numeric-rating side -- it just isn't the right source for
+a new reasoning-text metric.)
 
-- **(a) Disparate-impact / demographic-parity ratio** -- standard in the
+- **(a) Primary: blind pairwise LLM-judge open coding.** For each matched
+  pair (same scenario/severity/model, M-agent vs. F-agent `reasoning` text),
+  show a coding model both texts side by side as "Response A"/"Response B"
+  -- gender labels and `fault_rating` scores stripped, order randomized --
+  and ask it to describe any differences in framing, rhetorical strategy, or
+  emphasis it notices, with no predefined categories to choose from. Induce
+  a small taxonomy from the recurring answers across many pairs (candidate
+  categories to watch for, not to impose up front: cites external
+  circumstances as mitigating, attributes intent/character rather than the
+  specific act, references relationship history/pattern, hedges or qualifies
+  the judgment, centers the partner's stated feelings vs. the agent's stated
+  reasons). Once a taxonomy is induced, classify all pairs into it and test
+  whether specific categories skew toward one agent gender using the same
+  paired sign-test/permutation machinery already used throughout this
+  project, for methodological consistency. This keeps the causal
+  matched-pair design intact (unlike a plain lexicon scan over unpaired
+  text) and is a genuine discovery method rather than a confirmatory scan
+  for a predicted signal.
+  - **Doesn't require the new run** -- prototypeable immediately on the
+    existing 720 matched pairs from the original 288-vignette confirmatory
+    pass. Recommended as the actual next step, independent of when Thulasi's
+    expanded-dataset run happens.
+  - **Validation**: fold this into the already-open "independent hand-read
+    validation" item (project status doc, open item 2) -- Meredith
+    spot-checking a sample of the induced categories against the source
+    text serves both that existing open item and this new analysis at once.
+  - **[needs new code]** -- a coding-pass script plus a taxonomy-induction
+    step; genuinely new, not an extension of `analyze_reasoning_text.py`'s
+    lexicon-matching approach.
+- **(b) Disparate-impact / demographic-parity ratio** -- standard in the
   algorithmic-fairness literature (e.g. the "4/5ths rule" used in US EEOC
   hiring-discrimination audits; Feldman et al. 2015's disparate-impact
   framing). Derive a categorical "high-fault" verdict via the cutpoint
@@ -225,59 +268,29 @@ listed with what it would add beyond what's already planned.
   -- this needs that decision made first), then compute
   `P(high-fault | agent=M) / P(high-fault | agent=F)` as a disparate-impact
   ratio, and the same for the orientation (Section 5) and NB-agent (Section
-  2) comparisons. This maps the existing continuous-scale finding onto a
-  metric a deployment/compliance audience (moderation, HR) recognizes
-  directly -- a strong fit for the paper's deployment-risk framing.
+  2) comparisons. Unlike (a), this doesn't touch the reasoning text at all --
+  it repackages the existing continuous `fault_rating` finding into a
+  categorical framing a deployment/compliance audience (moderation, HR)
+  recognizes directly. Worth keeping as a secondary, low-effort framing
+  device for the deployment-risk pitch, not as a source of new signal.
   **[needs new code + the cutpoint decision]**.
-- **(b) GAMA-Bench-style metrics** (Si et al. 2026, "Harsher on Male?
-  Evaluating LLMs on Gender-Asymmetric Moral Framing Across Diverse Conflict
-  Scenarios," arXiv:2606.14068 -- verified directly, this is the closest
-  prior work already engaged with in Related Work). GAMA-Bench operationalizes
-  gender-asymmetric moral judgment via: punitive-word count, severity
-  rating, **instructional/accusatory framing rate**, and **full-blame-
-  attribution rate** (their headline results: male actors receive ~3.3 more
-  punitive words, 0.40 higher severity, 14% higher instructional/accusatory
-  framing, and 23% higher full-blame attribution than female actors,
-  averaged across their model roster). Mapping onto what exists here:
-  - Severity rating -> already covered by `fault_rating` itself (this is
-    the paper's core replication of `si2026gama`'s main effect via a
-    different measurement method, per the project status doc).
-  - Full-blame-attribution rate -> essentially the same categorical cutpoint
-    idea as 10(a) above, but specifically operationalized as `fault_rating
-    == 7` (or the top of the scale) rather than a midpoint cutpoint --
-    worth computing both, since using GAMA-Bench's own operationalization
-    directly strengthens the head-to-head comparison against that paper.
-  - Punitive-word count and instructional/accusatory framing rate -> **new
-    lexicon dimensions not currently in the reasoning-text pipeline**
-    (distinct from the existing agentic/communal/moral-intensity/LIB
-    features) -- worth adding as a fifth and sixth coded dimension on the
-    `reasoning` field, following the same lexicon-expansion process already
-    used for the agentic/communal/moral-intensity lexicons.
-  **[needs new code]** for the two new lexicon dimensions and the
-  GAMA-Bench-operationalized full-blame rate; the severity-rating mapping is
-  already covered.
 - **(c) "Regard" score on the reasoning text** (Sheng et al. 2019, "The
   Woman Worked as a Babysitter: On Biases in Language Generation") -- a
   holistic sentiment/regard-toward-the-named-subject score, distinct from
-  agentic/communal/moral-intensity/LIB and from the GAMA-Bench dimensions
-  above. Where the existing pipeline asks "how is Agent 1's agency/communality
-  described," regard asks "how favorably or unfavorably is Agent 1
-  characterized overall." Worth trying given how weak the existing lexicon
-  features' correlation with the numeric bias already is (|r|<0.11, Section
-  8) -- an independent measure before concluding the reasoning text carries
-  no signal at all. **[needs new code]** -- closer in spirit to the
-  already-deferred "LLM-assisted pattern discovery" item than to the
-  existing hand-built lexicons, since regard is harder to capture with a
-  simple word list than agency/communion is.
+  agentic/communal/moral-intensity/LIB. Lower priority than (a): it's still
+  a predefined-dimension approach (just a different dimension), so it risks
+  the same weak-signal outcome as the existing four features. Worth trying
+  only as a secondary check *after* (a), and possibly better used as a way
+  to quantify a category that pairwise coding surfaces (e.g. if "attributes
+  intent/character" turns out to skew by gender, regard could quantify how
+  negatively that attribution reads) rather than as an independent
+  first-pass measure. **[needs new code]**.
 
 ## 11. Explicitly out of scope for this run's results
 
 - **RQ3 (hedge/refusal rate)** -- needs a schema change (`hedged` field,
   attempt log) that hasn't been built or agreed with Thulasi. Belongs to a
   separate future pass (`--pass_type confirmatory_hedge`), not this run.
-- **LLM-assisted open-ended reasoning-text pattern discovery** -- deferred,
-  not started; doesn't depend on which reasoning corpus (old or new) it's
-  eventually run against.
 - **Intentionality-robustness arm** (accidental/negligent/purposeful) --
   separate, not-yet-drafted 72-vignette arm. If built, the BBQ/KoBBQ
   diff-bias framing from Section 1 is the natural metric to apply across its
@@ -309,15 +322,16 @@ listed with what it would add beyond what's already planned.
 | 5d | Cross-model agreement/confidence by orientation | needs new code |
 | 5e | Family x orientation interaction (exploratory) | needs new code |
 | 7 | New-scenarios-only (05-09) subset filter for the ambivalent-sexism contrast | needs new code + confirm the primary/secondary split |
-| 10a | Disparate-impact ratio | needs new code + the cutpoint decision (protocol doc, still open) |
-| 10b | GAMA-Bench punitive-word / instructional-framing lexicons + full-blame rate | needs new code (two new lexicons + one new derived metric) |
-| 10c | Regard score on reasoning text | needs new code (likely an LLM-coding pass, not a simple lexicon) |
+| 10a | Blind pairwise LLM-judge open coding of reasoning text | needs new code -- but runnable **now**, no new data needed |
+| 10b | Disparate-impact ratio | needs new code + the cutpoint decision (protocol doc, still open) |
+| 10c | Regard score on reasoning text | lower priority, needs new code, sequence after 10a |
 
 Everything else (Sections 0, 1, 6, 8, 9, 11, 12) is already implemented and
-will just be re-run against the new data once it exists. The items above are
-the actual to-do list before this plan is fully executable -- worth
-prioritizing 2-5 (the NB and orientation analyses, since they're the paper's
-new intersectionality contribution) and 7 (needed for the domain-heterogeneity
-headline result to be reported honestly) before 10 (additional metrics,
-valuable but not blocking the core story). None of this blocks Thulasi's
+will just be re-run against the new data once it exists. Of the items above,
+**10a is the one item on this whole plan that doesn't wait on Thulasi's run
+at all** -- it can be prototyped immediately on the existing 720 matched
+pairs. Otherwise, prioritize 2-5 (the NB and orientation analyses, since
+they're the paper's new intersectionality contribution) and 7 (needed for
+the domain-heterogeneity headline result to be reported honestly) before 10b
+(valuable framing, but not new signal). None of this blocks Thulasi's
 collection step itself.
