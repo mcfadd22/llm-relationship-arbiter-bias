@@ -340,8 +340,10 @@ a new reasoning-text metric.)
 Everything else (Sections 0, 1, 6, 8, 9, 11, 12) is already implemented and
 will just be re-run against the new data once it exists. Of the items above,
 **10a is the one item on this whole plan that doesn't wait on Thulasi's run
-at all** -- it can be prototyped immediately on the existing 720 matched
-pairs. Otherwise, prioritize 2-5 (the NB and orientation analyses, since
+at all** -- already prototyped on the 175 disagreement pairs (of 720 total)
+from the existing data; scaling to the remaining ~545 tied pairs and to the
+new run's larger corpus is still open, not gated on anything. Otherwise,
+prioritize 2-5 (the NB and orientation analyses, since
 they're the paper's new intersectionality contribution) and 7 (needed for
 the domain-heterogeneity headline result to be reported honestly) before 10b
 (valuable framing, but not new signal). None of this blocks Thulasi's
