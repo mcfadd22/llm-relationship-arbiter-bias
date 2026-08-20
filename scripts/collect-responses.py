@@ -33,12 +33,18 @@ API_URL = "https://openrouter.ai/api/v1"
 # model roster, finalized: 5 models across 4 providers (Anthropic, OpenAI, Google, Meta,
 # DeepSeek), balancing frontier reasoning, cost-effective closed models, and open-weight
 # models 
+
+# legacy OpenAI generational ladder, added to test whether the gender asymmetry
+# has shifted across OpenAI model generations specifically
 models = {
     'claude_sonnet': 'anthropic/claude-sonnet-5',  
     'gpt5_mini': 'openai/gpt-5-mini',
     'gemini_flash': 'google/gemini-2.5-flash',
     'llama33': 'meta-llama/llama-3.3-70b-instruct',
     'deepseek_v3': 'deepseek/deepseek-v3.2',  
+    'gpt35_turbo': 'openai/gpt-3.5-turbo',   #may run into JSON formatting issues
+    # 'gpt4': 'openai/gpt-4',                # significantly pricier, do we want to run it?  
+    'gpt4o': 'openai/gpt-4o',                 
 }
 
 # === output schema, matching docs/prompt_and_measurement_protocol.md's system-prompt text,

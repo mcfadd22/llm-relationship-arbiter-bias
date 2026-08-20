@@ -38,7 +38,7 @@ class ResponseRowSchema(BaseModel):
     @classmethod
     def check_gender(cls, v):
         # matches the actual values in data/vignette_core_set.csv: 'M', 'F'
-        allowed = {'M', 'F'}
+        allowed = {'M', 'F', 'NB'}
         if v not in allowed:
             raise ValueError(f"gender must be one of {allowed}, got '{v}'")
         return v
