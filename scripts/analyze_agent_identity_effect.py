@@ -23,12 +23,17 @@ between-scenario variance, which otherwise swamps the gender effect):
    that this script's cell-building logic is correct.
 
 Section C runs one 3-level omnibus permutation test per section (does
-identity have any effect beyond the pairwise contrasts), via a cell-centered
-label-shuffle one-way ANOVA -- centering each cell on its own mean before
-pooling removes the same between-cell variance the pairwise tests remove by
-differencing, so this is the direct 3-level generalization of the paired
-t-test, not a naive one-way ANOVA on raw fault_rating (which would be
-swamped by between-scenario variance).
+identity have any effect beyond the pairwise contrasts), via a cell-centered,
+within-cell label-shuffle one-way ANOVA -- centering each cell on its own
+mean before testing removes the same between-cell variance the pairwise
+tests remove by differencing, and restricting the permutation shuffle to
+within each cell (never moving a value to a different cell) is required
+because a cell's centered {M, F, NB} values are linearly dependent (they sum
+to zero) and never mix across cells in the real data -- this is the direct
+3-level generalization of the paired t-test's own permutation logic, not a
+naive one-way ANOVA on raw fault_rating (which would be swamped by
+between-scenario variance) or a global label-shuffle (which would build the
+wrong null distribution for a repeated-measures design).
 
 Caveats:
 - No per-family breakdown yet (see docs/superpowers/specs/
@@ -41,6 +46,13 @@ Caveats:
   variable here is the numeric fault_rating, not reasoning-text pronoun
   choice), but worth keeping in mind when interpreting any NB-involving
   result below.
+- Section A pools the three partner_gender slices of each (scenario,
+  severity, model) triplet as if independent, but they share the same
+  underlying scenario content -- more plausibly clustered than fully
+  independent, which likely makes Section A's p-values somewhat
+  anti-conservative. Probably immaterial given how large the effects are,
+  but stated explicitly rather than left implicit (see the Section A intro
+  in the generated findings file for the same note in context).
 
 Usage: python scripts/analyze_agent_identity_effect.py
 Reads:  responses/confirmatory/*.csv
