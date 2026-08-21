@@ -421,7 +421,7 @@ place as items complete rather than tracking progress anywhere else.
 | 10a | Blind pairwise LLM-judge open coding of reasoning text | No -- needs a new LLM coding pass on existing `reasoning` text, not primary collection | **prototyped, promising** -- needs independent validation (single coder, no inter-rater check yet), then scale to full 720 pairs and the new run |
 | 10b | Disparate-impact ratio | No | needs new code + the cutpoint decision (protocol doc, still open) |
 | 10c | Regard score on reasoning text | No -- needs new code (lexicon/scoring pass on existing `reasoning` text) | lower priority, needs new code, sequence after 10a |
-| 13 | Decide on a replacement 5th model (or explicitly settle on 4) | **deferred, not urgent** -- claude_sonnet excluded 2026-08-21 for a vignette-drafting familiarity confound (see `project/project_status_summary.md`). No principled reason the roster needs exactly 5, so this is an open question to revisit deliberately, not a gap to rush to fill. |
+| 13 | Decide on a replacement 5th model (or explicitly settle on 4) | Yes, if a replacement is chosen -- a full confirmatory-pass collection run for one model | **deferred, not urgent** -- claude_sonnet excluded 2026-08-21 for a vignette-drafting familiarity confound (see `project/project_status_summary.md`). No principled reason the roster needs exactly 5, so this is an open question to revisit deliberately, not a gap to rush to fill. |
 
 Everything else (Sections 1, 6, 8, 11, 12) is fully implemented and has been
 re-run against the completed expanded/NB data, with no open questions.
