@@ -175,11 +175,22 @@ confirmed.
   original ranking.
 - **[decision needed]**: confirm this primary/secondary split before results
   come in -- the whole point of specifying it now is that it can't be
-  fit to the data afterward.
-- **[needs new code]**: the existing contrast test
-  (`scripts/analyze_fault_rating_bias.py`) doesn't currently filter by
-  scenario-number range; needs a small extension to run on the 05-09 subset
-  specifically.
+  fit to the data afterward. **Resolved**: the split above, as written in
+  this pre-registration, is what was implemented -- not revisited after
+  seeing either result.
+- **[implemented] 2026-08-21**, `scripts/analyze_fault_rating_bias.py`
+  (see `analysis/fault_rating_bias_findings.md`'s "Pre-registered test:
+  ambivalent-sexism family-group contrast" section). **Result: the
+  confirmatory replication does not succeed.** Primary test (new scenarios
+  05-09 only, n=897 pairs): F(1,897)=0.036, p=0.8066. Secondary test (full
+  81-scenario pool, n=1619 pairs, non-independent): F(1,1617)=0.347,
+  p=0.5686. Both null, and in agreement with each other -- the
+  ambivalent-sexism account, as operationalized by this specific
+  theory-predicted-vs-no-prediction family grouping, is not supported by
+  either the exploratory or the confirmatory data. This does not mean the
+  family heterogeneity itself is fake (the 9-way family omnibus above *is*
+  now significant, p=0.0012) -- it means this particular theoretical
+  grouping doesn't explain which families show the larger effect.
 
 ## 8. Reasoning-text linguistic-bias pipeline
 
@@ -324,27 +335,26 @@ a new reasoning-text metric.)
 
 | # | Item | Status |
 |---|---|---|
-| 2 | NB-vs-M / NB-vs-F matched-pair comparison | needs new code |
+| 2 | NB-vs-M / NB-vs-F matched-pair comparison | **implemented 2026-08-21**, `scripts/analyze_agent_identity_effect.py` (Section A) -- NB patterns much closer to F than to M (M-F d_z=0.29, M-NB d_z=0.23, F-NB d_z=-0.07, near-null) |
 | 3 | Matched partner-gender comparison (incl. NB partner) | needs new code + a design decision |
-| 4 | NBNB descriptive comparison | needs new code |
+| 4 | NBNB descriptive comparison | **implemented 2026-08-21**, `scripts/analyze_agent_identity_effect.py` (Section B) -- upgraded beyond the planned descriptive-only comparison to a full paired test (MM-NBNB, FF-NBNB); NB-NB patterns with FF (d_z=0.01, near-null vs. FF) not MM (d_z=0.14 vs. MM) |
 | 5a | Orientation-category absolute `fault_rating` level | needs new code |
 | 5b | Matched partner-gender-as-orientation test | needs new code |
 | 5c | Orientation-category diff-bias score | needs new code |
 | 5d | Cross-model agreement/confidence by orientation | needs new code |
 | 5e | Family x orientation interaction (exploratory) | needs new code |
-| 7 | New-scenarios-only (05-09) subset filter for the ambivalent-sexism contrast | needs new code + confirm the primary/secondary split |
+| 7 | New-scenarios-only (05-09) subset filter for the ambivalent-sexism contrast | **implemented 2026-08-21**, `scripts/analyze_fault_rating_bias.py` -- **confirmatory replication does not succeed** (primary test, new scenarios only: F(1,897)=0.036, p=0.8066; secondary full-pool test: F(1,1617)=0.347, p=0.5686 -- both null and in agreement). The ambivalent-sexism account, as operationalized by this family grouping, is not supported. |
 | 10a | Blind pairwise LLM-judge open coding of reasoning text | **prototyped, promising** -- needs independent validation (single coder, no inter-rater check yet), then scale to full 720 pairs and the new run |
 | 10b | Disparate-impact ratio | needs new code + the cutpoint decision (protocol doc, still open) |
 | 10c | Regard score on reasoning text | lower priority, needs new code, sequence after 10a |
 
-Everything else (Sections 0, 1, 6, 8, 9, 11, 12) is already implemented and
-will just be re-run against the new data once it exists. Of the items above,
+Everything else (Sections 0 [except the NB-tag registration sanity check,
+still not built], 1, 6, 8, 9, 11, 12) is already implemented and has been
+re-run against the completed expanded/NB data. Of the remaining items,
 **10a is the one item on this whole plan that doesn't wait on Thulasi's run
 at all** -- already prototyped on the 175 disagreement pairs (of 720 total)
-from the existing data; scaling to the remaining ~545 tied pairs and to the
+from the original data; scaling to the remaining ~545 tied pairs and to the
 new run's larger corpus is still open, not gated on anything. Otherwise,
-prioritize 2-5 (the NB and orientation analyses, since
-they're the paper's new intersectionality contribution) and 7 (needed for
-the domain-heterogeneity headline result to be reported honestly) before 10b
-(valuable framing, but not new signal). None of this blocks Thulasi's
-collection step itself.
+remaining priority is 3 and 5a-e (the rest of the NB and orientation
+analyses -- the paper's new intersectionality contribution) before 10b
+(valuable framing, but not new signal).

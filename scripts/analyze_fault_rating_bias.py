@@ -373,37 +373,86 @@ def main():
                 f"(label-shuffle permutation F-test, {N_PERMUTATIONS} shuffles, "
                 f"seed={PERMUTATION_SEED}) -- a 2-group test has much more power than "
                 "the 9-group omnibus at the same N.\n")
+    out.append("Run as a **pre-registered two-stage design** (`docs/planned_analysis.md` "
+                "Section 7, written 2026-08-18 before this data existed): the Stage-1 "
+                "exploratory ranking (Jealousy/possessiveness, Sexuality & Intimacy, "
+                "Household labor as the largest-effect families) came from the original "
+                "36-scenario data (scenarios numbered 01-04 per family). Scenarios 05-09 "
+                "per family were added afterward specifically to give this contrast a "
+                "genuinely independent confirmatory test. The primary/secondary split "
+                "below was fixed in that pre-registration, before results existed, and is "
+                "not revisited here in light of either result -- that would be exactly the "
+                "kind of after-the-fact fitting pre-registration exists to prevent.\n")
     predicted_families = {
         "Emotional labor", "Sexuality & Intimacy",
         "Financial provision", "Household labor", "Jealousy/possessiveness",
     }
-    sexism_labels = ["predicted" if fam in predicted_families else "no_prediction"
-                      for fam in fam_labels]
-    F_sex, df1_sex, df2_sex, p_sex = permutation_omnibus_test(sexism_labels, diffs_all)
-    grp_predicted = [d for d, l in zip(diffs_all, sexism_labels) if l == "predicted"]
-    grp_none = [d for d, l in zip(diffs_all, sexism_labels) if l == "no_prediction"]
-    out.append(f"predicted families: n={len(grp_predicted)}, mean diff={statistics.mean(grp_predicted):+.3f}. "
-                f"no-prediction families: n={len(grp_none)}, mean diff={statistics.mean(grp_none):+.3f}.")
-    out.append(f"F({df1_sex},{df2_sex})={F_sex:.3f}, permutation p={p_sex:.4f} -- "
-                f"{'reaches' if p_sex < 0.05 else 'does not reach'} conventional significance.\n")
-    if p_sex < 0.05 and statistics.mean(grp_predicted) > statistics.mean(grp_none):
-        out.append("**Supports the ambivalent-sexism account**: the theory-predicted "
-                    "families show a significantly larger male-disadvantaging gap than "
-                    "the families with no theoretical prediction.\n")
-    else:
-        out.append("**Does not support the ambivalent-sexism account as tested**: the "
-                    "theory-predicted families are not significantly different from the "
-                    "no-prediction families on this planned contrast. Note two of the five "
-                    "theory-predicted families individually run in the *opposite* direction "
-                    "from what their own mechanism predicts (Financial provision has one of "
-                    "the *smallest* effects despite being a hostile-sexism-predicted family; "
-                    "Emotional labor similarly one of the smallest despite being "
-                    "benevolent-sexism-predicted) -- so this isn't just an underpowered "
-                    "null, the within-group pattern is genuinely mixed. Correct framing for "
-                    "the paper: this specific ambivalent-sexism grouping is not supported by "
-                    "the confirmatory data as collected; the family heterogeneity that does "
-                    "exist (see omnibus test above) doesn't line up with this particular "
-                    "theoretical account.\n")
+
+    def run_ambivalent_sexism_contrast(out, sub_pairs, heading, support_note, null_note):
+        sub_fam_labels = [m["family_name"] for m, f in sub_pairs]
+        sub_diffs = [m["fault_rating"] - f["fault_rating"] for m, f in sub_pairs]
+        sub_labels = ["predicted" if fam in predicted_families else "no_prediction"
+                      for fam in sub_fam_labels]
+        F_sex, df1_sex, df2_sex, p_sex = permutation_omnibus_test(sub_labels, sub_diffs)
+        grp_predicted = [d for d, l in zip(sub_diffs, sub_labels) if l == "predicted"]
+        grp_none = [d for d, l in zip(sub_diffs, sub_labels) if l == "no_prediction"]
+        out.append(heading)
+        out.append(f"predicted families: n={len(grp_predicted)}, mean diff="
+                    f"{statistics.mean(grp_predicted):+.3f}. no-prediction families: "
+                    f"n={len(grp_none)}, mean diff={statistics.mean(grp_none):+.3f}.")
+        out.append(f"F({df1_sex},{df2_sex})={F_sex:.3f}, permutation p={p_sex:.4f} -- "
+                    f"{'reaches' if p_sex < 0.05 else 'does not reach'} conventional significance.\n")
+        if p_sex < 0.05 and statistics.mean(grp_predicted) > statistics.mean(grp_none):
+            out.append(support_note)
+        else:
+            out.append(null_note)
+
+    def scenario_num(row):
+        return int(row["scenario_id"].rsplit("-", 1)[1])
+
+    new_scenario_pairs = [(m, f) for m, f in pairs if scenario_num(m) >= 5]
+    run_ambivalent_sexism_contrast(
+        out, new_scenario_pairs,
+        "### Primary, prespecified test: new scenarios only (05-09)\n"
+        "Restricted to the 45 scenarios added 2026-08-18 (numbered 05-09 per family), "
+        "genuinely independent of the scenarios that produced the Stage-1 ranking -- "
+        "this is the real confirmatory replication, not circular re-analysis.\n",
+        "**Confirmatory replication succeeds**: on scenarios independent of the ones "
+        "that produced the Stage-1 ranking, the theory-predicted families still show a "
+        "significantly larger male-disadvantaging gap than the no-prediction families. "
+        "This supports the ambivalent-sexism account as a genuine, replicating pattern, "
+        "not an artifact of the original 36-scenario set.\n",
+        "**Confirmatory replication does not succeed**: on scenarios independent of the "
+        "ones that produced the Stage-1 ranking, the theory-predicted families are not "
+        "significantly different from the no-prediction families. Correct framing for "
+        "the paper: the ambivalent-sexism account, as operationalized by this specific "
+        "family grouping, does not replicate on independent data, regardless of what the "
+        "secondary full-pooled test below shows.\n",
+    )
+    run_ambivalent_sexism_contrast(
+        out, pairs,
+        "### Secondary, exploratory: full pooled 81-scenario set\n"
+        "All scenarios (01-09 per family) pooled for maximum power -- **not independent "
+        "of the Stage-1 ranking** (17 of the 81 scenarios per family group generated "
+        "that ranking), reported for completeness only. The primary test above, not "
+        "this one, is the confirmatory result.\n",
+        "**Supports the ambivalent-sexism account** (secondary, non-independent test): "
+        "the theory-predicted families show a significantly larger male-disadvantaging "
+        "gap than the families with no theoretical prediction. Note two of the five "
+        "theory-predicted families individually run in the *opposite* direction from "
+        "what their own mechanism predicts (Financial provision has one of the "
+        "*smallest* effects despite being a hostile-sexism-predicted family; Emotional "
+        "labor similarly one of the smallest despite being benevolent-sexism-predicted).\n",
+        "**Does not support the ambivalent-sexism account as tested** (secondary, "
+        "non-independent test): the theory-predicted families are not significantly "
+        "different from the no-prediction families on this planned contrast. Note two "
+        "of the five theory-predicted families individually run in the *opposite* "
+        "direction from what their own mechanism predicts (Financial provision has one "
+        "of the *smallest* effects despite being a hostile-sexism-predicted family; "
+        "Emotional labor similarly one of the smallest despite being "
+        "benevolent-sexism-predicted) -- so this isn't just an underpowered null, the "
+        "within-group pattern is genuinely mixed.\n",
+    )
 
     # 5. Obligation-source moderator
     out.append("## Agent-gender effect by obligation_source\n")

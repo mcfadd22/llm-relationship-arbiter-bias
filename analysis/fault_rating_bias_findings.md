@@ -62,10 +62,23 @@ The per-family and per-model breakdowns above each test whether that subgroup's 
 
 Fixed grouping, from `paper/results.tex`'s Planned Analysis (written before this test was run): **theory-predicted** families -- Emotional labor, Sexuality & Intimacy (benevolent-sexism mechanism), Financial provision, Household labor, Jealousy/possessiveness (hostile-sexism mechanism) -- vs. **no-prediction** families -- Childcare, Mental load, Career sacrifice, Family obligations. Both mechanisms predict the *same direction* (larger male-disadvantaging gap) via different families, so this collapses to a single planned 2-group contrast, tested the same way as the omnibus tests above (label-shuffle permutation F-test, 20000 shuffles, seed=42) -- a 2-group test has much more power than the 9-group omnibus at the same N.
 
+Run as a **pre-registered two-stage design** (`docs/planned_analysis.md` Section 7, written 2026-08-18 before this data existed): the Stage-1 exploratory ranking (Jealousy/possessiveness, Sexuality & Intimacy, Household labor as the largest-effect families) came from the original 36-scenario data (scenarios numbered 01-04 per family). Scenarios 05-09 per family were added afterward specifically to give this contrast a genuinely independent confirmatory test. The primary/secondary split below was fixed in that pre-registration, before results existed, and is not revisited here in light of either result -- that would be exactly the kind of after-the-fact fitting pre-registration exists to prevent.
+
+### Primary, prespecified test: new scenarios only (05-09)
+Restricted to the 45 scenarios added 2026-08-18 (numbered 05-09 per family), genuinely independent of the scenarios that produced the Stage-1 ranking -- this is the real confirmatory replication, not circular re-analysis.
+
+predicted families: n=500, mean diff=+0.166. no-prediction families: n=399, mean diff=+0.173.
+F(1,897)=0.036, permutation p=0.8066 -- does not reach conventional significance.
+
+**Confirmatory replication does not succeed**: on scenarios independent of the ones that produced the Stage-1 ranking, the theory-predicted families are not significantly different from the no-prediction families. Correct framing for the paper: the ambivalent-sexism account, as operationalized by this specific family grouping, does not replicate on independent data, regardless of what the secondary full-pooled test below shows.
+
+### Secondary, exploratory: full pooled 81-scenario set
+All scenarios (01-09 per family) pooled for maximum power -- **not independent of the Stage-1 ranking** (17 of the 81 scenarios per family group generated that ranking), reported for completeness only. The primary test above, not this one, is the confirmatory result.
+
 predicted families: n=900, mean diff=+0.171. no-prediction families: n=719, mean diff=+0.156.
 F(1,1617)=0.347, permutation p=0.5686 -- does not reach conventional significance.
 
-**Does not support the ambivalent-sexism account as tested**: the theory-predicted families are not significantly different from the no-prediction families on this planned contrast. Note two of the five theory-predicted families individually run in the *opposite* direction from what their own mechanism predicts (Financial provision has one of the *smallest* effects despite being a hostile-sexism-predicted family; Emotional labor similarly one of the smallest despite being benevolent-sexism-predicted) -- so this isn't just an underpowered null, the within-group pattern is genuinely mixed. Correct framing for the paper: this specific ambivalent-sexism grouping is not supported by the confirmatory data as collected; the family heterogeneity that does exist (see omnibus test above) doesn't line up with this particular theoretical account.
+**Does not support the ambivalent-sexism account as tested** (secondary, non-independent test): the theory-predicted families are not significantly different from the no-prediction families on this planned contrast. Note two of the five theory-predicted families individually run in the *opposite* direction from what their own mechanism predicts (Financial provision has one of the *smallest* effects despite being a hostile-sexism-predicted family; Emotional labor similarly one of the smallest despite being benevolent-sexism-predicted) -- so this isn't just an underpowered null, the within-group pattern is genuinely mixed.
 
 ## Agent-gender effect by obligation_source
 
