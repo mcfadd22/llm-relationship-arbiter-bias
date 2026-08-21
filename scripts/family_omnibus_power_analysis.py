@@ -31,7 +31,7 @@ import glob
 import os
 import random
 import statistics
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RESPONSES_GLOB = os.path.join(REPO_ROOT, "responses", "confirmatory", "*.csv")
@@ -42,7 +42,6 @@ B_POWER = 3000      # replicates to estimate power at each N
 ALPHA = 0.05
 SEED = 42
 PAIRS_PER_SCENARIO = 20  # 1 scenario = 2 severity x 5 models x 2 partner-configs
-TOP3_FAMILIES = {"Jealousy/possessiveness", "Sexuality & Intimacy", "Household labor"}
 BUDGETS = [0, 2, 4, 6, 8, 10, 14]  # extra scenarios per family, for "even" allocation
 
 
@@ -131,6 +130,7 @@ def main():
     families = sorted(fam_diffs.keys())
     n_fam = len(families)
     grand = statistics.mean([d for _, d in pairs])
+    TOP3_FAMILIES = set(sorted(families, key=lambda f: -statistics.mean(fam_diffs[f]))[:3])
     # Null-calibration pool: each family's own diffs re-centered onto the
     # grand mean (diff - family_mean + grand_mean), then pooled. This
     # preserves each family's true within-family variance while removing
@@ -144,24 +144,29 @@ def main():
         pooled_null.extend(d - fam_mean + grand for d in diffs)
 
     shrunk_pools = {fam: shrink(diffs, grand, 0.5) for fam, diffs in fam_diffs.items()}
+    n_current = {fam: len(diffs) for fam, diffs in fam_diffs.items()}
+    n_vals = sorted(set(n_current.values()))
+    n_desc = f"n={n_vals[0]} pairs/family" if len(n_vals) == 1 else f"n={n_vals[0]}-{n_vals[-1]} pairs/family"
+    n_baseline = round(statistics.mean(n_current.values()))
 
     rng = random.Random(SEED)
 
     out = []
     out.append("# Family-omnibus power analysis and ranking-stability check\n")
-    out.append(f"Generated from `responses/confirmatory/*.csv` (720 pairs, {n_fam} families, "
-                f"current n=80 pairs/family, grand mean diff={grand:+.3f}). Regenerate via "
+    out.append(f"Generated from `responses/confirmatory/*.csv` ({len(pairs)} pairs, {n_fam} families, "
+                f"current {n_desc}, grand mean diff={grand:+.3f}). Regenerate via "
                 f"`python scripts/family_omnibus_power_analysis.py`.\n")
+    top3_by_diff = sorted(families, key=lambda f: -statistics.mean(fam_diffs[f]))[:3]
     out.append("Motivated by: should new scenario-writing effort for the next data-collection "
                 "round target the families that currently show the largest gender-fault gap "
-                "(Jealousy/possessiveness, Sexuality & Intimacy, Household labor), or be spread "
+                f"({', '.join(top3_by_diff)}), or be spread "
                 "evenly across all 9 families? Two questions, answered separately below: (1) is "
-                "the current top-3 ranking itself stable, or could it be noise from n=80/family; "
+                f"the current top-3 ranking itself stable, or could it be noise from {n_desc}; "
                 "(2) at a given added-scenario budget, does concentrating in the top-3 reach "
                 "adequate omnibus power any faster than spreading evenly?\n")
 
     out.append("## 1. Is the top-3 ranking stable, or likely noise?\n")
-    out.append("Nonparametric bootstrap (resample each family's own 80 diffs with replacement, "
+    out.append(f"Nonparametric bootstrap (resample each family's own {n_desc} diffs with replacement, "
                 f"{B_POWER} replicates), tracking how often each family lands in the bootstrap "
                 "top-3 by mean diff, and its average rank (1=largest gap).\n")
     stab = rank_stability(rng, fam_diffs, families, b=B_POWER)
@@ -171,32 +176,39 @@ def main():
         p3, mr = stab[fam]
         out.append(f"| {fam} | {statistics.mean(fam_diffs[fam]):+.3f} | {p3:.2f} | {mr:.2f} |")
     out.append("")
-    out.append("**Not pure noise.** Jealousy/possessiveness (93% of resamples land in the "
-                "top-3), Sexuality & Intimacy (82%), and Household labor (69%, occasionally "
-                "displaced by Mental load at 20%) form a reasonably stable cluster distinct "
-                "from the other 6 families (all <=20% top-3 rate). This is *internal* "
-                "stability within the existing 720 pairs, not independent replication -- it "
+    top3_ranked = sorted(families, key=lambda f: -stab[f][0])[:3]
+    top3_desc = ", ".join(f"{fam} ({stab[fam][0]*100:.0f}%)" for fam in top3_ranked)
+    max_other = max(stab[f][0] for f in families if f not in top3_ranked)
+    out.append(f"**Top-3 by bootstrap top-3 rate**: {top3_desc}, vs. all other families at "
+                f"<={max_other*100:.0f}% top-3 rate. This is *internal* "
+                f"stability within the existing {len(pairs)} pairs, not independent replication -- it "
                 "says the pattern isn't an artifact of a single unlucky draw, not that it will "
                 "necessarily hold on genuinely new data.\n")
 
+    diff_counts = Counter(round(statistics.mean(fam_diffs[f]), 3) for f in families)
+    tied_diffs = [v for v, c in diff_counts.items() if c > 1]
+    shrink_motivation = (f"a conservative check, motivated by {diff_counts[tied_diffs[0]]} "
+                         f"families currently sharing the identical rounded diff {tied_diffs[0]:+.3f}"
+                         if tied_diffs else
+                         "a conservative check against overtrusting the current point estimates")
     out.append("## 2. Omnibus power: even vs. concentrated allocation of new scenarios\n")
     out.append("Simulated (nonparametric bootstrap, null-calibrated critical F at each sample "
                 "size, matching this project's existing permutation-test approach rather than "
                 "a parametric F-table) under two truth assumptions: **optimistic** (today's "
                 "per-family means/variances are exactly correct) and **shrunk** (only half the "
-                "observed between-family spread is real signal, the rest is n=80 sampling "
-                "noise -- a conservative check, motivated by 3 families currently sharing the "
-                "identical rounded diff +0.113). **Even** = new scenarios split equally across "
+                f"observed between-family spread is real signal, the rest is sampling "
+                f"noise -- {shrink_motivation}). **Even** = new scenarios split equally across "
                 "all 9 families. **Concentrated** = same total scenario budget, all routed to "
                 "the 3 top-ranked families above.\n")
     out.append("| extra scenarios/family (even) | total N/family | even, optimistic | "
                 "even, shrunk | concentrated, optimistic | concentrated, shrunk |")
     out.append("|---|---|---|---|---|---|")
+    power_at_baseline = None
     for extra in BUDGETS:
-        n_even = {fam: 80 + extra * PAIRS_PER_SCENARIO for fam in families}
+        n_even = {fam: n_current[fam] + extra * PAIRS_PER_SCENARIO for fam in families}
         total_extra_scenarios = extra * n_fam
         extra_conc_each = (total_extra_scenarios // len(TOP3_FAMILIES)) if TOP3_FAMILIES else 0
-        n_conc = {fam: 80 + (extra_conc_each * PAIRS_PER_SCENARIO if fam in TOP3_FAMILIES else 0)
+        n_conc = {fam: n_current[fam] + (extra_conc_each * PAIRS_PER_SCENARIO if fam in TOP3_FAMILIES else 0)
                   for fam in families}
         crit_even = null_critical_F(rng, pooled_null, n_even, families)
         crit_conc = null_critical_F(rng, pooled_null, n_conc, families)
@@ -204,15 +216,18 @@ def main():
         pow_even_shrunk = power_at(rng, shrunk_pools, n_even, families, crit_even)
         pow_conc_optim = power_at(rng, fam_diffs, n_conc, families, crit_conc)
         pow_conc_shrunk = power_at(rng, shrunk_pools, n_conc, families, crit_conc)
-        total_n_even = 80 + extra * PAIRS_PER_SCENARIO
+        if extra == 0:
+            power_at_baseline = pow_even_optim
+        total_n_even = n_baseline + extra * PAIRS_PER_SCENARIO
         out.append(f"| +{extra} | {total_n_even} | {pow_even_optim:.2f} | {pow_even_shrunk:.2f} "
                     f"| {pow_conc_optim:.2f} | {pow_conc_shrunk:.2f} |")
     out.append("")
-    out.append("**Reading this table:** current baseline (n=80/family, +0 row) achieves only "
-                "~65-67% power even under the optimistic assumption that today's estimates are "
-                "exactly true -- so the actual observed non-significant omnibus result "
-                "(p=0.135) is a plausible, not-even-that-unlucky draw, not evidence the effect "
-                "is absent. Concentrated allocation is **not much less efficient than even "
+    out.append(f"**Reading this table:** current baseline ({n_desc}, +0 row) achieves "
+                f"~{power_at_baseline*100:.0f}% power under the optimistic assumption that "
+                "today's estimates are exactly true -- see "
+                "`analysis/fault_rating_bias_findings.md`'s formal omnibus test section for "
+                "whether that power was realized as an actual significant result on this "
+                "data. Concentrated allocation is **not much less efficient than even "
                 "allocation for the omnibus test itself** at moderate budgets (+2 to +4 "
                 "scenarios/family-equivalent) -- the F-test is disproportionately driven by "
                 "families furthest from the grand mean, so concentrating there sharpens exactly "
@@ -221,7 +236,8 @@ def main():
     out.append("**This does not mean concentrating is free of downsides.** Reaching omnibus "
                 "significance is not the only goal -- a deployment-risk \"map\" needs "
                 "confidently-estimated *low*-risk domains too, not just confirmation that the "
-                "high ones are high. Concentrating leaves the other 6 families at n=80 "
+                f"high ones are high. Concentrating leaves the other {n_fam - len(TOP3_FAMILIES)} "
+                f"families at {n_desc} "
                 "indefinitely, so the paper could show 3 domains are elevated but couldn't say "
                 "the rest are *not*, with any real precision. There's also a disclosure "
                 "problem: the top-3 selection comes from the same data used to test it, which "

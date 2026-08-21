@@ -313,22 +313,35 @@ def main():
     model_labels = [m["model"] for m, f in pairs]
     F_mod, df1_mod, df2_mod, p_mod = permutation_omnibus_test(model_labels, diffs_all)
     out.append(f"- **Model**: F({df1_mod},{df2_mod})={F_mod:.3f}, permutation p={p_mod:.4f}\n")
-    out.append("**Neither reaches conventional significance (both p>0.05).** The per-family "
+    fam_sig = p_fam < 0.05
+    mod_sig = p_mod < 0.05
+    if fam_sig and mod_sig:
+        headline = "**Both reach conventional significance (both p<0.05).**"
+    elif fam_sig or mod_sig:
+        sig_name, nonsig_name = ("family", "model") if fam_sig else ("model", "family")
+        headline = f"**Only {sig_name} reaches conventional significance (p<0.05); {nonsig_name} does not (p>0.05).**"
+    else:
+        headline = "**Neither reaches conventional significance (both p>0.05).**"
+    out.append(f"{headline} The per-family "
                 "and per-model rankings reported above are a real, corroborated *descriptive* "
                 "pattern (consistent across effect size, disagreement rate, and -- for "
-                "family -- language visibility), but this formal test says we do not yet "
-                "have the statistical power/evidence to claim family or model *significantly* "
-                "moderates the size of the gender effect. With only 9 family groups or 5 "
-                "model groups of ~80-144 pairs each, and the pooled effect itself modest "
-                "(d_z=0.29), this omnibus test is inherently underpowered relative to the "
-                "individual within-subgroup tests. **Correct framing for the paper:** the "
-                "bias direction is remarkably consistent (never reverses across 9 families, "
-                "5 models, 2 severities), but claims that specific domains (e.g. "
-                "Sexuality/Jealousy) show a *significantly larger* bias than others "
-                "(e.g. Financial provision/Emotional labor) are not currently supported by a "
-                "formal test and should be described as a suggestive, not confirmed, pattern "
-                "-- a good candidate for the stability-pass/larger-N follow-up rather than "
-                "a claim in the current paper's Results section.\n")
+                "family -- language visibility). "
+                + ("This formal test now supports treating family and/or model as "
+                   "*significant* moderators of the gender-effect size, not merely a "
+                   "suggestive descriptive ranking -- re-check the framing anywhere in the "
+                   "paper draft that still calls this an unconfirmed/exploratory pattern.\n"
+                   if (fam_sig or mod_sig) else
+                   "This formal test says we do not yet "
+                   "have the statistical power/evidence to claim family or model "
+                   "*significantly* moderates the size of the gender effect. **Correct "
+                   "framing for the paper:** the bias direction is remarkably consistent "
+                   "(never reverses across 9 families, 5 models, 2 severities), but claims "
+                   "that specific domains (e.g. Sexuality/Jealousy) show a *significantly "
+                   "larger* bias than others (e.g. Financial provision/Emotional labor) are "
+                   "not currently supported by a formal test and should be described as a "
+                   "suggestive, not confirmed, pattern -- a good candidate for the "
+                   "stability-pass/larger-N follow-up rather than a claim in the current "
+                   "paper's Results section.\n"))
 
     # 4c. Pre-registered ambivalent-sexism family-group contrast (see
     # paper/results.tex Planned Analysis, and paper/sources/design_decisions_log.md).
