@@ -626,3 +626,7 @@ dependency, not an action item for them.
     once the agent-identity-effect analysis (item below / `analysis/
     agent_identity_effect_findings.md`) is in, to rule out reasoning-level
     engagement failures as a confound on any NB-involving numeric result.
+    That numeric result now exists -- see
+    `analysis/agent_identity_effect_findings.md` -- so this item is no
+    longer speculative groundwork; it directly bears on interpreting that
+    file's Section A/B results wherever they involve NB.
