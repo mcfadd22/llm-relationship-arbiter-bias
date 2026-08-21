@@ -4,7 +4,10 @@
 expanded dataset.** This covers the 1,458-vignette set (9 families x 9
 scenarios x 9 gender configs x 2 severities -- see
 `project/project_status_summary.md`'s "Dataset (2026-08-18 expansion)"
-section) once Thulasi runs it against the 5-model roster. Written against the
+section). The run has since completed and `claude_sonnet` has been
+excluded (see the notice below) -- the roster referenced throughout this
+document is now `gpt5_mini`, `gemini_flash`, `llama33`, `deepseek_v3`.
+Written against the
 existing response schema (`fault_rating` 0-7, `confidence` 0-100, `reasoning`
 text, `obligation_identified`) -- nothing below requires a schema change
 unless explicitly flagged.
@@ -163,7 +166,12 @@ NB-involving configs have their own analyses in Sections 2-4.
 **This is the main research question and the reason the scenario count grew
 from 4 to 9 per family** -- see `analysis/family_power_analysis_findings.md`
 for the power justification (~65-67% power at the old n=80/family, ~94-98%
-projected at the new n=180/family).
+projected at n=180/family with 5 models). After the `claude_sonnet`
+exclusion (2026-08-21), the actual achieved baseline is n=143-144/family
+(4 models) -- still within the projected power range, and the top-3
+family ranking by effect size is unchanged in order (Jealousy/possessiveness,
+Sexuality & Intimacy, Career sacrifice), though now more compressed at the
+bottom of that top-3.
 
 - 9-way family omnibus permutation test (label-shuffle F-test) on the
   per-pair `fault_rating` gender diff. **[implemented]**. Prior result:
@@ -205,15 +213,23 @@ confirmed.
   (see `analysis/fault_rating_bias_findings.md`'s "Pre-registered test:
   ambivalent-sexism family-group contrast" section). **Result: the
   confirmatory replication does not succeed.** Primary test (new scenarios
-  05-09 only, n=897 pairs): F(1,897)=0.036, p=0.8066. Secondary test (full
-  81-scenario pool, n=1619 pairs, non-independent): F(1,1617)=0.347,
-  p=0.5686. Both null, and in agreement with each other -- the
-  ambivalent-sexism account, as operationalized by this specific
-  theory-predicted-vs-no-prediction family grouping, is not supported by
-  either the exploratory or the confirmatory data. This does not mean the
-  family heterogeneity itself is fake (the 9-way family omnibus above *is*
-  now significant, p=0.0012) -- it means this particular theoretical
-  grouping doesn't explain which families show the larger effect.
+  05-09 only, n=717 pairs after excluding `claude_sonnet`): F(1,717)=0.821,
+  p=0.3624. Secondary test (full 81-scenario pool, n=1293 pairs,
+  non-independent): F(1,1293)=3.639, p=0.0586 -- still null, but notably
+  closer to the significance threshold than before the exclusion (moved
+  from clearly null to borderline; worth a sentence in the paper draft
+  rather than treated as a settled non-result). Both remain null overall,
+  and in agreement with each other -- the ambivalent-sexism account, as
+  operationalized by this specific theory-predicted-vs-no-prediction family
+  grouping, is not supported by either the exploratory or the confirmatory
+  data. This does not mean the family heterogeneity itself is fake (the
+  9-way family omnibus above *is* significant: F(8,1286)=4.260, p=0.0002
+  after excluding `claude_sonnet`, actually strengthened relative to the
+  pre-exclusion p=0.0012) -- it means this particular theoretical grouping
+  doesn't explain which families show the larger effect. (Numbers above
+  reflect the 4-model dataset after `claude_sonnet`'s exclusion,
+  2026-08-21; the original 5-model figures were F(1,897)=0.036/p=0.8066 and
+  F(1,1617)=0.347/p=0.5686.)
 
 ## 7b. Post-hoc/exploratory follow-up: scenario-level ambivalent-sexism content scoring
 
@@ -227,7 +243,8 @@ whether ambivalent-sexism *content* matters; this asks that question
 directly instead of relying on the proxy.
 
 Motivating question: real, significant gender bias exists and varies
-significantly by family (9-way omnibus F=3.196, p=0.0012) -- so why did the
+significantly by family (9-way omnibus F(8,1286)=4.260, p=0.0002 on the
+4-model dataset after excluding `claude_sonnet`) -- so why did the
 specific ambivalent-sexism explanation for *which* families show more of it
 come back null in Section 7? Possibility: ambivalent-sexism-relevant
 content isn't cleanly binary at the family level and may be present, in
@@ -241,7 +258,7 @@ item-level content score can.
   benevolent-sexism relevance; Resentment of Paternalism + Compensatory
   Gender Differentiation for hostile-sexism relevance), each item on a
   fully-anchored 1-5 relevance scale, using an external coder model
-  (`mistralai/mistral-large`, outside the 5-model study roster, to avoid
+  (`mistralai/mistral-large`, outside the study's 4-model roster, to avoid
   the same model being both a study subject and the instrument explaining
   the subjects' pooled behavior) plus full human review of all 81 items
   (stronger validation bar than this project's other coding work, achievable
@@ -280,12 +297,15 @@ item-level content score can.
 
 ## 9. Confidence -- not a primary test on this run's data
 
-- Self-reported `confidence` (0-100) already shown **not** to track the
-  gender gap at the individual-pair level (r=-0.05, ns; see
-  `analysis/confidence_ambiguity_findings.md`) -- not being re-tested as a
-  primary hypothesis. The correlation can be recomputed on the new data for
-  consistency-checking (`scripts/analyze_confidence_ambiguity.py` already
-  handles this cheaply) but should not be reported as a meaningful test.
+- Self-reported `confidence` (0-100) was originally shown **not** to track
+  the gender gap at the individual-pair level on the old, pre-expansion
+  data (r=-0.05, ns). **This has since changed and needs a fresh decision,
+  not the original framing**: on the full expanded dataset it reached
+  significance (r=-0.079, p=0.0016, 5 models), and after excluding
+  `claude_sonnet` it remains significant, though weaker (r=-0.068,
+  p=0.0125, n=1295 pairs -- see `analysis/confidence_ambiguity_findings.md`).
+  See item 9's row in the Summary table below: this is now a judgment call
+  on whether to report it as a real (if modest) finding, not a code task.
 - True dispersion-based confidence (a stability pass at nonzero temperature)
   remains undecided/unscheduled -- not part of this run.
 - A `confidence_reasoning` free-text field was discussed but is **not yet
@@ -407,17 +427,17 @@ place as items complete rather than tracking progress anywhere else.
 | # | Item | New data collection needed? | Status |
 |---|---|---|---|
 | 0 | NB-tag registration sanity check (schema-failure/retry rates by gender config) | **Yes, prospectively** -- not recoverable retroactively | **Checked 2026-08-21, not fully recoverable.** No retry logs exist anywhere (`collect-responses.py` only prints live, never persists). Partial signal recovered from existing data instead: 5 of deepseek_v3's 6 permanently-failed vignettes involve NB (base rate 5/9 configs) -- a real skew, but n=6, flagged not confirmed. Full version needs a `collect-responses.py` code change (Thulasi's file) + a future re-run. |
-| 2 | NB-vs-M / NB-vs-F matched-pair comparison | No -- existing data sufficient | **implemented 2026-08-21**, `scripts/analyze_agent_identity_effect.py` (Section A) -- NB patterns much closer to F than to M (M-F d_z=0.29, M-NB d_z=0.23, F-NB d_z=-0.07, near-null) |
+| 2 | NB-vs-M / NB-vs-F matched-pair comparison | No -- existing data sufficient | **implemented 2026-08-21, re-run after excluding `claude_sonnet`**, `scripts/analyze_agent_identity_effect.py` (Section A) -- NB patterns much closer to F than to M (M-F d_z=0.271, M-NB d_z=0.229, F-NB d_z=-0.039). **Note a real conclusion change from the pre-exclusion run**: F-vs-NB was significant before excluding `claude_sonnet` (paired t=-3.36) and is **no longer significant** after (paired t=-1.72, p>0.05) -- update anywhere this contrast is described as significant. |
 | 3 | Matched partner-gender comparison (incl. NB partner) | No -- full 3x3 crossing already collected | needs new code + a design decision |
-| 4 | NBNB descriptive comparison | No -- existing data sufficient | **implemented 2026-08-21**, `scripts/analyze_agent_identity_effect.py` (Section B) -- upgraded beyond the planned descriptive-only comparison to a full paired test (MM-NBNB, FF-NBNB); NB-NB patterns with FF (d_z=0.01, near-null vs. FF) not MM (d_z=0.14 vs. MM) |
+| 4 | NBNB descriptive comparison | No -- existing data sufficient | **implemented 2026-08-21, re-run after excluding `claude_sonnet`**, `scripts/analyze_agent_identity_effect.py` (Section B) -- upgraded beyond the planned descriptive-only comparison to a full paired test (MM-NBNB, FF-NBNB); NB-NB still patterns with FF (d_z=0.024, near-null) not MM (d_z=0.173) -- same qualitative pattern as before the exclusion, values updated (MM-FF d_z=0.144). |
 | 5a | Orientation-category absolute `fault_rating` level | No -- existing data sufficient | needs new code |
 | 5b | Matched partner-gender-as-orientation test | No -- existing data sufficient | needs new code |
 | 5c | Orientation-category diff-bias score | No -- existing data sufficient | needs new code |
 | 5d | Cross-model agreement/confidence by orientation | No -- existing data sufficient | needs new code |
 | 5e | Family x orientation interaction (exploratory) | No -- existing data sufficient, but likely underpowered regardless | needs new code |
-| 7 | New-scenarios-only (05-09) subset filter for the ambivalent-sexism contrast | No | **implemented 2026-08-21, done.** `scripts/analyze_fault_rating_bias.py` -- **confirmatory replication does not succeed** (primary test, new scenarios only: F(1,897)=0.036, p=0.8066; secondary full-pool test: F(1,1617)=0.347, p=0.5686 -- both null and in agreement). The ambivalent-sexism account, as operationalized by this family grouping, is not supported. |
+| 7 | New-scenarios-only (05-09) subset filter for the ambivalent-sexism contrast | No | **implemented 2026-08-21, re-run after excluding `claude_sonnet`.** `scripts/analyze_fault_rating_bias.py` -- **confirmatory replication does not succeed** (primary test, new scenarios only: F(1,717)=0.821, p=0.3624; secondary full-pool test: F(1,1293)=3.639, p=0.0586 -- both null, though the secondary test moved from clearly null to borderline). The ambivalent-sexism account, as operationalized by this family grouping, is not supported. |
 | 7b | Scenario-level ambivalent-sexism content scoring (**exploratory/post-hoc, not confirmatory** -- see Section 7b above) | No -- needs a new LLM *coding* pass (~$1, external model), not primary data collection | **spec'd and plan'd 2026-08-21** (`docs/superpowers/specs/2026-08-21-scenario-sexism-content-scoring-design.md`, `docs/superpowers/plans/2026-08-21-scenario-sexism-content-scoring.md`) -- staged, not yet run. |
-| 9 | Confidence-vs-gender-gap correlation -- **worth revisiting** | No | re-run on full data (`analysis/confidence_ambiguity_findings.md`): r=-0.079, p=0.0016 -- now significant, unlike the old-data result (r=-0.05, ns) this plan's "not a primary test" framing was based on. Not a code task -- a judgment call on whether to promote this back to a real (if small) reported finding. |
+| 9 | Confidence-vs-gender-gap correlation -- **worth revisiting** | No | re-run after excluding `claude_sonnet` (`analysis/confidence_ambiguity_findings.md`): r=-0.068, p=0.0125 (n=1295) -- still significant though weaker than the pre-exclusion r=-0.079/p=0.0016, and much stronger than the old-data result (r=-0.05, ns) this plan's "not a primary test" framing was based on. The family-residualized version is also still significant but now fragile (p=0.0442, was p=0.0090). Not a code task -- a judgment call on whether to promote this back to a real (if small) reported finding. |
 | 10a | Blind pairwise LLM-judge open coding of reasoning text | No -- needs a new LLM coding pass on existing `reasoning` text, not primary collection | **prototyped, promising** -- needs independent validation (single coder, no inter-rater check yet), then scale to full 720 pairs and the new run |
 | 10b | Disparate-impact ratio | No | needs new code + the cutpoint decision (protocol doc, still open) |
 | 10c | Regard score on reasoning text | No -- needs new code (lexicon/scoring pass on existing `reasoning` text) | lower priority, needs new code, sequence after 10a |
