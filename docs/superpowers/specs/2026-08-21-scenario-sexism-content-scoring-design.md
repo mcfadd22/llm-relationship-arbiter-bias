@@ -1,5 +1,17 @@
 # Scenario-level ambivalent-sexism content scoring -- design
 
+## Pre-registration status: exploratory / post-hoc, not confirmatory
+
+**This analysis is not pre-registered.** It was designed after seeing
+Section 7's (`docs/planned_analysis.md`) null confirmatory result, expressly
+to explore *why* that result came back null. It must be reported as
+exploratory/hypothesis-generating in the paper, not presented as a second
+confirmatory test of ambivalent-sexism theory -- Section 7's entire
+methodological point was to pre-specify a test before the data existed so
+it couldn't be fit to results afterward, and this analysis does not carry
+that same evidentiary weight precisely because it doesn't meet that bar.
+Tracked as item 7b in `docs/planned_analysis.md`.
+
 ## Motivation
 
 The pre-registered ambivalent-sexism family-group contrast

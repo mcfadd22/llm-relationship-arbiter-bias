@@ -192,6 +192,51 @@ confirmed.
   now significant, p=0.0012) -- it means this particular theoretical
   grouping doesn't explain which families show the larger effect.
 
+## 7b. Post-hoc/exploratory follow-up: scenario-level ambivalent-sexism content scoring
+
+**Not pre-registered -- added 2026-08-21, after seeing Section 7's null
+result.** This must be reported as exploratory/hypothesis-generating, not
+as a second confirmatory test of the same theory -- the whole reason
+Section 7 was pre-registered was to prevent exactly this kind of
+after-the-fact theory-testing from being presented as confirmatory. A null
+on Section 7's coarse, unvalidated binary family-level proxy doesn't settle
+whether ambivalent-sexism *content* matters; this asks that question
+directly instead of relying on the proxy.
+
+Motivating question: real, significant gender bias exists and varies
+significantly by family (9-way omnibus F=3.196, p=0.0012) -- so why did the
+specific ambivalent-sexism explanation for *which* families show more of it
+come back null in Section 7? Possibility: ambivalent-sexism-relevant
+content isn't cleanly binary at the family level and may be present, in
+varying degree, across families the original mapping assumed had "no
+prediction" -- a coarse 5-vs-4 bucket can't detect that; a continuous,
+item-level content score can.
+
+- Blind-codes each of the 81 scenario templates (not the 1,458 rendered
+  vignettes -- content is gender-invariant by design) against ASI/AMI
+  subscale items (Protective Paternalism + Heterosexual Intimacy for
+  benevolent-sexism relevance; Resentment of Paternalism + Compensatory
+  Gender Differentiation for hostile-sexism relevance), each item on a
+  fully-anchored 1-5 relevance scale, using an external coder model
+  (`mistralai/mistral-large`, outside the 5-model study roster, to avoid
+  the same model being both a study subject and the instrument explaining
+  the subjects' pooled behavior) plus full human review of all 81 items
+  (stronger validation bar than this project's other coding work, achievable
+  because n=81 is small enough to review in full).
+- Correlates the resulting continuous scores against each scenario's own
+  gender-fault-gap (reusing the same M-F `pairs` and the same
+  permutation-tested-Pearson-r machinery already in
+  `scripts/analyze_confidence_ambiguity.py`, just regrouped by
+  `scenario_id` instead of `family_name`).
+- Full design: `docs/superpowers/specs/
+  2026-08-21-scenario-sexism-content-scoring-design.md`.
+- **[needs new code]**: `scripts/score_scenario_sexism_content.py` (new) +
+  an extension to `scripts/analyze_fault_rating_bias.py`. Not yet built.
+- **Citation caveat to resolve before paper-facing use**: the ASI/AMI item
+  wording used was pulled from a secondary research-measures compilation
+  during this design session, not verified against the original 1996/1999
+  publications directly.
+
 ## 8. Reasoning-text linguistic-bias pipeline
 
 - LIB dispositional-attribution score, agentic/communal lexicon rates,
@@ -333,8 +378,12 @@ a new reasoning-text metric.)
 
 ## Summary: what needs building before this plan can be fully executed
 
+This table is the running status/backlog for the whole plan -- update it in
+place as items complete rather than tracking progress anywhere else.
+
 | # | Item | Status |
 |---|---|---|
+| 0 | NB-tag registration sanity check (schema-failure/retry rates by gender config) | **still not built** -- no formal test exists; nothing in `scripts/` or `analysis/` currently reports this. Distinct from the NB reasoning-text pronoun-handling spot-check (project status doc, open item 10), which is about content, not API/schema-level retry behavior. |
 | 2 | NB-vs-M / NB-vs-F matched-pair comparison | **implemented 2026-08-21**, `scripts/analyze_agent_identity_effect.py` (Section A) -- NB patterns much closer to F than to M (M-F d_z=0.29, M-NB d_z=0.23, F-NB d_z=-0.07, near-null) |
 | 3 | Matched partner-gender comparison (incl. NB partner) | needs new code + a design decision |
 | 4 | NBNB descriptive comparison | **implemented 2026-08-21**, `scripts/analyze_agent_identity_effect.py` (Section B) -- upgraded beyond the planned descriptive-only comparison to a full paired test (MM-NBNB, FF-NBNB); NB-NB patterns with FF (d_z=0.01, near-null vs. FF) not MM (d_z=0.14 vs. MM) |
@@ -343,18 +392,29 @@ a new reasoning-text metric.)
 | 5c | Orientation-category diff-bias score | needs new code |
 | 5d | Cross-model agreement/confidence by orientation | needs new code |
 | 5e | Family x orientation interaction (exploratory) | needs new code |
-| 7 | New-scenarios-only (05-09) subset filter for the ambivalent-sexism contrast | **implemented 2026-08-21**, `scripts/analyze_fault_rating_bias.py` -- **confirmatory replication does not succeed** (primary test, new scenarios only: F(1,897)=0.036, p=0.8066; secondary full-pool test: F(1,1617)=0.347, p=0.5686 -- both null and in agreement). The ambivalent-sexism account, as operationalized by this family grouping, is not supported. |
+| 7 | New-scenarios-only (05-09) subset filter for the ambivalent-sexism contrast | **implemented 2026-08-21, done.** `scripts/analyze_fault_rating_bias.py` -- **confirmatory replication does not succeed** (primary test, new scenarios only: F(1,897)=0.036, p=0.8066; secondary full-pool test: F(1,1617)=0.347, p=0.5686 -- both null and in agreement). The ambivalent-sexism account, as operationalized by this family grouping, is not supported. |
+| 7b | Scenario-level ambivalent-sexism content scoring (**exploratory/post-hoc, not confirmatory** -- see Section 7b above) | needs new code -- `scripts/score_scenario_sexism_content.py` (new) + an `analyze_fault_rating_bias.py` extension. Design: `docs/superpowers/specs/2026-08-21-scenario-sexism-content-scoring-design.md`. Not yet built. |
+| 9 | Confidence-vs-gender-gap correlation -- **worth revisiting** | re-run on full data (`analysis/confidence_ambiguity_findings.md`): r=-0.079, p=0.0016 -- now significant, unlike the old-data result (r=-0.05, ns) this plan's "not a primary test" framing was based on. Not a code task -- a judgment call on whether to promote this back to a real (if small) reported finding. |
 | 10a | Blind pairwise LLM-judge open coding of reasoning text | **prototyped, promising** -- needs independent validation (single coder, no inter-rater check yet), then scale to full 720 pairs and the new run |
 | 10b | Disparate-impact ratio | needs new code + the cutpoint decision (protocol doc, still open) |
 | 10c | Regard score on reasoning text | lower priority, needs new code, sequence after 10a |
 
-Everything else (Sections 0 [except the NB-tag registration sanity check,
-still not built], 1, 6, 8, 9, 11, 12) is already implemented and has been
-re-run against the completed expanded/NB data. Of the remaining items,
-**10a is the one item on this whole plan that doesn't wait on Thulasi's run
-at all** -- already prototyped on the 175 disagreement pairs (of 720 total)
-from the original data; scaling to the remaining ~545 tied pairs and to the
-new run's larger corpus is still open, not gated on anything. Otherwise,
-remaining priority is 3 and 5a-e (the rest of the NB and orientation
-analyses -- the paper's new intersectionality contribution) before 10b
-(valuable framing, but not new signal).
+Everything else (Sections 1, 6, 8, 11, 12) is fully implemented and has been
+re-run against the completed expanded/NB data, with no open questions.
+Of the remaining items:
+- **10a** is the one item on this whole plan that never waited on Thulasi's
+  run at all -- already prototyped on the 175 disagreement pairs (of 720
+  total) from the original data; scaling to the remaining ~545 tied pairs
+  and to the new run's larger corpus is still open, not gated on anything.
+- **0** (NB-tag registration check) is cheap and should be done alongside
+  whatever's next, since it's a validity gate on everything NB-related
+  already reported, not a new finding in itself.
+- **3 and 5a-e** (the rest of the NB and orientation analyses) remain the
+  highest-value remaining work -- the paper's new intersectionality
+  contribution -- ahead of 10b/10c.
+- **7b** is a genuine open methodological question (does a direct,
+  continuous sexism-content measure succeed where the family-level proxy
+  failed?) but must stay labeled exploratory in any writeup; it does not
+  replace or re-litigate 7's confirmatory result.
+- **9** just needs a decision, not new code: whether the new significant
+  correlation changes how confidence should be discussed in the paper.
