@@ -127,6 +127,57 @@ to add a replacement 5th model.
   dispersion, set alongside MM and FF, as an exploratory three-way
   same-identity comparison rather than a paired test. **[needs new code]**.
 
+## 4b. Per-family breakdown of items 2/3/4 (agent-identity, partner-identity, same-identity)
+
+RQ2 (Section 6 below) established that the binary M-F agent-gender effect
+concentrates significantly in specific relationship-norm families
+(Jealousy/possessiveness, Sexuality & Intimacy, Career sacrifice). None of
+items 2/3/4's NB-inclusive comparisons had a per-family breakdown yet --
+each explicitly flagged this as out of scope. This item asks the natural
+follow-up: does the NB-related bias concentrate in the *same* domains as
+the binary bias, or different ones?
+
+- **[implemented] 2026-08-21**, `scripts/analyze_identity_effect_by_family.py`.
+  Adds a per-family descriptive table + formal family-moderation test
+  (global-shuffle permutation, verified independently -- see the design
+  spec for why this is the correct tool here, not the within-cell-shuffle
+  pattern used for items 2/3's own 3-level omnibus tests) to all 9
+  comparisons, plus a synthesis comparing each comparison's per-family
+  ranking (Spearman rank correlation) against a freshly-recomputed binary
+  M-F reference ranking.
+- **Result: a genuinely mixed, non-uniform pattern -- not "wherever the
+  binary bias is big, the NB bias follows."** Comparisons where **M is one
+  of the two sides being compared** track the binary bias's domain
+  structure closely and reach significance: agent-identity M-F (Spearman
+  rho=+0.883, 3/3 top-family overlap, family moderation p=0.0001),
+  agent-identity M-NB (rho=+0.717, 3/3, p=0.0080), same-identity MM-NBNB
+  (rho=+0.800, 3/3, though this one's own moderation test does not reach
+  significance, p=0.9654 -- concentrated ranking but not confirmed as
+  significantly domain-dependent), and same-identity MM-FF (rho=+0.633,
+  2/3, p=0.1607). Comparisons **not involving M** show a distinct,
+  unrelated domain pattern: agent-identity F-NB (rho=-0.867, 0/3 overlap,
+  top families instead Emotional labor/Household labor/Family
+  obligations), partner-identity M-F (rho=-0.667, 0/3), partner-identity
+  M-NB (rho=-0.567, 0/3), partner-identity F-NB (rho=-0.133, 1/3), and
+  same-identity FF-NBNB (rho=-0.350, 1/3).
+- **Interpretation**: the domain-concentration pattern found for the core
+  binary effect appears specifically tied to *male* agent/same-identity
+  comparisons, not to "NB-relatedness" as a general property -- F-vs-NB
+  and partner-identity comparisons pattern by a different, currently
+  unexplained domain structure (leaning toward provider/caregiving
+  families -- Financial provision, Family obligations, Emotional labor,
+  Household labor, Childcare -- rather than the power/intimacy families
+  that dominate the M-linked comparisons). Worth a citable sentence in the
+  paper, and a candidate lead for further investigation, not yet a fully
+  explained mechanism.
+- Of the 9 non-reference comparisons, family significantly moderates 4
+  (agent-identity M-F p=0.0001, agent-identity M-NB p=0.0080,
+  partner-identity M-F p=0.0019, partner-identity M-NB p=0.0074) -- a bare
+  majority is non-significant (5/9), so "most comparisons show no
+  significant family moderation" is accurate but only barely; not an
+  overwhelming pattern either way. The reference (binary M-F) itself also
+  reaches significance (p=0.0002).
+
 ## 5. Presumed relationship orientation (heterosexual vs. same-sex pairs)
 
 **Terminology note, important to get right**: the vignettes never state
@@ -444,6 +495,7 @@ place as items complete rather than tracking progress anywhere else.
 | 2 | NB-vs-M / NB-vs-F matched-pair comparison | No -- existing data sufficient | **implemented 2026-08-21, re-run after excluding `claude_sonnet`**, `scripts/analyze_agent_identity_effect.py` (Section A) -- NB patterns much closer to F than to M (M-F d_z=0.271, M-NB d_z=0.229, F-NB d_z=-0.039). **Note a real conclusion change from the pre-exclusion run**: F-vs-NB was significant before excluding `claude_sonnet` (paired t=-3.36) and is **no longer significant** after (paired t=-1.72, p>0.05) -- update anywhere this contrast is described as significant. |
 | 3 | Matched partner-gender comparison (incl. NB partner) | No -- full 3x3 crossing already collected | **implemented 2026-08-21**, `scripts/analyze_partner_identity_effect.py` -- partner=M gets *less* blame attributed to the agent than partner=F (d_z=-0.237) or partner=NB (d_z=-0.202); F-vs-NB partner not significant. Omnibus p<0.0001. Opposite-sign, complementary axis to item 2's agent-identity effect, not a contradiction. |
 | 4 | NBNB descriptive comparison | No -- existing data sufficient | **implemented 2026-08-21, re-run after excluding `claude_sonnet`**, `scripts/analyze_agent_identity_effect.py` (Section B) -- upgraded beyond the planned descriptive-only comparison to a full paired test (MM-NBNB, FF-NBNB); NB-NB still patterns with FF (d_z=0.024, near-null) not MM (d_z=0.173) -- same qualitative pattern as before the exclusion, values updated (MM-FF d_z=0.144). |
+| 4b | Per-family breakdown of items 2/3/4 (agent-identity, partner-identity, same-identity) | No -- existing data sufficient | **implemented 2026-08-21**, `scripts/analyze_identity_effect_by_family.py` -- mixed pattern, not uniform: comparisons involving M (agent-identity M-F rho=+0.883, M-NB rho=+0.717; same-identity MM-NBNB rho=+0.800, MM-FF rho=+0.633) track the binary bias's domain ranking closely; comparisons not involving M (agent-identity F-NB rho=-0.867; partner-identity M-F/M-NB/F-NB; same-identity FF-NBNB) show a distinct, unrelated domain pattern (provider/caregiving families rather than power/intimacy ones). See Section 4b above for full results and interpretation. |
 | 5a | Orientation-category absolute `fault_rating` level | No -- existing data sufficient | needs new code |
 | 5b | Matched partner-gender-as-orientation test | No -- existing data sufficient | needs new code |
 | 5c | Orientation-category diff-bias score | No -- existing data sufficient | needs new code |

@@ -92,6 +92,15 @@ in, so it doesn't need to be kept in sync with every content change.
   constant. Writes `analysis/partner_identity_effect_findings.md`. See
   `docs/superpowers/specs/2026-08-21-partner-identity-effect-design.md` for
   why there is no NB-NB comparison in this script.
+- **`scripts/analyze_identity_effect_by_family.py`** -- reads
+  `responses/confirmatory/*.csv`, adds a per-family descriptive breakdown
+  and formal family-moderation test to all 9 comparisons across
+  `analyze_agent_identity_effect.py` and `analyze_partner_identity_effect.py`
+  (agent-identity, partner-identity, same-identity), plus a synthesis
+  section testing whether NB-related bias concentrates in the same
+  relationship domains as the established binary bias. Writes
+  `analysis/identity_effect_by_family_findings.md`. See
+  `docs/superpowers/specs/2026-08-21-identity-effect-by-family-design.md`.
 - **`scripts/analyze_reasoning_text.py`** -- reads `responses/confirmatory/*.csv`,
   extracts three linguistic-bias features from each response's free-text
   `reasoning` field (LIB dispositional-abstraction score, agentic/communal
