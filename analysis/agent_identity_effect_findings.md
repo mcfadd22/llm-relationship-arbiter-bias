@@ -4,7 +4,7 @@ Generated from `responses/confirmatory/*.csv` (n=7284 rows). Regenerate via `pyt
 
 ## Section A: agent-identity effect, partner held constant
 
-Pools over all three partner_gender values ({M, F, NB}); scenario x severity x model x partner_gender held constant within each pair.
+Pools over all three partner_gender values ({M, F, NB}); scenario x severity x model x partner_gender held constant within each pair. Note the three partner_gender slices for a given scenario x severity x model share the same underlying scenario content, so they are better described as clustered than fully independent -- this likely makes this section's p-values somewhat anti-conservative, probably immaterial given how large the effects are below, but worth stating rather than leaving implicit.
 
 **M vs F**: n=2427 pairs, mean diff (M-F)=+0.151, paired t=14.32, d_z=0.291.
 Sign breakdown: 1784 ties (73.5%), M>F in 494, F>M in 149 (ratio 3.32:1, sign-test z=13.61). Diff-bias = (494 - 149) / 2427 = +0.1422.
@@ -57,5 +57,5 @@ Cell-centered label-shuffle permutation one-way ANOVA (each cell centered on its
 
 - **Section A (agent identity)**: n=2425 complete cells, F(2,7272)=174.260, permutation p=0.0000. **Agent-identity effect reaches conventional significance (p<0.05).**
 
-- **Section B (same-identity relationships)**: n=809 complete cells, F(2,2424)=14.399, permutation p=0.0000. **Same-identity relationship effect reaches conventional significance (p<0.05).**
+- **Section B (same-identity relationships)**: n=809 complete cells, F(2,2424)=14.399, permutation p=0.0001. **Same-identity relationship effect reaches conventional significance (p<0.05).**
 

@@ -157,37 +157,51 @@ def one_way_anova_F(labels, values):
     return F, df_between, df_within
 
 
-def permutation_omnibus_test(labels, values, n_perm=N_PERMUTATIONS, seed=PERMUTATION_SEED):
-    F_obs, df1, df2 = one_way_anova_F(labels, values)
+def cell_centered_omnibus(cell_dict, genders=GENDERS, n_perm=N_PERMUTATIONS, seed=PERMUTATION_SEED):
+    """3-level permutation omnibus test for a within-subjects/repeated-measures
+    factor: centers each cell on its own mean (removing between-cell variance
+    the same way pairwise differencing does), then pools the centered values
+    into a one-way ANOVA. Only cells with all len(genders) levels present are
+    used.
+
+    The permutation null is built by shuffling gender labels WITHIN each cell
+    only -- for every iteration, each cell's own set of centered values is
+    independently re-labeled among {genders}, and a value never moves to a
+    different cell. This is the direct generalization of "flip within-pair,
+    don't shuffle across pairs" from a paired t-test's own permutation test.
+    A global/unrestricted shuffle across all pooled values would be the wrong
+    reference distribution here: after per-cell centering, a cell's values are
+    linearly dependent (they sum to zero within that cell), and the observed
+    statistic never mixes values from different cells under the same label,
+    so the null must respect that same restriction."""
+    genders_list = list(genders)
+    cell_values = []  # one [v_g1, v_g2, ...] list per complete cell, same order as genders_list
+    labels_obs, values_obs = [], []
+    for sub in cell_dict.values():
+        if not all(g in sub for g in genders_list):
+            continue
+        cell_vals = {g: sub[g]["fault_rating"] for g in genders_list}
+        cell_mean = statistics.mean(cell_vals.values())
+        centered = [cell_vals[g] - cell_mean for g in genders_list]
+        cell_values.append(centered)
+        labels_obs.extend(genders_list)
+        values_obs.extend(centered)
+    n_complete = len(cell_values)
+
+    F_obs, df1, df2 = one_way_anova_F(labels_obs, values_obs)
+
     rng = random.Random(seed)
-    shuffled = list(labels)
     count_ge = 0
     for _ in range(n_perm):
-        rng.shuffle(shuffled)
-        F_perm, _, _ = one_way_anova_F(shuffled, values)
+        perm_labels = []
+        for _ in cell_values:
+            shuffled = list(genders_list)
+            rng.shuffle(shuffled)
+            perm_labels.extend(shuffled)
+        F_perm, _, _ = one_way_anova_F(perm_labels, values_obs)
         if F_perm >= F_obs:
             count_ge += 1
     p = (count_ge + 1) / (n_perm + 1)
-    return F_obs, df1, df2, p
-
-
-def cell_centered_omnibus(cell_dict, genders=GENDERS):
-    """3-level permutation omnibus test: centers each cell on its own mean
-    (removing between-cell variance the same way pairwise differencing does)
-    before pooling into a single label-shuffle one-way ANOVA. Only cells with
-    all len(genders) levels present are used."""
-    labels, values = [], []
-    n_complete = 0
-    for sub in cell_dict.values():
-        if not all(g in sub for g in genders):
-            continue
-        n_complete += 1
-        cell_vals = {g: sub[g]["fault_rating"] for g in genders}
-        cell_mean = statistics.mean(cell_vals.values())
-        for g, v in cell_vals.items():
-            labels.append(g)
-            values.append(v - cell_mean)
-    F_obs, df1, df2, p = permutation_omnibus_test(labels, values)
     return n_complete, F_obs, df1, df2, p
 
 
@@ -241,7 +255,13 @@ def main():
 
     out.append("## Section A: agent-identity effect, partner held constant\n")
     out.append("Pools over all three partner_gender values ({M, F, NB}); scenario x "
-                "severity x model x partner_gender held constant within each pair.\n")
+                "severity x model x partner_gender held constant within each pair. "
+                "Note the three partner_gender slices for a given scenario x severity x "
+                "model share the same underlying scenario content, so they are better "
+                "described as clustered than fully independent -- this likely makes this "
+                "section's p-values somewhat anti-conservative, probably immaterial given "
+                "how large the effects are below, but worth stating rather than leaving "
+                "implicit.\n")
     for g1, g2 in PAIR_ORDER:
         pairs = pairwise(partner_held_cells, g1, g2)
         write_comparison_block(out, pairs, g1, g2)
