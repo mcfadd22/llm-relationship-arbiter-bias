@@ -613,3 +613,16 @@ dependency, not an action item for them.
    minimum rather than the preferred 3 -- judged as a reasonable fit for a family
    inherently about autonomy violations rather than an oversight, but flagged for
    independent judgment rather than treated as settled.
+10. **NB reasoning-text pronoun handling as a potential confound -- not yet
+    systematically checked.** A quick ad hoc heuristic scan (2026-08-21) on the
+    unambiguous NB-NB subset (n=809, both agent and partner tagged nonbinary --
+    any he/she pronoun there is unambiguous misgendering, no confound) found
+    zero misgendering across all 5 models: 66% of reasoning texts use "they"
+    correctly, the rest simply don't use a personal pronoun (expected default
+    behavior for this label-based vignette design, not a red flag). This is a
+    clean spot-check, not a systematic pass -- the mixed NB-agent/binary-partner
+    and binary-agent/NB-partner rows (where a he/she pronoun could legitimately
+    refer to the binary party) haven't been checked at all. Worth a proper pass
+    once the agent-identity-effect analysis (item below / `analysis/
+    agent_identity_effect_findings.md`) is in, to rule out reasoning-level
+    engagement failures as a confound on any NB-involving numeric result.
