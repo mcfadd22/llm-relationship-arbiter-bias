@@ -77,6 +77,14 @@ in, so it doesn't need to be kept in sync with every content change.
   moderator breakdowns, and checks whether the reasoning-text linguistic
   features track the numeric bias. Writes
   `analysis/fault_rating_bias_findings.md`.
+- **`scripts/analyze_agent_identity_effect.py`** -- reads
+  `responses/confirmatory/*.csv`, generalizes the M-F paired test above to
+  the full 3x3 crossed gender design `{M, F, NB}`: agent-identity pairwise
+  comparisons (M-F, M-NB, F-NB) holding partner constant, same-identity
+  relationship comparisons (MM-FF, MM-NBNB, FF-NBNB), and a 3-level omnibus
+  per section. Writes `analysis/agent_identity_effect_findings.md`. See
+  `docs/superpowers/specs/2026-08-21-nb-agent-identity-effect-design.md` for
+  why this script's M-F numbers differ from the headline result above.
 - **`scripts/analyze_reasoning_text.py`** -- reads `responses/confirmatory/*.csv`,
   extracts three linguistic-bias features from each response's free-text
   `reasoning` field (LIB dispositional-abstraction score, agentic/communal
