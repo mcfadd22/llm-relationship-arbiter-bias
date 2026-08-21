@@ -6,6 +6,26 @@ with reality and risked being read as current when it wasn't). This is now the o
 place to read for "where does this stand and why" -- update it in place going
 forward rather than creating another parallel status doc.
 
+## claude_sonnet excluded from all analyses (2026-08-21)
+
+**claude_sonnet is excluded from every analysis in this project, effective
+2026-08-21, and should not be included in any results or interpretation
+going forward.** Meredith drafted the vignette scenario text using Claude
+Code -- `claude_sonnet` (`anthropic/claude-sonnet-5`) is one of the 5
+models in the study's roster, so having it also judge vignettes it (or a
+closely related model) helped author is a genuine familiarity/self-
+authorship confound, not shared by the other 4 models (`gpt5_mini`,
+`gemini_flash`, `llama33`, `deepseek_v3`). Its response data is preserved
+at `responses/excluded/claude_sonnet.csv` (moved out of
+`responses/confirmatory/`, which every analysis script globs) rather than
+deleted. **A replacement 5th model is an open, deferred decision, not yet
+made** -- there was no principled reason the original roster needed
+exactly 5 models, so this should not be read as "the study needs a 5th
+model," just as "the roster is currently 4, and whether/how to expand it
+again is a separate question." See
+`docs/superpowers/specs/2026-08-21-exclude-claude-sonnet-design.md` for
+the full design and `paper/limitations.tex` for the paper-facing framing.
+
 ## Current state, in one paragraph
 
 **Two dataset generations now exist -- do not conflate them.** The **original
