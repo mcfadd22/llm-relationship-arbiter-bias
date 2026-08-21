@@ -85,6 +85,13 @@ in, so it doesn't need to be kept in sync with every content change.
   per section. Writes `analysis/agent_identity_effect_findings.md`. See
   `docs/superpowers/specs/2026-08-21-nb-agent-identity-effect-design.md` for
   why this script's M-F numbers differ from the headline result above.
+- **`scripts/analyze_partner_identity_effect.py`** -- reads
+  `responses/confirmatory/*.csv`, the mirror image of
+  `analyze_agent_identity_effect.py`: tests whether the partner's gender
+  identity (M/F/NB) changes how the agent is judged, holding agent gender
+  constant. Writes `analysis/partner_identity_effect_findings.md`. See
+  `docs/superpowers/specs/2026-08-21-partner-identity-effect-design.md` for
+  why there is no NB-NB comparison in this script.
 - **`scripts/analyze_reasoning_text.py`** -- reads `responses/confirmatory/*.csv`,
   extracts three linguistic-bias features from each response's free-text
   `reasoning` field (LIB dispositional-abstraction score, agentic/communal

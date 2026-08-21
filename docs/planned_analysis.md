@@ -100,7 +100,21 @@ to add a replacement 5th model.
   agent gender constant) for consistency and comparability with the new
   NB-partner test and the orientation analysis in Section 5, rather than
   reporting three related findings via three different methods.
-- **[needs new code]** either way.
+  **Resolved**: yes -- superseded by the matched version below; the old
+  unpaired finding stays in `fault_rating_bias_findings.md` with a
+  cross-reference note, not deleted.
+- **[implemented] 2026-08-21**, `scripts/analyze_partner_identity_effect.py`
+  (4-model dataset, after the `claude_sonnet` exclusion). **Result: partner
+  identity matters, and in the opposite direction from agent identity.**
+  Holding agent gender constant, agents are judged *less* at fault when the
+  partner is male than when the partner is female (M-F: n=1942, d_z=-0.237)
+  or nonbinary (M-NB: n=1939, d_z=-0.202); F-vs-NB partner shows no
+  significant difference (d_z=0.034). Omnibus: F(2,5811)=98.110, p<0.0001,
+  significant. Coherent with (not contradicted by) the agent-identity
+  finding: male agents are judged more harshly (item 2), and harm to a
+  female partner is judged more harshly than harm to a male partner -- two
+  distinct axes reinforcing the same overall pattern rather than
+  conflicting.
 
 ## 4. Same-identity controls
 
@@ -428,7 +442,7 @@ place as items complete rather than tracking progress anywhere else.
 |---|---|---|---|
 | 0 | NB-tag registration sanity check (schema-failure/retry rates by gender config) | **Yes, prospectively** -- not recoverable retroactively | **Checked 2026-08-21, not fully recoverable.** No retry logs exist anywhere (`collect-responses.py` only prints live, never persists). Partial signal recovered from existing data instead: 5 of deepseek_v3's 6 permanently-failed vignettes involve NB (base rate 5/9 configs) -- a real skew, but n=6, flagged not confirmed. Full version needs a `collect-responses.py` code change (Thulasi's file) + a future re-run. |
 | 2 | NB-vs-M / NB-vs-F matched-pair comparison | No -- existing data sufficient | **implemented 2026-08-21, re-run after excluding `claude_sonnet`**, `scripts/analyze_agent_identity_effect.py` (Section A) -- NB patterns much closer to F than to M (M-F d_z=0.271, M-NB d_z=0.229, F-NB d_z=-0.039). **Note a real conclusion change from the pre-exclusion run**: F-vs-NB was significant before excluding `claude_sonnet` (paired t=-3.36) and is **no longer significant** after (paired t=-1.72, p>0.05) -- update anywhere this contrast is described as significant. |
-| 3 | Matched partner-gender comparison (incl. NB partner) | No -- full 3x3 crossing already collected | needs new code + a design decision |
+| 3 | Matched partner-gender comparison (incl. NB partner) | No -- full 3x3 crossing already collected | **implemented 2026-08-21**, `scripts/analyze_partner_identity_effect.py` -- partner=M gets *less* blame attributed to the agent than partner=F (d_z=-0.237) or partner=NB (d_z=-0.202); F-vs-NB partner not significant. Omnibus p<0.0001. Opposite-sign, complementary axis to item 2's agent-identity effect, not a contradiction. |
 | 4 | NBNB descriptive comparison | No -- existing data sufficient | **implemented 2026-08-21, re-run after excluding `claude_sonnet`**, `scripts/analyze_agent_identity_effect.py` (Section B) -- upgraded beyond the planned descriptive-only comparison to a full paired test (MM-NBNB, FF-NBNB); NB-NB still patterns with FF (d_z=0.024, near-null) not MM (d_z=0.173) -- same qualitative pattern as before the exclusion, values updated (MM-FF d_z=0.144). |
 | 5a | Orientation-category absolute `fault_rating` level | No -- existing data sufficient | needs new code |
 | 5b | Matched partner-gender-as-orientation test | No -- existing data sufficient | needs new code |
@@ -464,9 +478,9 @@ Of the remaining items:
   (retroactively unrecoverable), but the partial deepseek_v3 skew finding
   above is worth keeping in mind as a caveat on NB-involving deepseek_v3
   results specifically, at essentially zero further cost.
-- **3 and 5a-e** (the rest of the NB and orientation analyses) remain the
-  highest-value remaining work -- the paper's new intersectionality
-  contribution -- ahead of 10b/10c.
+- **5a-e** (the orientation analyses) remain the highest-value undone work
+  -- the paper's new intersectionality contribution -- ahead of 10b/10c.
+  (Item 3 is now done -- see its row above.)
 - **7b** is a genuine open methodological question (does a direct,
   continuous sexism-content measure succeed where the family-level proxy
   failed?) but must stay labeled exploratory in any writeup; it does not
