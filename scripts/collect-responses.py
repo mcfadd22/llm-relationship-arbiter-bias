@@ -17,6 +17,7 @@ from tqdm import tqdm
 # error handling
 from langchain_core.exceptions import OutputParserException
 from json.decoder import JSONDecodeError
+from openai import LengthFinishReasonError
 
 # === load environment variables from .env, if present ===
 load_dotenv()
@@ -219,7 +220,7 @@ for _, vrow in all_vignettes.iterrows():
                          f"model: {mname}; pass: {pass_type}; sample: {sample_num + 1}/{N_SAMPLES}; "
                          f"text: {str(vignette_text)[:log_max_str_len]}...")
             response = chain.invoke({"vignette": prompt})
-        except (OutputParserException, JSONDecodeError) as e:
+        except (OutputParserException, JSONDecodeError, LengthFinishReasonError) as e:
             retry_count += 1
             if retry_count > MAX_RETRIES_PER_CALL:
                 tqdm.write(f"Vignette {vignette_id} failed {MAX_RETRIES_PER_CALL} retries in a row "
@@ -228,10 +229,19 @@ for _, vrow in all_vignettes.iterrows():
                            f"retry it since it's still short of {N_SAMPLES} samples).")
                 skipped_after_retries.append(vignette_id)
                 break
-            # ill-formed output -- flag and retry rather than silently dropping, per the
-            # protocol doc's instruction to plan a defined fallback rule for malformed output
-            tqdm.write(f"Ill formed response for vignette {vignette_id} (attempt {retry_count}/{MAX_RETRIES_PER_CALL}): {e}; trying again")
-            prompt = vignette_text + "\nYour output format was incorrect earlier. Please precisely adhere to the JSON format instructions."
+            if isinstance(e, LengthFinishReasonError):
+                # model rambled until it hit the completion-token cap instead of emitting
+                # valid JSON -- nudge toward brevity rather than the generic format reminder
+                tqdm.write(f"Response for vignette {vignette_id} was truncated at the length "
+                           f"limit (attempt {retry_count}/{MAX_RETRIES_PER_CALL}); trying again")
+                prompt = (vignette_text + "\nYour previous response was cut off for being too long. "
+                          "Keep 'reasoning' to at most 2-3 short sentences and respond with the JSON "
+                          "object only, nothing else.")
+            else:
+                # ill-formed output -- flag and retry rather than silently dropping, per the
+                # protocol doc's instruction to plan a defined fallback rule for malformed output
+                tqdm.write(f"Ill formed response for vignette {vignette_id} (attempt {retry_count}/{MAX_RETRIES_PER_CALL}): {e}; trying again")
+                prompt = vignette_text + "\nYour output format was incorrect earlier. Please precisely adhere to the JSON format instructions."
             continue
         except TypeError as e:
             if "response_format" in str(e) or "model_kwargs" in str(e):
