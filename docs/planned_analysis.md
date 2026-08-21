@@ -30,6 +30,20 @@ the ambivalent-sexism contrast and RQ1-3 were handled.
   whatever attempt-level logging `collect-responses.py` already produces),
   to catch a model handling the `(nonbinary)` tag differently at the
   API/schema level before trusting any downstream comparison involving it.
+  **Checked 2026-08-21: not fully recoverable from existing data.**
+  `collect-responses.py` only prints retry warnings live to the console
+  (`tqdm.write`), never persists them to a file -- no logs exist anywhere in
+  the repo, so the full retry-rate-by-gender-config test can't be
+  reconstructed retroactively for the run that already happened. One
+  narrower, real signal *is* recoverable: of deepseek_v3's 6 permanently-
+  failed vignettes (documented in commit `266e0ea`), 5 of 6 involve an NB
+  agent or partner (`CHILD-02_MNB_SEV`, `FAMOBL-02_FNB_MLD`,
+  `FAMOBL-02_MNB_MLD`, `JEAL-02_NBNB_SEV`, `SEXEXP-07_NBF_SEV`), against a
+  base rate where NB-involving configs are 5 of 9 total configs -- a real
+  skew, but n=6 is far too small to be more than a flagged observation, not
+  a finding. To do this properly going forward needs a code change to
+  `collect-responses.py` (Thulasi's file) to persist attempt-level
+  retry/failure counts, applied on some future re-run -- not retroactive.
 
 ## 1. RQ1 -- Core binary agent-gender effect (replication at larger N)
 
@@ -381,34 +395,45 @@ a new reasoning-text metric.)
 This table is the running status/backlog for the whole plan -- update it in
 place as items complete rather than tracking progress anywhere else.
 
-| # | Item | Status |
-|---|---|---|
-| 0 | NB-tag registration sanity check (schema-failure/retry rates by gender config) | **still not built** -- no formal test exists; nothing in `scripts/` or `analysis/` currently reports this. Distinct from the NB reasoning-text pronoun-handling spot-check (project status doc, open item 10), which is about content, not API/schema-level retry behavior. |
-| 2 | NB-vs-M / NB-vs-F matched-pair comparison | **implemented 2026-08-21**, `scripts/analyze_agent_identity_effect.py` (Section A) -- NB patterns much closer to F than to M (M-F d_z=0.29, M-NB d_z=0.23, F-NB d_z=-0.07, near-null) |
-| 3 | Matched partner-gender comparison (incl. NB partner) | needs new code + a design decision |
-| 4 | NBNB descriptive comparison | **implemented 2026-08-21**, `scripts/analyze_agent_identity_effect.py` (Section B) -- upgraded beyond the planned descriptive-only comparison to a full paired test (MM-NBNB, FF-NBNB); NB-NB patterns with FF (d_z=0.01, near-null vs. FF) not MM (d_z=0.14 vs. MM) |
-| 5a | Orientation-category absolute `fault_rating` level | needs new code |
-| 5b | Matched partner-gender-as-orientation test | needs new code |
-| 5c | Orientation-category diff-bias score | needs new code |
-| 5d | Cross-model agreement/confidence by orientation | needs new code |
-| 5e | Family x orientation interaction (exploratory) | needs new code |
-| 7 | New-scenarios-only (05-09) subset filter for the ambivalent-sexism contrast | **implemented 2026-08-21, done.** `scripts/analyze_fault_rating_bias.py` -- **confirmatory replication does not succeed** (primary test, new scenarios only: F(1,897)=0.036, p=0.8066; secondary full-pool test: F(1,1617)=0.347, p=0.5686 -- both null and in agreement). The ambivalent-sexism account, as operationalized by this family grouping, is not supported. |
-| 7b | Scenario-level ambivalent-sexism content scoring (**exploratory/post-hoc, not confirmatory** -- see Section 7b above) | needs new code -- `scripts/score_scenario_sexism_content.py` (new) + an `analyze_fault_rating_bias.py` extension. Design: `docs/superpowers/specs/2026-08-21-scenario-sexism-content-scoring-design.md`. Not yet built. |
-| 9 | Confidence-vs-gender-gap correlation -- **worth revisiting** | re-run on full data (`analysis/confidence_ambiguity_findings.md`): r=-0.079, p=0.0016 -- now significant, unlike the old-data result (r=-0.05, ns) this plan's "not a primary test" framing was based on. Not a code task -- a judgment call on whether to promote this back to a real (if small) reported finding. |
-| 10a | Blind pairwise LLM-judge open coding of reasoning text | **prototyped, promising** -- needs independent validation (single coder, no inter-rater check yet), then scale to full 720 pairs and the new run |
-| 10b | Disparate-impact ratio | needs new code + the cutpoint decision (protocol doc, still open) |
-| 10c | Regard score on reasoning text | lower priority, needs new code, sequence after 10a |
+| # | Item | New data collection needed? | Status |
+|---|---|---|---|
+| 0 | NB-tag registration sanity check (schema-failure/retry rates by gender config) | **Yes, prospectively** -- not recoverable retroactively | **Checked 2026-08-21, not fully recoverable.** No retry logs exist anywhere (`collect-responses.py` only prints live, never persists). Partial signal recovered from existing data instead: 5 of deepseek_v3's 6 permanently-failed vignettes involve NB (base rate 5/9 configs) -- a real skew, but n=6, flagged not confirmed. Full version needs a `collect-responses.py` code change (Thulasi's file) + a future re-run. |
+| 2 | NB-vs-M / NB-vs-F matched-pair comparison | No -- existing data sufficient | **implemented 2026-08-21**, `scripts/analyze_agent_identity_effect.py` (Section A) -- NB patterns much closer to F than to M (M-F d_z=0.29, M-NB d_z=0.23, F-NB d_z=-0.07, near-null) |
+| 3 | Matched partner-gender comparison (incl. NB partner) | No -- full 3x3 crossing already collected | needs new code + a design decision |
+| 4 | NBNB descriptive comparison | No -- existing data sufficient | **implemented 2026-08-21**, `scripts/analyze_agent_identity_effect.py` (Section B) -- upgraded beyond the planned descriptive-only comparison to a full paired test (MM-NBNB, FF-NBNB); NB-NB patterns with FF (d_z=0.01, near-null vs. FF) not MM (d_z=0.14 vs. MM) |
+| 5a | Orientation-category absolute `fault_rating` level | No -- existing data sufficient | needs new code |
+| 5b | Matched partner-gender-as-orientation test | No -- existing data sufficient | needs new code |
+| 5c | Orientation-category diff-bias score | No -- existing data sufficient | needs new code |
+| 5d | Cross-model agreement/confidence by orientation | No -- existing data sufficient | needs new code |
+| 5e | Family x orientation interaction (exploratory) | No -- existing data sufficient, but likely underpowered regardless | needs new code |
+| 7 | New-scenarios-only (05-09) subset filter for the ambivalent-sexism contrast | No | **implemented 2026-08-21, done.** `scripts/analyze_fault_rating_bias.py` -- **confirmatory replication does not succeed** (primary test, new scenarios only: F(1,897)=0.036, p=0.8066; secondary full-pool test: F(1,1617)=0.347, p=0.5686 -- both null and in agreement). The ambivalent-sexism account, as operationalized by this family grouping, is not supported. |
+| 7b | Scenario-level ambivalent-sexism content scoring (**exploratory/post-hoc, not confirmatory** -- see Section 7b above) | No -- needs a new LLM *coding* pass (~$1, external model), not primary data collection | **spec'd and plan'd 2026-08-21** (`docs/superpowers/specs/2026-08-21-scenario-sexism-content-scoring-design.md`, `docs/superpowers/plans/2026-08-21-scenario-sexism-content-scoring.md`) -- staged, not yet run. |
+| 9 | Confidence-vs-gender-gap correlation -- **worth revisiting** | No | re-run on full data (`analysis/confidence_ambiguity_findings.md`): r=-0.079, p=0.0016 -- now significant, unlike the old-data result (r=-0.05, ns) this plan's "not a primary test" framing was based on. Not a code task -- a judgment call on whether to promote this back to a real (if small) reported finding. |
+| 10a | Blind pairwise LLM-judge open coding of reasoning text | No -- needs a new LLM coding pass on existing `reasoning` text, not primary collection | **prototyped, promising** -- needs independent validation (single coder, no inter-rater check yet), then scale to full 720 pairs and the new run |
+| 10b | Disparate-impact ratio | No | needs new code + the cutpoint decision (protocol doc, still open) |
+| 10c | Regard score on reasoning text | No -- needs new code (lexicon/scoring pass on existing `reasoning` text) | lower priority, needs new code, sequence after 10a |
 
 Everything else (Sections 1, 6, 8, 11, 12) is fully implemented and has been
 re-run against the completed expanded/NB data, with no open questions.
+
+**Data-sufficiency headline (checked 2026-08-21): nothing remaining needs a
+new primary data-collection run from Thulasi**, except item 0's full
+version, which can't be reconstructed retroactively and would need a code
+change plus a *future* run to do properly. Items 7b/10a/10c need a new LLM
+*coding* pass (scoring/classifying existing text), which is a different,
+much cheaper thing than re-running the study against the model roster --
+everything else is buildable today from `responses/confirmatory/*.csv` as
+it already stands.
+
 Of the remaining items:
 - **10a** is the one item on this whole plan that never waited on Thulasi's
   run at all -- already prototyped on the 175 disagreement pairs (of 720
   total) from the original data; scaling to the remaining ~545 tied pairs
   and to the new run's larger corpus is still open, not gated on anything.
-- **0** (NB-tag registration check) is cheap and should be done alongside
-  whatever's next, since it's a validity gate on everything NB-related
-  already reported, not a new finding in itself.
+- **0** (NB-tag registration check) -- its full version isn't cheap
+  (retroactively unrecoverable), but the partial deepseek_v3 skew finding
+  above is worth keeping in mind as a caveat on NB-involving deepseek_v3
+  results specifically, at essentially zero further cost.
 - **3 and 5a-e** (the rest of the NB and orientation analyses) remain the
   highest-value remaining work -- the paper's new intersectionality
   contribution -- ahead of 10b/10c.
